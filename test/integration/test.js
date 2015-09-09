@@ -1,6 +1,6 @@
 var expect = require('chai').expect,
     Mocha = require('mocha'),
-    path = require('path')
+    path = require('path');
 
 var testFixturePath = path.join(__dirname, '../test-fixture.js'),
     mugshotReporter = path.join(__dirname, '../../index.js');

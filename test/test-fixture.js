@@ -17,6 +17,7 @@ describe('Suite 1', function() {
   });
 
   it('Test 2 in Suite 1', function() {
+    throw new Error('error');
   });
 });
 

@@ -1,0 +1,32 @@
+{
+  "name": "mocha-mugshot-reporter",
+  "version": "0.0.0",
+  "description": "Mocha reporter for the Mugshot visual regression testing lib",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/unit",
+    "test-integration": "mocha test/integration"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uberVU/mocha-mugshot-reporter.git"
+  },
+  "keywords": [
+    "mocha",
+    "mugshot",
+    "reporter"
+  ],
+  "author": "Simion Florentin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/uberVU/mocha-mugshot-reporter/issues"
+  },
+  "homepage": "https://github.com/uberVU/mocha-mugshot-reporter#readme",
+  "devDependencies": {
+    "chai": "^3.2.0",
+    "mocha": "^2.3.1"
+  },
+  "peerDependencies": {
+    "mocha": "^2.3.1"
+  }
+}

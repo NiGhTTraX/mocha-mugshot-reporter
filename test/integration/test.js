@@ -48,8 +48,10 @@ describe('Mocha-Mugshot CLI reporting', function() {
   var reporters = ['', 'spec', 'dot'];
 
   reporters.forEach(function(reporter) {
-    it('should output the same with Mocha ' + ((reporter === '') ? 'default' :
-       reporter) + ' reporter', function(done) {
+    var description =  (reporter === '') ? 'default' : reporter;
+
+    it('should output the same with Mocha ' + description + ' reporter',
+       function(done) {
       getOutputs(reporter, function(mochaReporterOutput,
          mugshotReporterOutput) {
 

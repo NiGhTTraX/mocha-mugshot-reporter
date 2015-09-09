@@ -3,7 +3,7 @@ var reporters = require('mocha').reporters;
 /**
  * Mocha reporter for Mugshot visual regression testing lib
  *
- * @param runner - Mocha's runner
+ * @param {Mocha.Runner} runner - Mocha's runner
  * @param {Object} options - Options object received from Mocha
  */
 function MugshotReporter(runner, options) {

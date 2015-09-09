@@ -1,6 +1,6 @@
 var expect = require('chai').expect,
-    exec = require('child_process').exec,
-    path = require('path');
+    Mocha = require('mocha'),
+    path = require('path')
 
 var testFixturePath = path.join(__dirname, '../test-fixture.js'),
     mugshotReporter = path.join(__dirname, '../../index.js');
@@ -12,27 +12,34 @@ var testFixturePath = path.join(__dirname, '../test-fixture.js'),
  * @param {getOutputsCb} done - Called after all operations have finished
  */
 function getOutputs(reporter, done) {
-  var command = 'mocha ' + testFixturePath + ' --reporter=';
+  var mocha = new Mocha(),
+      stdout = process.stdout.write,
+      result = [],
+      mochaReporterOutput,
+      mugshotReporterOutput;
 
-  exec(command + reporter, function(error, mochaReporterOutput) {
-    if (error) {
-      return done(error);
-    }
+  process.stdout.write = function (string) {
+    result.push(string);
+  };
 
-    exec(command + mugshotReporter + ' --reporter-options reporter=' + reporter,
-       function(error, mugshotReporterOutput) {
-      if (error) {
-        return done(error);
-      }
+  mocha.addFile(testFixturePath);
 
-      done(null, mochaReporterOutput, mugshotReporterOutput);
+  mocha.reporter(reporter).run(function() {
+    mochaReporterOutput = result.slice();
+    result = [];
+
+    mocha.reporter(mugshotReporter, {reporter: reporter}).run(function() {
+      mugshotReporterOutput = result.slice();
+
+      process.stdout.write = stdout;
+
+      done(mochaReporterOutput.join(' '), mugshotReporterOutput.join(' '));
     });
   });
 }
 
 /**
  * @callback getOutputsCb
- * @param error
  * @param {String} mochaReporterOutput
  * @param {String} mugshotReporterOutput
  */
@@ -43,25 +50,18 @@ describe('Mocha-Mugshot CLI reporting', function() {
   reporters.forEach(function(reporter) {
     it('should output the same with Mocha ' + ((reporter === '') ? 'default' :
        reporter) + ' reporter', function(done) {
-      getOutputs(reporter, function(error, mochaReporterOutput,
+      getOutputs(reporter, function(mochaReporterOutput,
          mugshotReporterOutput) {
-        if (error) {
-          throw error;
-        }
 
-        // slice out the time
-        expected = mochaReporterOutput.slice(0,
-          (mochaReporterOutput.search('passing') - 1));
+        // delete the time (is variable)
+        var mochaOutput  = mochaReporterOutput.replace(/\([0-9]+ms\)/i, '');
+        var mugshotOutput  = mugshotReporterOutput.replace(/\([0-9]+ms\)/i, '');
 
-        result = mugshotReporterOutput.slice(0,
-          (mugshotReporterOutput.search('passing') - 1));
-
-        expect(expected).to.be.deep.equal(result);
+        expect(mugshotOutput).to.be.equal(mochaOutput);
 
         done();
       });
     });
   });
 });
-
 

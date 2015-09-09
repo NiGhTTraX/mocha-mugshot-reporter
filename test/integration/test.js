@@ -56,8 +56,9 @@ describe('Mocha-Mugshot CLI reporting', function() {
          mugshotReporterOutput) {
 
         // Delete the time, because it is variable.
-        var mochaOutput  = mochaReporterOutput.replace(/\([0-9]+ms\)/i, '');
-        var mugshotOutput  = mugshotReporterOutput.replace(/\([0-9]+ms\)/i, '');
+        var regex = /\([0-9]+ms\)/i,
+            mochaOutput  = mochaReporterOutput.replace(regex, ''),
+            mugshotOutput  = mugshotReporterOutput.replace(regex, '');
 
         expect(mugshotOutput).to.be.equal(mochaOutput);
 

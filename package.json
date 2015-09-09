@@ -4,7 +4,8 @@
   "description": "Mocha reporter for the Mugshot visual regression testing lib",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha test/unit",
+    "test-integration": "mocha test/integration"
   },
   "repository": {
     "type": "git",

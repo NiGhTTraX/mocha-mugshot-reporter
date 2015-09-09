@@ -7,8 +7,13 @@ var reporters = require('mocha').reporters;
  * @param {Object} options - Options object received from Mocha
  */
 function MugshotReporter(runner, options) {
-  var reporter = options.reporterOptions.reporter,
-      CLIReporter = reporters[reporter];
+  var reporter, CLIReporter;
+
+  if (options.reporterOptions !== undefined) {
+    reporter = options.reporterOptions.reporter;
+  }
+
+  CLIReporter = reporters[reporter];
 
   if (CLIReporter === undefined) {
     CLIReporter = reporters.Spec;

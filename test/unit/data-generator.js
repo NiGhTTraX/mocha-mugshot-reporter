@@ -77,7 +77,7 @@ function generateArrayOfRandomNumbers(n) {
 function generateNGlobalSuites(n) {
   var suites = [rootSuite];
 
-  for (var i = 0; i < n; i++)  {
+  for (var i = 0; i < n; i++) {
     suites.push(objectAssign({}, globalSuite, {tests: []}));
   }
 
@@ -188,7 +188,7 @@ describe('Data generator', function() {
       var tests = generateNGlobalTests(n, randomNumbers),
           expected = [objectAssign({}, rootSuite, {tests: tests})];
 
-    expect(data).to.be.deep.equal(expected);
+      expect(data).to.be.deep.equal(expected);
 
       done();
     });

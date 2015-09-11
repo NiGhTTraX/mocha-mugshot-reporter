@@ -1,5 +1,6 @@
 var expect = require('chai').expect,
     objectAssign = require('object-assign'),
+    _ = require('lodash'),
     generate = require('../../lib/data-generator.js'),
     EventEmitter = require('events').EventEmitter;
 
@@ -12,7 +13,7 @@ var input = require('./data/input.js'),
 * @returns {Number}
  */
 function getRandomNumber() {
-  return Math.floor(Math.random() * 100);
+  return _.random(0, 100);
 }
 
 /**
@@ -23,13 +24,7 @@ function getRandomNumber() {
  * @returns {Array.<Number>}
  */
 function generateArrayOfRandomNumbers(n) {
-  var array = [];
-
-  for (var i = 0; i < n; i++) {
-    array.push(getRandomNumber());
-  }
-
-  return array;
+  return  _.times(n, _.partial(_.random, 0, 100, false));
 }
 
 /**

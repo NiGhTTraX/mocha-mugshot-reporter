@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha test/unit",
-    "test-integration": "mocha test/integration"
+    "test-integration": "mocha test/integration",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",

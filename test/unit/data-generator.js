@@ -217,8 +217,9 @@ describe('Data generator', function() {
       for (var i = 0; i <= n; i++) {
         expected[i].tests = generateTests(randomNumbers[i], 'passed');
 
+        // The id is not a real filed we're adding it only for this test.
         for (var j = 0; j < expected[i].tests.length; j++) {
-          expected[i].tests[j].id = j;
+          expected[i].tests[j]._id = j;
         }
       }
 
@@ -229,14 +230,14 @@ describe('Data generator', function() {
 
     runner.emit('suite', input.rootSuite);
     for (var i = 0; i < randomNumbers[0]; i++) {
-      runner.emit('test end', objectAssign({}, input.passTest, {id: i}));
+      runner.emit('test end', objectAssign({}, input.passTest, {_id: i}));
     }
 
     for (var i = 1; i <= n; i++) {
       runner.emit('suite', input.suite);
 
       for (var j = 0; j < randomNumbers[i]; j++) {
-        runner.emit('test end', objectAssign({}, input.passTest, {id: j}));
+        runner.emit('test end', objectAssign({}, input.passTest, {_id: j}));
       }
 
       runner.emit('suite end');

@@ -211,7 +211,8 @@ describe('Data generator', function() {
     runner.emit('end');
   });
 
-  it('should maintain the order in the tests are executed', function(done) {
+  it('should maintain the order in which the tests are executed',
+     function(done) {
     var n = getRandomNumber(),
         // Each value is the number of tests of the suite i.
         randomNumbers = generateArrayOfRandomNumbers(n);

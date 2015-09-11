@@ -3,57 +3,22 @@ var expect = require('chai').expect,
     generate = require('../../lib/data-generator.js'),
     EventEmitter = require('events').EventEmitter;
 
-var root = {
-      title: ''
-    },
-    suite = {
-      title: 'suite'
-    },
-    test = {
-      title: 'test',
-      ctx: {},
-      err: 'error'
-    },
-    rootSuite = {
-      title: '',
-      indent: 0,
-      tests: []
-    },
-    globalSuite = {
-      title: 'suite',
-      indent: 1,
-      tests: []
-    },
-    nestedSuite = {
-      title: 'suite',
-      indent: 2,
-      tests: []
-    },
-    passTest = {
-      title: 'test',
-      status: true,
-      result: undefined
-    },
-    failTest = {
-      title: 'test',
-      status: false,
-      error: 'error',
-      result: undefined
-    };
+var input = require('./data/input.js'),
+    output = require('./data/output.js');
 
 /**
- * Generates a natural strictly positive number
- *
- * @returns {Number}
+* Generates a natural positive number
+*
+* @returns {Number}
  */
 function getRandomNumber() {
   return Math.floor(Math.random() * 100);
 }
 
 /**
- * Generates an array of n random numbers
+ * Generates an array of random numbers
  *
- * @param {Number} n
+ * @param {Number} n - The length of the array
  *
  * @returns {Array.<Number>}
  */
@@ -68,61 +33,22 @@ function generateArrayOfRandomNumbers(n) {
 }
 
 /**
- * Generates n global suites (Mocha's describe)
- *
- * @param {Number} n
- *
- * @returns {Array.<Suite>}
- */
-function generateNGlobalSuites(n) {
-  var suites = [rootSuite];
-
-  for (var i = 0; i < n; i++) {
-    suites.push(objectAssign({}, globalSuite, {tests: []}));
-  }
-
-  return suites;
-}
-
-/**
- * Generates n neste suites (Mocha's describe)
- *
- * @param {Number} n
- *
- * @returns {Array.<Suite>}
- */
-function generateNNestedSuites(n) {
-  var suites = [rootSuite];
-
-  for (var i = 0; i < n; i++) {
-    suites.push(objectAssign({}, nestedSuite, {indent: i + 1}, {tests: []}));
-  }
-
-  return suites;
-}
-
-/**
- * Generates an array of n suites with a variable number of tests
+ * Generates suites (Mocha's describe)
  *
  * @param {Number} n - Number of suites
- * @param {Boolean} nested - If nested or global
- * @param {Array.<Number>} randomNumbers - Test number for each suite
- * @param {Array.<Number>} passOrFail - A number for each test of a suite,
- *    even => pass, odd => fail
+ * @param {String} type - Nested or global
  *
- * @returns {Array.<Suites>}
+ * @returns {Array.<Suite>}
  */
-function generateNSuitesWithVariableTests(n, nested,
-    randomNumbers, passOrFail) {
-  var suites = nested ? generateNNestedSuites(n) : generateNGlobalSuites(n);
+function generateSuites(n, type) {
+  var suites = [output.rootSuite];
 
-  for (var i = 1; i < suites.length; i++) {
-    for (var j = 0; j < randomNumbers[i - 1]; j++) {
-      if (passOrFail[i - 1][j] % 2 === 0) {
-        suites[i].tests.push(passTest);
-      } else {
-        suites[i].tests.push(failTest);
-      }
+  for (var i = 0; i < n; i++) {
+    if (type === 'nested') {
+      suites.push(objectAssign({}, output.suite, {indent: i + 1},
+          {tests: []}));
+    } else {
+      suites.push(objectAssign({}, output.suite, {tests: []}));
     }
   }
 
@@ -130,36 +56,26 @@ function generateNSuitesWithVariableTests(n, nested,
 }
 
 /**
- * Generates n global tests (Mocha's it with no describe)
+ * Generates tests (Mocha's it)
  *
  * @param {Number} n - Number of tests
- * @param {Array.<Number>} randomNumbers - A number for each global test,
- *    even => pass, odd => fail
+ * @param {String} type - Passed or failed
  *
  * @returns {Array.<Test>}
  */
-function generateNGlobalTests(n, randomNumbers) {
+function generateTests(n, type) {
   var tests = [];
 
   for (var i = 0; i < n; i++) {
-    if (randomNumbers[i] % 2 === 0) {
-      tests.push(passTest);
+    if (type === 'passed') {
+      tests.push(objectAssign({}, output.passTest));
     } else {
-      tests.push(failTest);
+      tests.push(objectAssign({}, output.failTest));
     }
   }
 
   return tests;
 }
-
-/*function generateNRandom(n, randomNumbers, passOrFail) {
-  var random = [rootSuite];
-
-  for (var i = 0; i < n; i++) {
-    if (randomNumers[i] % 3 === 0) {
-      random.push(globalSuite);
-    } else if (randomNumbers[i] % 3 === 1) {
-      random.push(*/
 
 describe('Data generator', function() {
   var runner;
@@ -168,194 +84,166 @@ describe('Data generator', function() {
     runner = new EventEmitter();
   });
 
-  it('should generate only the rootSuite', function(done) {
+  it('should work with files without tests', function(done) {
     generate(runner, function(data) {
-      expect(data).to.be.deep.equal([rootSuite]);
+      expect(data).to.be.deep.equal([output.rootSuite]);
 
       done();
     });
 
-    runner.emit('suite', root);
-    runner.emit('suite end', root);
+    runner.emit('suite', input.rootSuite);
+    runner.emit('suite end', input.rootSuite);
     runner.emit('end');
   });
 
-  it('should generate the rootSuite with random global tests', function(done) {
+  it('should contain all props from Mocha\'s test object', function(done) {
+    var test = {
+      a: 'a',
+      b: 'b',
+      number: 7
+    };
+
+    generate(runner, function(data) {
+      var expected = [objectAssign({}, output.rootSuite, {tests: [test]})];
+
+      expect(data).to.be.deep.equal(expected);
+
+      done();
+    });
+
+    runner.emit('suite', input.rootSuite);
+    runner.emit('test end', test);
+    runner.emit('suite end', input.rootSuite);
+    runner.emit('end');
+  });
+
+  it('should generate a Test for each of Mocha\'s passed it', function(done) {
+    var randomNumber = getRandomNumber();
+
+    generate(runner, function(data) {
+      var tests = generateTests(randomNumber, 'passed'),
+          expected = [objectAssign({}, output.rootSuite, {tests: tests})];
+
+      expect(data).to.be.deep.equal(expected);
+
+      done();
+    });
+
+    runner.emit('suite',input.rootSuite);
+
+    for (var i = 0; i < randomNumber; i++) {
+      runner.emit('test end', input.passTest);
+    }
+
+    runner.emit('suite end', input.rootSuite);
+    runner.emit('end');
+  });
+
+  it('should generate a Test for each of Mocha\'s failed it', function(done) {
+    var randomNumber = getRandomNumber();
+
+    generate(runner, function(data) {
+      var tests = generateTests(randomNumber, 'failed'),
+          expected = [objectAssign({}, output.rootSuite, {tests: tests})];
+
+      expect(data).to.be.deep.equal(expected);
+
+      done();
+    });
+
+    runner.emit('suite',input.rootSuite);
+
+    for (var i = 0; i < randomNumber; i++) {
+      runner.emit('test end', input.failTest);
+    }
+
+    runner.emit('suite end', input.rootSuite);
+    runner.emit('end');
+  });
+
+  it('should generate a Suite for each of Mocha\'s describe', function(done) {
+    var randomNumber = getRandomNumber();
+
+    generate(runner, function(data) {
+      var expected = generateSuites(randomNumber, 'global');
+
+      expect(data).to.be.deep.equal(expected);
+
+      done();
+    });
+
+    runner.emit('suite', input.rootSuite);
+
+    for (var i = 0; i < randomNumber; i++) {
+      runner.emit('suite', input.suite);
+      runner.emit('suite end', input.suite);
+    };
+
+    runner.emit('suite end', input.rootSuite);
+    runner.emit('end');
+  });
+
+  it('should indent nested suites properly', function(done) {
+    var randomNumber = getRandomNumber();
+
+    generate(runner, function(data) {
+      var expected = generateSuites(randomNumber, 'nested');
+
+      for (var i = 0; i <= randomNumber; i++) {
+        expect(data[i].indent).to.be.equal(expected[i].indent);
+      }
+
+      done();
+    });
+
+    runner.emit('suite', input.rootSuite);
+
+    for (var i = 0; i < randomNumber; i++) {
+      runner.emit('suite', input.suite);
+    }
+
+    for (var i = 0; i < randomNumber; i++) {
+      runner.emit('suite end', input.suite);
+    }
+
+    runner.emit('suite end', input.rootSuite);
+    runner.emit('end');
+  });
+
+  it('should maintain the order in the tests are executed', function(done) {
     var n = getRandomNumber(),
+        // Each value is the number of tests of the suite i.
         randomNumbers = generateArrayOfRandomNumbers(n);
 
     generate(runner, function(data) {
-      var tests = generateNGlobalTests(n, randomNumbers),
-          expected = [objectAssign({}, rootSuite, {tests: tests})];
+      var expected = generateSuites(n, 'global');
 
-      expect(data).to.be.deep.equal(expected);
+      for (var i = 1; i <= n; i++) {
+        expected[i].tests = generateTests(randomNumbers[i - 1], 'passed');
 
-      done();
-    });
-
-    runner.emit('suite', root);
-
-    for (var i = 0; i < n; i++) {
-      if (randomNumbers[i] % 2 === 0) {
-        runner.emit('pass', test);
-      } else {
-        runner.emit('fail', test);
-      }
-    }
-
-    runner.emit('suite end', root);
-    runner.emit('end');
-  });
-
-
-  it('should generate n void global suites', function(done) {
-    var randomNumber = getRandomNumber();
-
-    generate(runner, function(data) {
-      var expected = generateNGlobalSuites(randomNumber);
-
-      expect(data).to.be.deep.equal(expected);
-
-      done();
-    });
-
-    runner.emit('suite', root);
-
-    for (var i = 0; i < randomNumber; i++) {
-      runner.emit('suite', suite);
-      runner.emit('suite end', suite);
-    };
-
-    runner.emit('suite end', root);
-    runner.emit('end');
-  });
-
-  it('should generate n void nested suites', function(done) {
-    var randomNumber = getRandomNumber();
-
-    generate(runner, function(data) {
-      var expected = generateNNestedSuites(randomNumber);
-
-      expect(data).to.be.deep.equal(expected);
-
-      done();
-    });
-
-    runner.emit('suite', root);
-
-    for (var i = 0; i < randomNumber; i++) {
-      runner.emit('suite', suite);
-    }
-
-    for (var i = 0; i < randomNumber; i++) {
-      runner.emit('suite end', suite);
-    }
-
-    runner.emit('suite end', root);
-    runner.emit('end');
-  });
-
-  it('should generate n global suites with random tests', function(done) {
-    var n = getRandomNumber(),
-        // Each value is the number of tests of the suite i.
-        randomNumbers = generateArrayOfRandomNumbers(n),
-        // It will be a matrix, i.e [ [], ..., [] ], every array, will have
-        // randomNumbers[i] length, telling how many tests will pass or fail.
-        passOrFail = [];
-
-    for (var i = 0; i < n; i++) {
-      passOrFail.push(generateArrayOfRandomNumbers(randomNumbers[i]));
-    }
-
-    generate(runner, function(data) {
-      var expected = generateNSuitesWithVariableTests(n, false, randomNumbers,
-        passOrFail);
-
-      expect(data).to.be.deep.equal(expected);
-
-      done();
-    });
-
-    runner.emit('suite', root);
-
-    for (var i = 0; i < n; i++) {
-      runner.emit('suite', suite);
-
-      for (var j = 0; j < randomNumbers[i]; j++) {
-        if (passOrFail[i][j] % 2 === 0) {
-          runner.emit('pass', test);
-        } else {
-          runner.emit('fail', test);
+        for (var j = 0; j < expected[i].tests.length; j++) {
+          expected[i].tests[j].id = j;
         }
       }
+
+      expect(data).to.be.deep.equal(expected);
+
+      done();
+    });
+
+    runner.emit('suite', input.rootSuite);
+
+    for (var i = 0; i < n; i++) {
+      runner.emit('suite', input.suite);
+
+      for (var j = 0; j < randomNumbers[i]; j++) {
+        runner.emit('test end', objectAssign({}, input.passTest, {id: j}));
+      }
+
       runner.emit('suite end');
     }
 
-    runner.emit('suite end', root);
-    runner.emit('end');
-  });
-
-  it('should generate n nested suites with random tests', function(done) {
-    var n = getRandomNumber(),
-        randomNumbers = generateArrayOfRandomNumbers(n),
-        passOrFail = [];
-
-    for (var i = 0; i < n; i++) {
-      passOrFail.push(generateArrayOfRandomNumbers(randomNumbers[i]));
-    }
-
-    generate(runner, function(data) {
-      var expected = generateNSuitesWithVariableTests(n, true, randomNumbers,
-        passOrFail);
-
-      expect(data).to.be.deep.equal(expected);
-
-      done();
-    });
-
-    runner.emit('suite', root);
-
-    for (var i = 0; i < n; i++) {
-      runner.emit('suite', suite);
-
-      for (var j = 0; j < randomNumbers[i]; j++) {
-        if (passOrFail[i][j] % 2 === 0) {
-          runner.emit('pass', test);
-        } else {
-          runner.emit('fail', test);
-        }
-      }
-    }
-
-    for (var i = 0; i < n; i++) {
-      runner.emit('suite end');
-    }
-
-    runner.emit('suite end', root);
-    runner.emit('end');
-  });
-
-  it('should contain also the Mugshot\'s result if it is set on Mocha\'s this',
-     function(done) {
-    generate(runner, function(data) {
-      var expected = [rootSuite, objectAssign({}, globalSuite, {
-        tests: [objectAssign({}, passTest, {result: 'paths'})]
-      })];
-
-      expect(data).to.be.deep.equal(expected);
-
-      done();
-    });
-
-    var t = objectAssign({}, test);
-    t.ctx.result = 'paths';
-
-    runner.emit('suite', root);
-    runner.emit('suite', suite);
-    runner.emit('pass', t);
-    runner.emit('suite end', suite);
-    runner.emit('suite end', root);
+    runner.emit('suite end', input.rootSuite);
     runner.emit('end');
   });
 });
-

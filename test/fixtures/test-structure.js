@@ -16,3 +16,6 @@ describe('Suite 2', function() {
   it('Test 1 in Suite 2', function() {
   });
 });
+
+it('Test 1 global', function() {
+});

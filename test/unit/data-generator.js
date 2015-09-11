@@ -24,7 +24,13 @@ function getRandomNumber() {
  * @returns {Array.<Number>}
  */
 function generateArrayOfRandomNumbers(n) {
-  return  _.times(n, _.partial(_.random, 0, 100, false));
+  var array = [];
+
+  _.times(n, function(i) {
+    array.push(getRandomNumber());
+  });
+
+  return array;
 }
 
 /**

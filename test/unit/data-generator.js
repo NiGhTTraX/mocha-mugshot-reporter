@@ -209,13 +209,13 @@ describe('Data generator', function() {
      function(done) {
     var n = getRandomNumber(),
         // Each value is the number of tests of the suite i.
-        randomNumbers = generateArrayOfRandomNumbers(n);
+        randomNumbers = generateArrayOfRandomNumbers(n + 1);
 
     generate(runner, function(data) {
       var expected = generateSuites(n, 'global');
 
-      for (var i = 1; i <= n; i++) {
-        expected[i].tests = generateTests(randomNumbers[i - 1], 'passed');
+      for (var i = 0; i <= n; i++) {
+        expected[i].tests = generateTests(randomNumbers[i], 'passed');
 
         for (var j = 0; j < expected[i].tests.length; j++) {
           expected[i].tests[j].id = j;
@@ -228,8 +228,11 @@ describe('Data generator', function() {
     });
 
     runner.emit('suite', input.rootSuite);
+    for (var i = 0; i < randomNumbers[0]; i++) {
+      runner.emit('test end', objectAssign({}, input.passTest, {id: i}));
+    }
 
-    for (var i = 0; i < n; i++) {
+    for (var i = 1; i <= n; i++) {
       runner.emit('suite', input.suite);
 
       for (var j = 0; j < randomNumbers[i]; j++) {

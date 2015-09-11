@@ -7,11 +7,11 @@ module.exports = {
   },
   passTest: {
     title: 'test',
-    status: true
+    state: 'passed'
   },
   failTest: {
     title: 'test',
-    status: false,
-    error: new Error('big error')
+    state: 'failed',
+    err: new Error('big error')
   }
 };

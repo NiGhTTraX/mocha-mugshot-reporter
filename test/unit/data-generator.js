@@ -73,7 +73,10 @@ function generateTests(n, type) {
 }
 
 describe('Data generator', function() {
-  var runner;
+  var suiteProps = ['title', 'indent', 'tests'],
+      passTestProps = ['title', 'state'],
+      failTestProps = ['title', 'state', 'error'],
+      runner;
 
   beforeEach(function() {
     runner = new EventEmitter();
@@ -125,7 +128,7 @@ describe('Data generator', function() {
       done();
     });
 
-    runner.emit('suite',input.rootSuite);
+    runner.emit('suite', input.rootSuite);
 
     for (var i = 0; i < randomNumber; i++) {
       runner.emit('test end', input.failTest);
@@ -155,6 +158,50 @@ describe('Data generator', function() {
 
     runner.emit('suite end', input.rootSuite);
     runner.emit('end');
+  });
+
+  suiteProps.forEach(function(prop) {
+    it('should contain the Suite "' + prop + '" property', function(done) {
+      generate(runner, function(data) {
+        expect(data[0][prop]).to.deep.equal(output.rootSuite[prop]);
+
+         done();
+      });
+
+      runner.emit('suite', input.rootSuite);
+      runner.emit('suite end', input.rootSuite);
+      runner.emit('end');
+    });
+  });
+
+  passTestProps.forEach(function(prop) {
+    it('should contain the pass Test "' + prop + '" property', function(done) {
+      generate(runner, function(data) {
+        expect(data[0].tests[0][prop]).to.be.deep.equal(output.passTest[prop]);
+
+        done();
+      });
+
+      runner.emit('suite', input.rootSuite);
+      runner.emit('test end', input.passTest);
+      runner.emit('suite end', input.rootSuite);
+      runner.emit('end');
+    });
+  });
+
+  failTestProps.forEach(function(prop) {
+    it('should contain the fail Test "' + prop + '" property', function(done) {
+      generate(runner, function(data) {
+        expect(data[0].tests[0][prop]).to.be.deep.equal(output.failTest[prop]);
+
+        done();
+      });
+
+      runner.emit('suite', input.rootSuite);
+      runner.emit('test end', input.failTest);
+      runner.emit('suite end', input.rootSuite);
+      runner.emit('end');
+    });
   });
 
   it('should indent nested suites properly', function(done) {

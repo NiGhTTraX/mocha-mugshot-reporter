@@ -16,6 +16,6 @@ module.exports = {
   failTest: {
     title: 'test',
     state: 'failed',
-    err: new Error('big error')
+    error: new Error('big error')
   }
 };

@@ -34,7 +34,8 @@ module.exports =
     [
       {
         "title":"Test 1 in Suite 1.1",
-        "state":"passed"}
+        "state":"passed"
+      }
     ]
   },
   {

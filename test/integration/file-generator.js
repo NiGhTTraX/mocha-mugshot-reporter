@@ -18,8 +18,8 @@ function runMocha(done) {
   process.stdout.write = function() {};
 
   mocha.reporter(mugshotReporter).run(function() {
-      process.stdout.write = stdoutWrite;
-      done();
+    process.stdout.write = stdoutWrite;
+    done();
   });
 }
 
@@ -37,9 +37,9 @@ describe('File generator', function() {
     try {
       fs.rmdirSync(rootDirectory);
     } catch(error) {
-        if (error.code !== 'ENOENT') {
-          throw error;
-        }
+      if (error.code !== 'ENOENT') {
+        throw error;
+      }
     }
   });
 

@@ -73,7 +73,10 @@ function generateTests(n, type) {
 }
 
 describe('Data generator', function() {
-  var runner;
+  var suiteProps = ['title', 'indent', 'tests'],
+      passTestProps = ['title', 'state', 'result'],
+      failTestProps = ['title', 'state', 'result', 'error'],
+      runner;
 
   beforeEach(function() {
     runner = new EventEmitter();
@@ -91,27 +94,6 @@ describe('Data generator', function() {
     runner.emit('end');
   });
 
-  it('should contain all props from Mocha\'s test object', function(done) {
-    var test = {
-      a: 'a',
-      b: 'b',
-      number: 7
-    };
-
-    generate(runner, function(data) {
-      var expected = [objectAssign({}, output.rootSuite, {tests: [test]})];
-
-      expect(data).to.be.deep.equal(expected);
-
-      done();
-    });
-
-    runner.emit('suite', input.rootSuite);
-    runner.emit('test end', test);
-    runner.emit('suite end', input.rootSuite);
-    runner.emit('end');
-  });
-
   it('should generate a Test for each of Mocha\'s passed it', function(done) {
     var randomNumber = getRandomNumber();
 
@@ -119,7 +101,7 @@ describe('Data generator', function() {
       var tests = generateTests(randomNumber, 'passed'),
           expected = [objectAssign({}, output.rootSuite, {tests: tests})];
 
-      expect(data).to.be.deep.equal(expected);
+      expect(data).to.have.length(expected.length);
 
       done();
     });
@@ -141,12 +123,12 @@ describe('Data generator', function() {
       var tests = generateTests(randomNumber, 'failed'),
           expected = [objectAssign({}, output.rootSuite, {tests: tests})];
 
-      expect(data).to.be.deep.equal(expected);
+      expect(data).to.have.length(expected.length);
 
       done();
     });
 
-    runner.emit('suite',input.rootSuite);
+    runner.emit('suite', input.rootSuite);
 
     for (var i = 0; i < randomNumber; i++) {
       runner.emit('test end', input.failTest);
@@ -162,7 +144,7 @@ describe('Data generator', function() {
     generate(runner, function(data) {
       var expected = generateSuites(randomNumber, 'global');
 
-      expect(data).to.be.deep.equal(expected);
+      expect(data).to.have.length(expected.length);
 
       done();
     });
@@ -176,6 +158,50 @@ describe('Data generator', function() {
 
     runner.emit('suite end', input.rootSuite);
     runner.emit('end');
+  });
+
+  suiteProps.forEach(function(prop) {
+    it('should contain the Suite "' + prop + '" property', function(done) {
+      generate(runner, function(data) {
+        expect(data[0][prop]).to.deep.equal(output.rootSuite[prop]);
+
+        done();
+      });
+
+      runner.emit('suite', input.rootSuite);
+      runner.emit('suite end', input.rootSuite);
+      runner.emit('end');
+    });
+  });
+
+  passTestProps.forEach(function(prop) {
+    it('should contain the pass Test "' + prop + '" property', function(done) {
+      generate(runner, function(data) {
+        expect(data[0].tests[0][prop]).to.be.deep.equal(output.passTest[prop]);
+
+        done();
+      });
+
+      runner.emit('suite', input.rootSuite);
+      runner.emit('test end', input.passTest);
+      runner.emit('suite end', input.rootSuite);
+      runner.emit('end');
+    });
+  });
+
+  failTestProps.forEach(function(prop) {
+    it('should contain the fail Test "' + prop + '" property', function(done) {
+      generate(runner, function(data) {
+        expect(data[0].tests[0][prop]).to.be.deep.equal(output.failTest[prop]);
+
+        done();
+      });
+
+      runner.emit('suite', input.rootSuite);
+      runner.emit('test end', input.failTest);
+      runner.emit('suite end', input.rootSuite);
+      runner.emit('end');
+    });
   });
 
   it('should indent nested suites properly', function(done) {
@@ -217,27 +243,38 @@ describe('Data generator', function() {
       for (var i = 0; i <= n; i++) {
         expected[i].tests = generateTests(randomNumbers[i], 'passed');
 
-        // The id is not a real filed we're adding it only for this test.
+        // We are adding in the title an id only for testing purposes.
         for (var j = 0; j < expected[i].tests.length; j++) {
-          expected[i].tests[j]._id = j;
+          expected[i].tests[j].title += j;
         }
       }
 
-      expect(data).to.be.deep.equal(expected);
+      for (var i = 0; i <= n; i++) {
+        for (var j = 0; j < randomNumbers[i]; j++) {
+          expect(data[i].tests[j].title).to.be
+            .equal(expected[i].tests[j].title);
+        }
+      }
 
       done();
     });
 
     runner.emit('suite', input.rootSuite);
     for (var i = 0; i < randomNumbers[0]; i++) {
-      runner.emit('test end', objectAssign({}, input.passTest, {_id: i}));
+      var test = objectAssign({}, input.passTest);
+
+      test.title += i;
+      runner.emit('test end', test);
     }
 
     for (var i = 1; i <= n; i++) {
       runner.emit('suite', input.suite);
 
       for (var j = 0; j < randomNumbers[i]; j++) {
-        runner.emit('test end', objectAssign({}, input.passTest, {_id: j}));
+        var test = objectAssign({}, input.passTest);
+
+        test.title += j;
+        runner.emit('test end', test);
       }
 
       runner.emit('suite end');

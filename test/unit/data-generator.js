@@ -165,7 +165,7 @@ describe('Data generator', function() {
       generate(runner, function(data) {
         expect(data[0][prop]).to.deep.equal(output.rootSuite[prop]);
 
-         done();
+        done();
       });
 
       runner.emit('suite', input.rootSuite);
@@ -251,7 +251,8 @@ describe('Data generator', function() {
 
       for (var i = 0; i <= n; i++) {
         for (var j = 0; j < randomNumbers[i]; j++) {
-          expect(data[i].tests[j].title).to.be.equal(expected[i].tests[j].title);
+          expect(data[i].tests[j].title).to.be
+            .equal(expected[i].tests[j].title);
         }
       }
 

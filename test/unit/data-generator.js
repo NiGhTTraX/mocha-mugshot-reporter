@@ -98,7 +98,7 @@ describe('Data generator', function() {
       var tests = generateTests(randomNumber, 'passed'),
           expected = [objectAssign({}, output.rootSuite, {tests: tests})];
 
-      expect(data).to.be.deep.equal(expected);
+      expect(data.length).to.be.equal(expected.length);
 
       done();
     });
@@ -120,7 +120,7 @@ describe('Data generator', function() {
       var tests = generateTests(randomNumber, 'failed'),
           expected = [objectAssign({}, output.rootSuite, {tests: tests})];
 
-      expect(data).to.be.deep.equal(expected);
+      expect(data.length).to.be.deep.equal(expected.length);
 
       done();
     });
@@ -141,7 +141,7 @@ describe('Data generator', function() {
     generate(runner, function(data) {
       var expected = generateSuites(randomNumber, 'global');
 
-      expect(data).to.be.deep.equal(expected);
+      expect(data.length).to.be.deep.equal(expected.length);
 
       done();
     });
@@ -196,27 +196,37 @@ describe('Data generator', function() {
       for (var i = 0; i <= n; i++) {
         expected[i].tests = generateTests(randomNumbers[i], 'passed');
 
-        // The id is not a real filed we're adding it only for this test.
+        // We are adding in the title an id only for testing purposes.
         for (var j = 0; j < expected[i].tests.length; j++) {
-          expected[i].tests[j]._id = j;
+          expected[i].tests[j].title += j;
         }
       }
 
-      expect(data).to.be.deep.equal(expected);
+      for (var i = 0; i <= n; i++) {
+        for (var j = 0; j < randomNumbers[i]; j++) {
+          expect(data[i].tests[j].title).to.be.equal(expected[i].tests[j].title);
+        }
+      }
 
       done();
     });
 
     runner.emit('suite', input.rootSuite);
     for (var i = 0; i < randomNumbers[0]; i++) {
-      runner.emit('test end', objectAssign({}, input.passTest, {_id: i}));
+      var test = objectAssign({}, input.passTest);
+
+      test.title += i;
+      runner.emit('test end', test);
     }
 
     for (var i = 1; i <= n; i++) {
       runner.emit('suite', input.suite);
 
       for (var j = 0; j < randomNumbers[i]; j++) {
-        runner.emit('test end', objectAssign({}, input.passTest, {_id: j}));
+        var test = objectAssign({}, input.passTest);
+
+        test.title += j;
+        runner.emit('test end', test);
       }
 
       runner.emit('suite end');

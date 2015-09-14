@@ -11,11 +11,17 @@ module.exports = {
   },
   passTest: {
     title: 'test',
-    state: 'passed'
+    state: 'passed',
+    result: {
+      isEqual: true
+    }
   },
   failTest: {
     title: 'test',
     state: 'failed',
+    result: {
+      isEqual: false
+    },
     error: new Error('big error')
   }
 };

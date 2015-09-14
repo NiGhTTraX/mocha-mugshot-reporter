@@ -74,8 +74,8 @@ function generateTests(n, type) {
 
 describe('Data generator', function() {
   var suiteProps = ['title', 'indent', 'tests'],
-      passTestProps = ['title', 'state'],
-      failTestProps = ['title', 'state', 'error'],
+      passTestProps = ['title', 'state', 'result'],
+      failTestProps = ['title', 'state', 'result', 'error'],
       runner;
 
   beforeEach(function() {

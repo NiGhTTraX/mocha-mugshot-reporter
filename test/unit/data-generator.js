@@ -91,27 +91,6 @@ describe('Data generator', function() {
     runner.emit('end');
   });
 
-  it('should contain all props from Mocha\'s test object', function(done) {
-    var test = {
-      a: 'a',
-      b: 'b',
-      number: 7
-    };
-
-    generate(runner, function(data) {
-      var expected = [objectAssign({}, output.rootSuite, {tests: [test]})];
-
-      expect(data).to.be.deep.equal(expected);
-
-      done();
-    });
-
-    runner.emit('suite', input.rootSuite);
-    runner.emit('test end', test);
-    runner.emit('suite end', input.rootSuite);
-    runner.emit('end');
-  });
-
   it('should generate a Test for each of Mocha\'s passed it', function(done) {
     var randomNumber = getRandomNumber();
 

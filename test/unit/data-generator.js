@@ -101,7 +101,7 @@ describe('Data generator', function() {
       var tests = generateTests(randomNumber, 'passed'),
           expected = [objectAssign({}, output.rootSuite, {tests: tests})];
 
-      expect(data.length).to.be.equal(expected.length);
+      expect(data).to.have.length(expected.length);
 
       done();
     });
@@ -123,7 +123,7 @@ describe('Data generator', function() {
       var tests = generateTests(randomNumber, 'failed'),
           expected = [objectAssign({}, output.rootSuite, {tests: tests})];
 
-      expect(data.length).to.be.deep.equal(expected.length);
+      expect(data).to.have.length(expected.length);
 
       done();
     });
@@ -144,7 +144,7 @@ describe('Data generator', function() {
     generate(runner, function(data) {
       var expected = generateSuites(randomNumber, 'global');
 
-      expect(data.length).to.be.deep.equal(expected.length);
+      expect(data).to.have.length(expected.length);
 
       done();
     });

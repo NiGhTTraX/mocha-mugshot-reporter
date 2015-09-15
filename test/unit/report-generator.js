@@ -63,7 +63,7 @@ describe('Report generator', function() {
      function() {
     generateReport.bind(null, {}, function(error) {
       expect(error).to.be.null;
-     });
+    });
   });
 
   it('should create the rootDirectory', function(done) {

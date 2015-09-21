@@ -60,9 +60,11 @@ describe('Report generator', function() {
   });
 
   it('should set the options as callback if no options obj is received',
-     function() {
-    generateReport.bind(null, {}, function(error) {
+     function(done) {
+    generateReport({}, function(error) {
       expect(error).to.be.null;
+
+      done();
     });
   });
 

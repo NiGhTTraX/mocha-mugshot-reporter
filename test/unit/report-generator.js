@@ -6,8 +6,7 @@ var expect = require('chai').expect,
 var rootDirectory = 'visual-report',
     staticsDirectory = 'statics',
     dataPath = path.join(rootDirectory, 'data.js'),
-    expectedData = require('./data/test-structure-data.js'),
-    staticFiles = ['a.js', 'b.txt', 'c.php'];
+    expectedData = require('./data/test-structure-data.js');
 
 /**
  * Removes a directory equal to rm -rf
@@ -25,30 +24,10 @@ function cleanUp(directory, done) {
   });
 }
 
-/**
- * Creates a directory with files
- */
-function createStatics() {
-
-  fs.mkdirSync(staticsDirectory);
-
-  staticFiles.forEach(function(file) {
-    fs.createFileSync(path.join(staticsDirectory, file));
-  });
-}
-
 describe('Report generator', function() {
 
-  beforeEach(function(done) {
-    createStatics();
-
-    done();
-  });
-
   afterEach(function(done) {
-    cleanUp(rootDirectory, function() {
-      cleanUp(staticsDirectory, done);
-    });
+    cleanUp(rootDirectory, done);
   });
 
   it('should throw Error if no data is received', function() {
@@ -128,14 +107,18 @@ describe('Report generator', function() {
     generateReport({}, function(error) {
       expect(error).to.be.null;
 
-      var stats = fs.statSync(staticsDirectory);
+      var copyStaticsDirectory = path.join(rootDirectory, staticsDirectory),
+          stats = fs.statSync(copyStaticsDirectory);
 
       expect(stats.isDirectory()).to.be.true;
 
-      staticFiles.forEach(function(file) {
-        var filePath = path.join(staticsDirectory, file);
+      fs.readdir(staticsDirectory, function(error, staticsFiles) {
+        fs.readdir(copyStaticsDirectory, function(error, copyStaticsFiles) {
 
-        expect(fs.statSync(filePath).isFile()).to.be.true;
+          for (var i = 0; i < copyStaticsFiles; i++) {
+            expect(copyStaticsFiles[i]).to.be.equal(staticsFiles[i]);
+          }
+        });
       });
 
       done();

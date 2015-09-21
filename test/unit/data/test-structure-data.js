@@ -1,5 +1,3 @@
-/* eslint-disable */
-module.exports =
 [
   {
     "title":"",
@@ -50,4 +48,4 @@ module.exports =
       }
     ]
   }
-];
+]

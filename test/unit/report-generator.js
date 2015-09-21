@@ -94,7 +94,7 @@ describe('Report generator', function() {
           throw error;
         }
 
-        // Slice out the the var declartion and the end semicolon.
+        // Slice out the the var declaration and the end semicolon.
         data = data.slice(11, -1);
 
         expect(JSON.parse(data)).to.be.deep.equal(expectedData);
@@ -104,7 +104,7 @@ describe('Report generator', function() {
     });
   });
 
-/*  it('should copy the statics directory into the rootDirectory',
+  it('should copy the statics directory into the rootDirectory',
      function(done) {
     generateReport({}, function(error) {
       expect(error).to.be.null;
@@ -125,5 +125,5 @@ describe('Report generator', function() {
 
       done();
     });
-  });*/
+  });
 });

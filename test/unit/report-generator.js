@@ -39,17 +39,8 @@ describe('Report generator', function() {
     expect(generateReport.bind(null, {})).to.throw(Error);
   });
 
-  it('should set the options as callback if no options obj is received',
-     function(done) {
-    generateReport({}, function(error) {
-      expect(error).to.be.null;
-
-      done();
-    });
-  });
-
   it('should create the rootDirectory', function(done) {
-    generateReport({}, function(error) {
+    generateReport({}, {}, function(error) {
       expect(error).to.be.null;
 
       var stats = fs.statSync(rootDirectory);
@@ -74,7 +65,7 @@ describe('Report generator', function() {
   });
 
   it('should create the data file', function(done) {
-    generateReport({}, function(error) {
+    generateReport({}, {}, function(error) {
       expect(error).to.be.null;
 
       var stats = fs.statSync(dataPath);
@@ -86,7 +77,7 @@ describe('Report generator', function() {
   });
 
   it('should contain the data of the test-structure fixture', function(done) {
-    generateReport(expectedData, function(error) {
+    generateReport(expectedData, {}, function(error) {
       expect(error).to.be.null;
 
       fs.readFile(dataPath, 'utf8', function(error, data) {
@@ -106,7 +97,7 @@ describe('Report generator', function() {
 
   it('should copy the statics directory into the rootDirectory',
      function(done) {
-    generateReport({}, function(error) {
+    generateReport({}, {}, function(error) {
       expect(error).to.be.null;
 
       var copyStaticsDirectory = path.join(rootDirectory, staticsDirectory),

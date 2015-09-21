@@ -7,7 +7,7 @@ var rootDirectory = 'visual-report',
     staticsDirectory = 'statics',
     dataPath = path.join(rootDirectory, 'data.js'),
     expectedData = JSON.parse(fs.readFileSync(path.join(__dirname,
-      './data/test-structure-data.js')));
+      './data/test-structure-data.json')));
 
 /**
  * Removes a directory equal to rm -rf

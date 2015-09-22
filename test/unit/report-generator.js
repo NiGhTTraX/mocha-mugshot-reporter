@@ -99,16 +99,16 @@ describe('Report generator', function() {
     generateReport({}, {}, function(error) {
       expect(error).to.be.null;
 
-      var copyStaticsDirectory = path.join(rootDirectory, staticsDirectory),
-          stats = fs.statSync(copyStaticsDirectory);
+      var staticsDirectoryCopy = path.join(rootDirectory, staticsDirectory),
+          stats = fs.statSync(staticsDirectoryCopy);
 
       expect(stats.isDirectory()).to.be.true;
 
       fs.readdir(staticsDirectory, function(error, staticsFiles) {
-        fs.readdir(copyStaticsDirectory, function(error, copyStaticsFiles) {
+        fs.readdir(staticsDirectoryCopy, function(error, staticsFilesCopy) {
 
-          for (var i = 0; i < copyStaticsFiles; i++) {
-            expect(copyStaticsFiles[i]).to.be.equal(staticsFiles[i]);
+          for (var i = 0; i < staticsFilesCopy; i++) {
+            expect(staticsFilesCopy[i]).to.be.equal(staticsFiles[i]);
           }
         });
       });

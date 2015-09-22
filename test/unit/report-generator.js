@@ -26,7 +26,6 @@ function cleanUp(directory, done) {
 }
 
 describe('Report generator', function() {
-
   afterEach(function(done) {
     cleanUp(rootDirectory, done);
   });

@@ -1,4 +1,6 @@
-var reporters = require('mocha').reporters;
+var reporters = require('mocha').reporters,
+    generateData = require('./lib/data-generator.js'),
+    generateReport = require('./lib/report-generator.js');
 
 /**
  * Mocha reporter for Mugshot visual regression testing lib
@@ -20,6 +22,20 @@ function MugshotReporter(runner, options) {
   }
 
   new CLIReporter(runner);
+
+  generateData(runner, function(data) {
+    this.data = data;
+  }.bind(this));
 };
+
+MugshotReporter.prototype.done = function(failures, fn) {
+  generateReport(this.data, function(error) {
+    if (error) {
+      throw error;
+    }
+
+    fn(failures);
+  });
+}
 
 module.exports = MugshotReporter;

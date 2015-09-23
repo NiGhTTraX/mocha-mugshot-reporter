@@ -84,8 +84,12 @@ describe('Report generator', function() {
           throw error;
         }
 
+        var frontSlice = 'var '.length + generateReport._mochaTestData.length +
+              ' = '.length,
+            backSlice = ';'.length;
+
         // Slice out the the var declaration and the end semicolon.
-        data = data.slice(11, -1);
+        data = data.slice(frontSlice, -backSlice);
 
         expect(JSON.parse(data)).to.be.deep.equal(expectedData);
 

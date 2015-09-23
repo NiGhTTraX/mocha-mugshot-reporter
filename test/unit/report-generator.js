@@ -84,8 +84,8 @@ describe('Report generator', function() {
           throw error;
         }
 
-        var frontSlice = 'var '.length + generateReport._mochaTestData.length +
-              ' = '.length,
+        var frontSlice = 'var '.length +
+              generateReport.MOCHA_TEST_DATA_VAR_NAME.length + ' = '.length,
             backSlice = ';'.length;
 
         // Slice out the the var declaration and the end semicolon.

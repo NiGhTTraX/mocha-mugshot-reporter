@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha test/unit",
     "test-integration": "mocha test/integration",
+    "prepublish": "webpack",
     "lint": "eslint ."
   },
   "repository": {

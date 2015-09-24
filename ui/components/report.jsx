@@ -2,7 +2,7 @@ var React = require('react');
 
 var Report = React.createClass({
   render: function() {
-    return <div>Salut</div>;
+    return null;
   }
 });
 

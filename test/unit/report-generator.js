@@ -1,7 +1,8 @@
 var expect = require('chai').expect,
     generateReport = require('../../lib/report-generator.js'),
     fs = require('fs-extra'),
-    path = require('path');
+    path = require('path'),
+    mochaTestDataVarName = require('../../lib/mocha-test-data-var-name.js');
 
 var rootDirectory = 'visual-report',
     staticsDirectory = 'statics',
@@ -84,9 +85,9 @@ describe('Report generator', function() {
           throw error;
         }
 
-        var frontSlice = 'var '.length +
-              generateReport.MOCHA_TEST_DATA_VAR_NAME.length + ' = '.length,
-            backSlice = ';'.length;
+        var backSlice = ';'.length,
+            frontSlice = 'var '.length + mochaTestDataVarName.length +
+              ' = '.length;
 
         // Slice out the the var declaration and the end semicolon.
         data = data.slice(frontSlice, -backSlice);

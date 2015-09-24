@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha test/unit",
     "test-integration": "mocha test/integration",
+    "prepublish": "webpack",
     "lint": "eslint ."
   },
   "repository": {
@@ -24,11 +25,15 @@
   },
   "homepage": "https://github.com/uberVU/mocha-mugshot-reporter#readme",
   "devDependencies": {
+    "babel-loader": "^5.3.2",
     "chai": "^3.2.0",
+    "css-loader": "^0.19.0",
     "eslint": "1.4.3",
     "lodash": "^3.10.1",
     "mocha": "^2.3.1",
-    "object-assign": "^4.0.1"
+    "object-assign": "^4.0.1",
+    "style-loader": "^0.12.4",
+    "webpack": "^1.12.2"
   },
   "peerDependencies": {
     "mocha": "^2.3.1"

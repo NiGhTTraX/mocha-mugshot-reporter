@@ -8,4 +8,4 @@ require('./styles/base.css');
 
 var data = window[mochaTestDataVarName];
 
-React.render(<Report data={data}/>, document.getElementById('report'));
+React.render(<Report data={data}/>, document.body);

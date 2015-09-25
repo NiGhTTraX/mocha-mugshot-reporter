@@ -28,7 +28,6 @@ describe('Report', function() {
     tree = sd.shallowRender(<Report data={fixture}/>);
   });
 
-
   it('should render the Header component', function() {
     expect(tree.findNode('Header')).to.not.be.false;
   });

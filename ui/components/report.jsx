@@ -1,5 +1,6 @@
 var React = require('react'),
-    Header = require('./header.jsx');
+    Header = require('./header.jsx'),
+    Results = require('./results.jsx');
 
 var Report = React.createClass({
   render: function() {
@@ -22,6 +23,7 @@ var Report = React.createClass({
 
     return <div className="report">
       <Header passes={passes} failures={failures} duration={duration}/>
+      <Results data={data}/>
     </div>;
   }
 });

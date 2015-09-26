@@ -32,6 +32,10 @@ describe('Report', function() {
     expect(tree.findNode('Header')).to.not.be.false;
   });
 
+  it('should render the Results component', function() {
+    expect(tree.findNode('Results')).to.not.be.false;
+  });
+
   it('should calculate the number of passed tests', function() {
     expect(tree.findNode('Header').props.passes).to.be.equal(passes);
   });

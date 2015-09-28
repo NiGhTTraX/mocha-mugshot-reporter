@@ -11,10 +11,6 @@ describe('Suite', function() {
     tree = sd.shallowRender(<Suite suite={fixture}/>);
   });
 
-  it('should render the component with class "suite"', function() {
-    expect(tree.findNode('.suite')).to.not.be.false;
-  });
-
   it('should indent the suite properly', function() {
     var expected = {
       marginLeft: 20 * (fixture.indent - 1) + 'px'

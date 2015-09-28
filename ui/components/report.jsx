@@ -8,21 +8,21 @@ var Report = React.createClass({
         failures = [],
         duration = 0;
 
-  suites.forEach(function(suite) {
-    passes.push.apply(passes, suite.tests.filter(function(test) {
-      return test.state === 'passed';
-    }));
+    suites.forEach(function(suite) {
+      passes.push.apply(passes, suite.tests.filter(function(test) {
+        return test.state === 'passed';
+      }));
 
-    failures.push.apply(failures, suite.tests.filter(function(test) {
-      return test.state !== 'passed';
-    }));
+      failures.push.apply(failures, suite.tests.filter(function(test) {
+        return test.state !== 'passed';
+      }));
 
-    suite.tests.forEach(function(test) {
+      suite.tests.forEach(function(test) {
         duration += test.duration;
+      });
     });
-  });
 
-  return <div className="report">
+    return <div className="report">
       <Header passes={passes.length} failures={failures.length}
         duration={duration}/>
     </div>;

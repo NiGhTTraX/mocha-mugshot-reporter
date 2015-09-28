@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha tests/unit/components/setup.js tests/unit --recursive --compilers js:babel/register",
     "test-integration": "mocha tests/integration",
-    "prepublish": "webpack",
+    "prepublish": "webpack && rm statics/bundle.js",
     "lint": "eslint . --ext js --ext jsx"
   },
   "repository": {

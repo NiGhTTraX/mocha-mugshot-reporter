@@ -29,7 +29,7 @@ function MugshotReporter(runner, options) {
 };
 
 MugshotReporter.prototype.done = function(failures, fn) {
-  generateReport(this.data, function(error) {
+  generateReport(this.data, {}, function(error) {
     if (error) {
       throw error;
     }

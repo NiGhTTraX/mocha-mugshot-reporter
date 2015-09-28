@@ -1,6 +1,5 @@
 ui/
 tests/
-.gitignore
 .npmignore
 .eslintrc
 .travis.yml

@@ -4,7 +4,7 @@
   "description": "Mocha reporter for the Mugshot visual regression testing lib",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/unit --recursive --compilers js:babel/register",
+    "test": "mocha tests/unit/components/setup.js tests/unit --recursive --compilers js:babel/register",
     "test-integration": "mocha test/integration",
     "prepublish": "webpack",
     "lint": "eslint . --ext js --ext jsx"

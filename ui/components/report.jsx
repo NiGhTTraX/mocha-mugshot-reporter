@@ -9,11 +9,11 @@ var Report = React.createClass({
         duration = 0;
 
     suites.forEach(function(suite) {
-      passes.push.apply(passes, suite.tests.filter(function(test) {
+      passes = passes.concat(suite.tests.filter(function(test) {
         return test.state === 'passed';
       }));
 
-      failures.push.apply(failures, suite.tests.filter(function(test) {
+      failures = failures.concat(suite.tests.filter(function(test) {
         return test.state !== 'passed';
       }));
 

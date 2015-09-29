@@ -5,7 +5,7 @@ var Results = React.createClass({
   render: function() {
     var suites;
 
-    suites = this.props.data.slice(1).map(function(suite, index) {
+    suites = this.props.suites.slice(1).map(function(suite, index) {
       return <Suite suite={suite} key={index}/>;
     });
 

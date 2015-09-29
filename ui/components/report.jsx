@@ -22,7 +22,6 @@ var Report = React.createClass({
         return !_hasPassed(test);
       }));
 
-
       suite.tests.forEach(function(test) {
         duration += test.duration;
       });
@@ -31,7 +30,7 @@ var Report = React.createClass({
     return <div className="report">
       <Header passes={passes.length} failures={failures.length}
         duration={duration}/>
-      <Results data={this.props.data}/>
+      <Results suites={suites}/>
     </div>;
   }
 });

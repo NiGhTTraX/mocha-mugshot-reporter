@@ -11,12 +11,10 @@ describe('Suite', function() {
   });
 
   it('should indent the suite properly', function() {
-    var expected = {
-      marginLeft: Suite.MARGIN_LEFT * (fixture.indent - 1)
-    }
+    var expected = Suite.MARGIN_LEFT * (fixture.indent - 1);
 
-    expect(tree.findNode('.suite').props.style.marginLeft).to.be.deep.
-      equal(expected.marginLeft);
+    expect(tree.findNode('.suite').props.style.marginLeft).to.be.
+      equal(expected);
   });
 
   it('should render the suite title', function() {
@@ -24,12 +22,10 @@ describe('Suite', function() {
   });
 
   it('should set the suite title fontSize correctly', function() {
-    var expected = {
-      fontSize: Suite.FONT_SIZE / fixture.indent + '%'
-    };
+    var expected = Suite.FONT_SIZE / fixture.indent + '%';
 
-    expect(tree.findNode('.suite-title').props.style.fontSize).to.deep.
-      equal(expected.fontSize);
+    expect(tree.findNode('.suite-title').props.style.fontSize).to.be.
+      equal(expected);
   });
 
   it('should render the tests array', function() {

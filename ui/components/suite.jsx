@@ -9,7 +9,7 @@ var Suite = React.createClass({
   render: function() {
     var suite = this.props.suite,
         suiteStyle = {
-          marginLeft: this.constructor.MARGIN_LEFT * (suite.indent - 1) + 'px'
+          marginLeft: this.constructor.MARGIN_LEFT * (suite.indent - 1)
         },
         titleStyle = {
           fontSize: this.constructor.FONT_SIZE / suite.indent + '%'

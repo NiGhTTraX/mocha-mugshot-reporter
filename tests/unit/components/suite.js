@@ -12,7 +12,7 @@ describe('Suite', function() {
 
   it('should indent the suite properly', function() {
     var expected = {
-      marginLeft: Suite.MARGIN_LEFT * (fixture.indent - 1) + 'px'
+      marginLeft: Suite.MARGIN_LEFT * (fixture.indent - 1)
     }
 
     expect(tree.findNode('.suite').props.style.marginLeft).to.be.deep.

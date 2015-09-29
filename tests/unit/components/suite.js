@@ -32,10 +32,10 @@ describe('Suite', function() {
   });
 
   it('should render the tests array', function() {
-    var tests = tree.findNode('.suite').props.children[1];
+    var testsArray = tree.findNode('.suite').props.children[1];
 
-    for (var i = 0; i < tests.length; i++) {
-      expect(tests[i].props.test).to.be.equal(fixture.tests[i]);
-    }
+    testsArray.forEach(function(testComp, index) {
+      expect(testComp.props.test).to.be.equal(fixture.tests[index]);
+    });
   });
 });

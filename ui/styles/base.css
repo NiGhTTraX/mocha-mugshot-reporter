@@ -5,3 +5,21 @@ header {
 header li {
   margin-left: 20px;
 }
+
+.details {
+  height: 0px;
+  overflow: hidden;
+  transition: all 1s;
+}
+
+.test p:hover {
+  cursor: pointer;
+}
+
+.toogle .details {
+  height: 100px;
+}
+
+.details img {
+  margin-right: 10px;
+}

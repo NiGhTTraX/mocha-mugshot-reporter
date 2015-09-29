@@ -3,10 +3,9 @@ var React = require('react'),
 
 var Results = React.createClass({
   render: function() {
-    var suites = this.props.data.map(function(suite, index) {
-      if (index === 0) {
-        return null;
-      }
+    var suites;
+
+    suites = this.props.data.slice(1).map(function(suite, index) {
       return <Suite suite={suite} key={index}/>;
     });
 

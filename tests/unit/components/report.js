@@ -1,6 +1,5 @@
 var sd = require('skin-deep'),
     expect = require('chai').expect,
-    React = require('react'),
     Report = require('../../../ui/components/report.jsx'),
     fixture = require('../../fixtures/components/report.js');
 
@@ -11,17 +10,17 @@ describe('Report', function() {
       tree;
 
   before(function() {
-    for (var i = 0; i < fixture.length; i++) {
-      for (var j = 0; j < fixture[i].tests.length; j++) {
-        if (fixture[i].tests[j].state === 'passed') {
+    fixture.forEach(function(suite) {
+      suite.tests.forEach(function(test) {
+        if (test.state === 'passed') {
           passes++;
         } else {
           failures++;
         }
 
-        duration += fixture[i].tests[j].duration;
-      }
-    }
+        duration += test.duration;
+      });
+    });
   });
 
   beforeEach(function() {

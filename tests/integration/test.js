@@ -2,7 +2,7 @@ var expect = require('chai').expect,
     Mocha = require('mocha'),
     path = require('path');
 
-var testFixturePath = path.join(__dirname, '../test-fixture.js'),
+var testFixturePath = path.join(__dirname, '../fixtures/test-structure.js'),
     mugshotReporter = path.join(__dirname, '../../index.js');
 
 /**

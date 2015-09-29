@@ -1,5 +1,7 @@
+var _ = require('lodash');
+
 module.exports = {
-  passes: 7,
-  failures: 1,
-  duration: 777
+  passes: _.random(0, 100),
+  failures: _.random(0, 100),
+  duration: _.random(0, 100, true)
 };

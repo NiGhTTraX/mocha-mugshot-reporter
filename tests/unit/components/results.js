@@ -10,21 +10,20 @@ describe('Results', function() {
     tree = sd.shallowRender(<Results data={fixture}/>);
   });
 
-  it('should render the component with class "results"', function() {
-    expect(tree.findNode('.results')).to.not.be.false;
-  });
-
   it('should not render the root suite', function() {
-    var suites = tree.findNode('.results').props.children;
+    var suitesArray = tree.findNode('.results').props.children;
 
-    expect(suites[0]).to.be.equal.null;
+    expect(suitesArray[0]).to.be.equal.null;
   });
 
   it('should render the suites array', function() {
-    var suites = tree.findNode('.results').props.children;
+    var suitesArray = tree.findNode('.results').props.children;
 
-    for (var i = 1; i < suites.length; i++) {
-      expect(suites[i].props.suite).to.be.equal(fixture[i]);
-    }
+    // Removes the root suite.
+    suitesArray.shift();
+
+    suitesArray.forEach(function(suitesComp, index) {
+      expect(suitesComp.props.suite).to.be.equal(fixture[index + 1]);
+    });
   });
 });

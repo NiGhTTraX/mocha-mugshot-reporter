@@ -22,8 +22,8 @@ describe('Results', function() {
     // Removes the root suite.
     suitesArray.shift();
 
-    suitesArray.forEach(function(suitesComp, index) {
-      expect(suitesComp.props.suite).to.be.equal(fixture[index + 1]);
+    suitesArray.forEach(function(suiteComp, index) {
+      expect(suiteComp.props.suite).to.be.equal(fixture[index + 1]);
     });
   });
 });

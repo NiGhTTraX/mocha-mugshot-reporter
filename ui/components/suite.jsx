@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var React = require('react'),
     Test = require('./test.jsx');
 

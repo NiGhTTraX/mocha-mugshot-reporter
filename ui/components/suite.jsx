@@ -13,16 +13,15 @@ var Suite = React.createClass({
         },
         titleStyle = {
           fontSize: this.constructor.FONT_SIZE / suite.indent + '%'
-        },
-        tests;
-
-    tests = suite.tests.map(function(test, index) {
-      return <Test test={test} key={index}/>
-    });
+        };
 
     return <div className="suite" style={suiteStyle}>
       <h2 className="suite-title" style={titleStyle}>{suite.title}</h2>
-      {tests}
+      {
+        suite.tests.map(function(test, index) {
+          return <Test test={test} key={index}/>
+        })
+      }
     </div>;
   }
 });

@@ -1,7 +1,7 @@
 var sd = require('skin-deep'),
     expect = require('chai').expect,
     Report = require('../../../ui/components/report.jsx'),
-    fixture = require('../../fixtures/components/report.js');
+    fixture = require('../../fixtures/components/data.js');
 
 describe('Report', function() {
   var passes = 0,

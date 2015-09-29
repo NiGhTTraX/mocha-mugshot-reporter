@@ -1,7 +1,7 @@
 var sd = require('skin-deep'),
     expect = require('chai').expect,
     Results = require('../../../ui/components/results.jsx'),
-    fixture = require('../../fixtures/components/results.js');
+    fixture = require('../../fixtures/components/data.js');
 
 describe('Results', function() {
   var tree;

@@ -7,10 +7,20 @@ module.exports = {
     title: 'Test 1',
     state: 'failed',
     error: new Error('Big Error'),
+    result: {
+      isEqual: false,
+      basline: 'baselinePathi1',
+      screenshot: 'screenshotPath',
+      diff: 'diffPath'
+    },
     duration: 7
   }, {
     title: 'Test 2',
     state: 'passed',
+    result: {
+      isEqual: true,
+      baseline: 'baselinePath2'
+    },
     duration: 1.5
   }]
 };

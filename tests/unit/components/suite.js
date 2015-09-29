@@ -1,6 +1,5 @@
 var sd = require('skin-deep'),
     expect = require('chai').expect,
-    React = require('react'),
     Suite = require('../../../ui/components/suite.jsx'),
     fixture = require('../../fixtures/components/suite.js');
 

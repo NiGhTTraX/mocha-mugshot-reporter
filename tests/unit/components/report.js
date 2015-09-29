@@ -1,7 +1,7 @@
 var sd = require('skin-deep'),
     expect = require('chai').expect,
     Report = require('../../../ui/components/report.jsx'),
-    fixture = require('../../fixtures/components/report.js');
+    fixture = require('../../fixtures/components/data.js');
 
 describe('Report', function() {
   var passes = 0,
@@ -29,6 +29,10 @@ describe('Report', function() {
 
   it('should render the Header component', function() {
     expect(tree.findNode('Header')).to.not.be.false;
+  });
+
+  it('should render the Results component', function() {
+    expect(tree.findNode('Results')).to.not.be.false;
   });
 
   it('should calculate the number of passed tests', function() {

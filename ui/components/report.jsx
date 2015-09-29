@@ -1,5 +1,6 @@
 var React = require('react'),
-    Header = require('./header.jsx');
+    Header = require('./header.jsx'),
+    Results = require('./results.jsx');
 
 function _hasPassed(test) {
   return test.state === 'passed';
@@ -21,7 +22,6 @@ var Report = React.createClass({
         return !_hasPassed(test);
       }));
 
-
       suite.tests.forEach(function(test) {
         duration += test.duration;
       });
@@ -30,6 +30,7 @@ var Report = React.createClass({
     return <div className="report">
       <Header passes={passes.length} failures={failures.length}
         duration={duration}/>
+      <Results suites={suites}/>
     </div>;
   }
 });

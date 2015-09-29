@@ -2,13 +2,17 @@ var React = require('react'),
     Test = require('./test.jsx');
 
 var Suite = React.createClass({
+  statics: {
+    MARGIN_LEFT: 20,
+    FONT_SIZE: 100
+  },
   render: function() {
     var suite = this.props.suite,
         suiteStyle = {
-          marginLeft: 20 * (suite.indent - 1) + 'px'
+          marginLeft: this.constructor.MARGIN_LEFT * (suite.indent - 1) + 'px'
         },
         titleStyle = {
-          fontSize: 100 / suite.indent + '%'
+          fontSize: this.constructor.FONT_SIZE / suite.indent + '%'
         },
         tests;
 

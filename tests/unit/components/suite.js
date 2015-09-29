@@ -13,7 +13,7 @@ describe('Suite', function() {
 
   it('should indent the suite properly', function() {
     var expected = {
-      marginLeft: 20 * (fixture.indent - 1) + 'px'
+      marginLeft: Suite.MARGIN_LEFT * (fixture.indent - 1) + 'px'
     };
 
     expect(tree.findNode('.suite').props.style).to.be.deep.equal(expected);
@@ -25,7 +25,7 @@ describe('Suite', function() {
 
   it('should set the suite title fontSize correctly', function() {
     var expected = {
-      fontSize: 100 / fixture.indent + '%'
+      fontSize: Suite.FONT_SIZE / fixture.indent + '%'
     };
 
     expect(tree.findNode('.suite-title').props.style).to.deep.equal(expected);

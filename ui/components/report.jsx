@@ -31,7 +31,7 @@ var Report = React.createClass({
     return <div className="report">
       <Header passes={passes.length} failures={failures.length}
         duration={duration}/>
-      <Results data={data}/>
+      <Results data={this.props.data}/>
     </div>;
   }
 });

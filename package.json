@@ -7,7 +7,7 @@
     "test": "mocha tests/unit/components/setup.js tests/unit --recursive --compilers js:babel/register",
     "test-integration": "mocha tests/integration",
     "prepublish": "webpack",
-    "lint": "eslint . --ext js --ext jsx"
+    "lint": "eslint . --ext js --ext jsx --ignore-path .gitignore"
   },
   "repository": {
     "type": "git",

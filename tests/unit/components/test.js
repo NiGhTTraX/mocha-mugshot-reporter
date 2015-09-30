@@ -1,8 +1,13 @@
 var sd = require('skin-deep'),
     expect = require('chai').expect,
     Test = require('../../../ui/components/test.jsx'),
+<<<<<<< HEAD
     passTest = require('../../fixtures/components/pass-test.js'),
     failTest = require('../../fixtures/components/fail-test.js');
+=======
+    passTest = require('../../fixtures/components/passTest.js'),
+    failTest = require('../../fixtures/components/failTest.js');
+>>>>>>> 964fcad7fe0f7c1ad370346ea27af56f00ac7a0c
 
 describe('Test', function() {
   var tree;

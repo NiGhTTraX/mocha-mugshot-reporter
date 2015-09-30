@@ -6,14 +6,19 @@ header li {
   margin-left: 20px;
 }
 
-.details {
-  height: 0px;
-  overflow: hidden;
-  transition: all 1s;
+.test p {
+  margin-bottom: 10px !important;
+  display: inline;
 }
 
 .test p:hover {
   cursor: pointer;
+}
+
+.details {
+  height: 0px;
+  overflow: hidden;
+  transition: all 1s;
 }
 
 .toogle .details {

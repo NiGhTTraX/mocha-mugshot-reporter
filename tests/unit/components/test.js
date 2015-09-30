@@ -1,15 +1,11 @@
 var sd = require('skin-deep'),
     expect = require('chai').expect,
     Test = require('../../../ui/components/test.jsx'),
-    fixture = require('../../fixtures/components/test.js');
+    passTest = require('../../fixtures/components/passTest.js'),
+    failTest = require('../../fixtures/components/failTest.js');
 
 describe('Test', function() {
-  var tree, passTest, failTest;
-
-  before(function() {
-    passTest = fixture[0];
-    failTest = fixture[1];
-  });
+  var tree;
 
   beforeEach(function() {
     tree = sd.shallowRender(<Test test={passTest}/>);
@@ -19,14 +15,20 @@ describe('Test', function() {
     expect(tree.textIn('.test-title')).to.contain(passTest.title);
   });
 
-  it('should display the pass state', function() {
-    expect(tree.textIn('.test-state')).to.be.equal(passTest.state);
+  describe('Pass Test', function() {
+    it('should display the pass state', function() {
+      tree = sd.shallowRender(<Test test={passTest}/>);
+
+      expect(tree.textIn('.test-state')).to.be.equal(passTest.state);
+    });
   });
 
-  it('should display the fail state', function() {
-    tree = sd.shallowRender(<Test test={failTest}/>);
+  describe('Fail Test', function() {
+    it('should display the fail state', function() {
+      tree = sd.shallowRender(<Test test={failTest}/>);
 
-    expect(tree.textIn('.test-state')).to.be.equal(failTest.state);
+      expect(tree.textIn('.test-state')).to.be.equal(failTest.state);
+    });
   });
 
   it('should render the Details component', function() {

@@ -12,7 +12,8 @@ module.exports = {
       result: {
         isEqual: true
       }
-    }
+    },
+    duration: 7
   },
   failTest: {
     title: 'test',
@@ -22,6 +23,7 @@ module.exports = {
         isEqual: false
       }
     },
-    err: new Error('big error')
+    err: new Error('big error'),
+    duration: 1.5
   }
 };

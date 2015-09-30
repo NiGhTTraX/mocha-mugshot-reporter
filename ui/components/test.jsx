@@ -23,8 +23,8 @@ var Test = React.createClass({
         };
 
     if (test.result.screenshot && test.result.diff) {
-      paths['diff'] = test.result.diff;
-      paths['screenshot'] = test.result.screenshot;
+      paths.diff = test.result.diff;
+      paths.screenshot = test.result.screenshot;
     }
 
     return <div className={classes}>

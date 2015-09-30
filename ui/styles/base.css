@@ -7,8 +7,7 @@ header li {
 }
 
 .test p {
-  margin-bottom: 10px !important;
-  display: inline;
+  display: inline-block;
 }
 
 .test p:hover {

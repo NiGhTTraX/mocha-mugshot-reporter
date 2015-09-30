@@ -25,7 +25,6 @@ describe('Details', function() {
 
       expect(tree.findNode('.screenshot')).to.be.false;
     });
-
   });
 
   describe('Fail details', function() {

@@ -7,13 +7,13 @@ var sd = require('skin-deep'),
 describe('Details', function() {
   var tree;
 
-  it('should render the baseline', function() {
-    tree = sd.shallowRender(<Details paths={passDetails}/>);
+  describe('Passing', function() {
+    it('should render the baseline', function() {
+      tree = sd.shallowRender(<Details paths={passDetails}/>);
 
-    expect(tree.findNode('.baseline')).to.not.be.false;
-  });
+      expect(tree.findNode('.baseline')).to.not.be.false;
+    });
 
-  describe('Pass details', function() {
     it('should not render the diff', function() {
       tree = sd.shallowRender(<Details paths={passDetails}/>);
 
@@ -24,6 +24,13 @@ describe('Details', function() {
       tree = sd.shallowRender(<Details paths={passDetails}/>);
 
       expect(tree.findNode('.screenshot')).to.be.false;
+    });
+
+    it('should have the correct baseline path', function() {
+      tree = sd.shallowRender(<Details paths={failDetails}/>);
+
+      expect(tree.findNode('.baseline').props.src).to.be.
+        equal(failDetails.baseline);
     });
   });
 
@@ -38,15 +45,6 @@ describe('Details', function() {
       tree = sd.shallowRender(<Details paths={failDetails}/>);
 
       expect(tree.findNode('.screenshot')).to.not.be.false;
-    });
-  });
-
-  describe('Paths', function() {
-    it('should have the correct baseline path', function() {
-      tree = sd.shallowRender(<Details paths={failDetails}/>);
-
-      expect(tree.findNode('.baseline').props.src).to.be.
-        equal(failDetails.baseline);
     });
 
     it('should have the correct screenshot path', function() {

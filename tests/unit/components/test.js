@@ -1,6 +1,5 @@
 var sd = require('skin-deep'),
     expect = require('chai').expect,
-    TestUtils = require('react').addons.TestUtils,
     Test = require('../../../ui/components/test.jsx'),
     fixture = require('../../fixtures/components/test.js');
 
@@ -35,7 +34,8 @@ describe('Test', function() {
   });
 
   it('should not have initially the toggle class', function() {
-    expect(tree.findNode('.test').props.className).to.not.contain('toggled');
+    expect(tree.findNode('.test').props.className).to.not.
+      contain(Test.DETAILS_TOGGLE_CLASS);
   });
 
   it('should have attached on the title the displayDetails cb', function() {

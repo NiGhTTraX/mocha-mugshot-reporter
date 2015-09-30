@@ -2,6 +2,9 @@ var React = require('react/addons'),
     Details = require('./details.jsx');
 
 var Test = React.createClass({
+  statics: {
+    DETAILS_TOGGLE_CLASS: 'toggled'
+  },
   getInitialState: function() {
     return {toggled: false};
   },

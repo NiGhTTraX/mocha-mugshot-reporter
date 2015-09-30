@@ -2,11 +2,16 @@ var React = require('react');
 
 var Details = React.createClass({
   render: function() {
-    var imgs = [];
+    var paths = this.props.paths,
+        imgs = [];
 
-    for (var image in this.props.paths) {
-      imgs.push(<img className={image} src={this.props.paths[image]}
-        key={this.props.paths[image]}/>);
+    imgs.push(<img className='baseline' src={paths.baseline}
+      key={paths.baseline}/>);
+
+    if (Object.keys(paths).length > 1) {
+      imgs.push(<img className='diff' src={paths.diff} key={paths.diff}/>);
+      imgs.push(<img className='screenshot' src={paths.screenshot}
+        key={paths.screenshot}/>);
     }
 
     return <div className='details'>

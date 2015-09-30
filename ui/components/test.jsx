@@ -3,22 +3,22 @@ var React = require('react/addons'),
 
 var Test = React.createClass({
   getInitialState: function() {
-    return {toggle: false};
+    return {toggled: false};
   },
   displayDetails: function() {
-    this.setState({toggle: !this.state.toggle});
+    this.setState({toggled: !this.state.toggled});
   },
   render: function() {
     var test = this.props.test,
         cx = React.addons.classSet,
         classes = cx({
           test: true,
-          toogle: this.state.toggle
+          toggled: this.state.toggled
         });
 
     return <div className={classes}>
-      <p onClick={this.displayDetails}>{test.title}
-        <span>{test.state}</span>
+      <p className='test-title' onClick={this.displayDetails}>{test.title}
+        <span className='test-state'>{test.state}</span>
       </p>
       <Details/>
     </div>;

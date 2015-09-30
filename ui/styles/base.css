@@ -20,7 +20,7 @@ header li {
   transition: all 1s;
 }
 
-.toogle .details {
+.toggled .details {
   height: 100px;
 }
 

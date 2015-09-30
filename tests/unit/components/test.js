@@ -46,4 +46,12 @@ describe('Test', function() {
 
     expect(title.props.onClick).to.be.deep.equal(instance.displayDetails);
   });
+
+  /**
+   * Here should have been one more test, which will have tested if the
+   * Test.DETAILS_TOGGLE_CLASS is really set on test title click, but
+   * TestUtils.Simulate.click needs a real DOM and we are using the
+   * Shallow Renderer, which is not so advanced to shallow rendering on a new
+   * re-render, i.e on a setState(...) call, we will wait...
+   */
 });

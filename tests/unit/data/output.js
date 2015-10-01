@@ -14,7 +14,8 @@ module.exports = {
     state: 'passed',
     result: {
       isEqual: true
-    }
+    },
+    duration: 7
   },
   failTest: {
     title: 'test',
@@ -22,6 +23,7 @@ module.exports = {
     result: {
       isEqual: false
     },
-    error: new Error('big error')
+    error: new Error('big error'),
+    duration: 1.5
   }
 };

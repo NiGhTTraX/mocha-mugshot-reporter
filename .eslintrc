@@ -3,6 +3,12 @@
     "node": true,
     "mocha": true
   },
+  "plugins": [
+    "react"
+  ],
+  "ecmaFeatures": {
+    "jsx": true
+  },
 
   "rules": {
     // Best Practices

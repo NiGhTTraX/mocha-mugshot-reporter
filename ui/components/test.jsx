@@ -17,13 +17,21 @@ var Test = React.createClass({
         classes = cx({
           test: true,
           toggled: this.state.toggled
-        });
+        }),
+        paths = {
+          baseline: test.result.baseline
+        };
+
+    if (test.result.screenshot && test.result.diff) {
+      paths.diff = test.result.diff;
+      paths.screenshot = test.result.screenshot;
+    }
 
     return <div className={classes}>
       <p className='test-title' onClick={this.displayDetails}>{test.title}
         <span className='test-state'>{test.state}</span>
       </p>
-      <Details/>
+      <Details paths={paths}/>
     </div>;
   }
 });

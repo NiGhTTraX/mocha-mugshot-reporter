@@ -24,6 +24,11 @@ describe('Test', function() {
       expect(tree.findNode('Details')).to.not.be.false;
     });
 
+    it('should pass the passDetails to the Details component', function() {
+      expect(tree.findNode('Details').props.paths.baseline).to.be.equal(
+        passTest.result.baseline);
+    });
+
     it('should not have initially the toggle class', function() {
       expect(tree.findNode('.test').props.className).to.not.
         contain(Test.DETAILS_TOGGLE_CLASS);
@@ -46,6 +51,16 @@ describe('Test', function() {
 
     it('should display the fail state', function() {
       expect(tree.textIn('.test-state')).to.be.equal(failTest.state);
+    });
+
+    it('should pass the diff path', function() {
+      expect(tree.findNode('Details').props.paths.diff).to.equal(
+        failTest.result.diff);
+    });
+
+    it('should pass the new screenshot path', function() {
+      expect(tree.findNode('Details').props.paths.screenshot).to.equal(
+        failTest.result.screenshot);
     });
   });
 

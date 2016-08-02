@@ -15,15 +15,20 @@ header li {
 }
 
 .details {
-  height: 0px;
+  height: auto;
+  max-height: 0px;
   overflow: hidden;
   transition: all 1s;
 }
 
 .toggled .details {
-  height: 100px;
+  max-height: 1000px;
 }
 
 .details img {
   margin-right: 10px;
+}
+
+.diffs {
+  position: relative;
 }

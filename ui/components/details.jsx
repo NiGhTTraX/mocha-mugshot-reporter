@@ -1,19 +1,14 @@
-var React = require('react');
+var React = require('react'),
+    FailedTest = require('./failed.jsx'),
+    PassedTest = require('./passed.jsx')
 
 var Details = React.createClass({
   render: function() {
-    var paths = this.props.paths,
-        imgs = [<img className='baseline' src={paths.baseline}
-            key={paths.baseline}/>];
-
-    if (Object.keys(paths).length > 1) {
-      imgs.push(<img className='diff' src={paths.diff} key={paths.diff}/>);
-      imgs.push(<img className='screenshot' src={paths.screenshot}
-        key={paths.screenshot}/>);
-    }
+    var paths = this.props.paths;
 
     return <div className='details'>
-      {imgs}
+      {Object.keys(paths).length === 1 ?
+        <PassedTest paths={paths}/> : <FailedTest paths={paths}/>}
     </div>;
   }
 });

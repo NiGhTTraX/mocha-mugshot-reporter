@@ -1,4 +1,5 @@
-var React = require('react/addons'),
+var React = require('react'),
+    addons = require('react-addons'),
     Details = require('./details.jsx');
 
 var Test = React.createClass({
@@ -13,7 +14,7 @@ var Test = React.createClass({
   },
   render: function() {
     var test = this.props.test,
-        cx = React.addons.classSet,
+        cx = addons.classSet,
         classes = cx({
           test: true,
           toggled: this.state.toggled

@@ -74,6 +74,12 @@
   padding-top: 10px;
 }
 
+.btn-danger:focus {
+  color: #fff;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+
 .jumbotron {
   position: relative;
   padding: 20px;

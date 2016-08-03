@@ -21,11 +21,17 @@ var Test = React.createClass({
         }),
         paths = {
           baseline: test.result.baseline
-        };
+        },
+        details = {};
 
     if (test.result.screenshot && test.result.diff) {
       paths.diff = test.result.diff;
       paths.screenshot = test.result.screenshot;
+    }
+
+    details = {
+      paths: paths,
+      error: this.props.test.error
     }
 
     return <div className={classes}>
@@ -42,7 +48,7 @@ var Test = React.createClass({
         {' ' + test.title} :
         <span className='test-state'> {test.state} </span>
       </p>
-      <Details paths={paths}/>
+      <Details details={details}/>
     </div>;
   }
 });

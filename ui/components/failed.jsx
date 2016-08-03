@@ -1,6 +1,7 @@
 import React from 'react';
 import ImageDiff from 'react-image-diff';
-import {Clearfix, ButtonGroup, Button, Jumbotron, Grid, Row, Col}
+import {Clearfix, ButtonGroup, Button,
+  Jumbotron, Grid, Row, Col, Panel}
   from 'react-bootstrap';
 
 var Failed = React.createClass({
@@ -9,7 +10,8 @@ var Failed = React.createClass({
       view: 'default',
       isDefault: true,
       is2Up: false,
-      value: 0.5
+      value: 0.5,
+      open: false
     };
   },
   changeValue: function(element) {
@@ -25,8 +27,14 @@ var Failed = React.createClass({
       is2Up: selectedView === '2-up' ? true : false
     });
   },
+  openErrorMessage: function() {
+    this.setState({
+      open: !this.state.open
+    });
+  },
   render: function() {
     var images = this.props.paths,
+        error = this.props.error,
         changeView = this.changeView,
         view = this.state.view,
         buttons = [];
@@ -44,6 +52,13 @@ var Failed = React.createClass({
     });
 
     return <div className='diffs'>
+      <Button bsStyle='danger' bsSize="xsmall" onClick={this.openErrorMessage}>
+        Show Error
+      </Button>
+      <Panel collapsible expanded={this.state.open} bsStyle="danger">
+        {error.name} : {error.message}
+      </Panel>
+
       <Jumbotron>
         <div className='simple'>
 

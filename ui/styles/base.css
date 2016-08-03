@@ -33,10 +33,10 @@ header li {
   max-height: 1000px;
 }
 
-.details img {
-  margin-right: 10px;
-}
-
 .diffs {
   position: relative;
+}
+
+.ImageDiff * {
+  box-sizing: content-box;
 }

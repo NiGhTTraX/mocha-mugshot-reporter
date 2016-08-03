@@ -1,6 +1,6 @@
-var React = require('react'),
-    FailedTest = require('./failed.jsx'),
-    PassedTest = require('./passed.jsx')
+import React from 'react';
+import FailedTest from './failed.jsx';
+import PassedTest from './passed.jsx';
 
 var Details = React.createClass({
   render: function() {

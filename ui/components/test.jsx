@@ -1,6 +1,6 @@
-var React = require('react'),
-    addons = require('react-addons'),
-    Details = require('./details.jsx');
+import React from 'react';
+import addons from 'react-addons';
+import Details from './details.jsx';
 
 var Test = React.createClass({
   statics: {
@@ -39,8 +39,8 @@ var Test = React.createClass({
               className="glyphicon glyphicon-remove red"
               aria-hidden="true">
             </span>}
-        {' ' + test.title}
-        <span className='test-state'>{test.state} &nbsp; </span>
+        {' ' + test.title} :
+        <span className='test-state'> {test.state} </span>
       </p>
       <Details paths={paths}/>
     </div>;

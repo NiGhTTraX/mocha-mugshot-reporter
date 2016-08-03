@@ -1,26 +1,43 @@
-var React = require('react'),
-    Header = require('./header.jsx'),
-    Results = require('./results.jsx');
+import React from 'react';
+import Header from './header.jsx';
+import Results from './results.jsx';
 
 function _hasPassed(test) {
   return test.state === 'passed';
 }
 
 var Report = React.createClass({
+  getInitialState: function() {
+    return {
+      filter: 'all'
+    };
+  },
+  updateFilter: function(newFilter) {
+    this.setState({
+      filter: newFilter
+    });
+  },
   render: function() {
     var suites = this.props.data,
         passes = [],
         failures = [],
+        nrOfPasses = 0,
+        nrOfFailures = 0,
         duration = 0;
 
     suites.forEach(function(suite) {
-      passes = passes.concat(suite.tests.filter(function(test) {
+      passes = [];
+      failures = [];
+
+      suite.passes = passes.concat(suite.tests.filter(function(test) {
         return _hasPassed(test);
       }));
+      nrOfPasses += suite.passes.length;
 
-      failures = failures.concat(suite.tests.filter(function(test) {
+      suite.failures = failures.concat(suite.tests.filter(function(test) {
         return !_hasPassed(test);
       }));
+      nrOfFailures += suite.failures.length;
 
       suite.tests.forEach(function(test) {
         duration += test.duration;
@@ -28,9 +45,13 @@ var Report = React.createClass({
     });
 
     return <div className="report">
-      <Header passes={passes.length} failures={failures.length}
-        duration={duration}/>
-      <Results suites={suites}/>
+      <Header
+        passes={nrOfPasses}
+        failures={nrOfFailures}
+        duration={duration}
+        filter={this.state.filter}
+        updateFilter={this.updateFilter}/>
+      <Results suites={suites} filter={this.state.filter}/>
     </div>;
   }
 });

@@ -9,7 +9,7 @@ var Results = React.createClass({
       return <Suite suite={suite} key={index}/>;
     });
 
-    return <section className="results">
+    return <section className="container">
       {suites}
     </section>
   }

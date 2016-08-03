@@ -1,9 +1,25 @@
 .green {
-  color: green;
+  color: #77AA32;
 }
 
 .red {
-  color: tomato;
+  color: #CA3523;
+}
+
+.green-bg {
+  background-color: #77AA32;
+}
+
+.red-bg {
+  background-color: #CA3523;
+}
+
+.blue-bg {
+  background-color: #00AEEF;
+}
+
+.orange-bg {
+  background-color: #FF9900;
 }
 
 header {
@@ -12,6 +28,10 @@ header {
 
 header li {
   margin-left: 20px;
+}
+
+.navbar {
+  border-radius: 0px;
 }
 
 .test p {
@@ -39,4 +59,8 @@ header li {
 
 .ImageDiff * {
   box-sizing: content-box;
+}
+
+.badge {
+  margin-left: 5px;
 }

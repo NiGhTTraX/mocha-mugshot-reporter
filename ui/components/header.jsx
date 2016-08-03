@@ -1,14 +1,40 @@
 var React = require('react');
 
+import {Badge, Navbar, Nav, NavItem} from 'react-bootstrap';
+
+
 var Header = React.createClass({
   render: function() {
-    return <header className='header'>
-      <ul className='list-inline pull-right'>
-        <li className='passes'>passes: {this.props.passes}</li>
-        <li className='failures'>failures: {this.props.failures}</li>
-        <li className='duration'>duration: {this.props.duration}</li>
-      </ul>
-    </header>;
+    var passes = this.props.passes,
+        failures = this.props.failures;
+    return <Navbar inverse>
+      <Navbar.Header>
+        <Navbar.Brand>
+          <a href="#">Mocha-Mugshot-Reporter</a>
+        </Navbar.Brand>
+        <Navbar.Toggle />
+      </Navbar.Header>
+      <Navbar.Collapse>
+        <Nav pullRight>
+          <NavItem eventKey={0} href="#">
+            All
+            <Badge className='blue-bg'> {passes + failures} </Badge>
+          </NavItem>
+          <NavItem eventKey={1} href="#">
+            Passes
+            <Badge className='green-bg'> {passes} </Badge>
+          </NavItem>
+          <NavItem eventKey={2} href="#">
+            Failures
+            <Badge className='red-bg'> {failures} </Badge>
+          </NavItem>
+          <NavItem eventKey={3}>
+            Duration
+            <Badge className='orange-bg'> {this.props.duration} ms</Badge>
+          </NavItem>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>;
   }
 });
 

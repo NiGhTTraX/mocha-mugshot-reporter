@@ -1,3 +1,4 @@
+import {Clearfix, ButtonGroup, Button} from 'react-bootstrap';
 var React = require('react'),
     ImageDiff = require('react-image-diff');
 
@@ -30,14 +31,12 @@ var Failed = React.createClass({
 
     ['default', '2-up', 'swipe', 'fade'].forEach(function(item) {
       buttons.push(
-        <button
-          type='button'
-          className='btn btn-default'
+        <Button
           name={item}
           key={item}
           onClick={changeView}>
             {item}
-        </button>
+        </Button>
       );
     });
 
@@ -47,8 +46,7 @@ var Failed = React.createClass({
             className='diff'
             src={images.diff}
             key={images.diff}
-          />
-      : null }
+          /> : null }
 
       {this.state.is2Up ?
           <div>
@@ -62,8 +60,7 @@ var Failed = React.createClass({
               src={images.screenshot}
               key={images.screenshot}
             />
-          </div>
-      : null }
+          </div> : null }
 
       {(!this.state.isDefault && !this.state.is2Up) ?
           <div className='special'>
@@ -73,7 +70,7 @@ var Failed = React.createClass({
               type={this.state.view}
               value={this.state.value}
             />
-            <div className="clearfix"/>
+            <Clearfix/>
             <input
               type='range'
               min={0}
@@ -82,12 +79,11 @@ var Failed = React.createClass({
               defaultValue={this.state.value}
               onChange={this.changeValue}
             />
-          </div>
-      : null }
-      <div className="clearfix"/>
-      <div className='btn-group'>
+          </div> : null }
+      <Clearfix/>
+      <ButtonGroup>
         {buttons}
-      </div>
+      </ButtonGroup>
     </div>;
   }
 });

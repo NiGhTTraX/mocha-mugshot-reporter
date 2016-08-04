@@ -80,6 +80,13 @@
   border-color: #d43f3a;
 }
 
+.panel-danger {
+  border-color: #FFF;
+  -webkit-box-shadow: inset 0px 0px 0px 2px rgba(235, 204, 209, 1);
+  -moz-box-shadow: inset 0px 0px 0px 2px rgba(235, 204, 209, 1);
+  box-shadow: inset 0px 0px 0px 2px rgba(235, 204, 209, 1);
+}
+
 .jumbotron {
   position: relative;
   padding: 20px;

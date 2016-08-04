@@ -21,8 +21,8 @@ var Report = React.createClass({
     var suites = this.props.data,
         passes = [],
         failures = [],
-        nrOfPasses = 0,
-        nrOfFailures = 0,
+        numberOfPasses = 0,
+        numberOfFailures = 0,
         duration = 0;
 
     suites.forEach(function(suite) {
@@ -32,12 +32,12 @@ var Report = React.createClass({
       suite.passes = passes.concat(suite.tests.filter(function(test) {
         return _hasPassed(test);
       }));
-      nrOfPasses += suite.passes.length;
+      numberOfPasses += suite.passes.length;
 
       suite.failures = failures.concat(suite.tests.filter(function(test) {
         return !_hasPassed(test);
       }));
-      nrOfFailures += suite.failures.length;
+      numberOfFailures += suite.failures.length;
 
       suite.tests.forEach(function(test) {
         duration += test.duration;
@@ -46,8 +46,8 @@ var Report = React.createClass({
 
     return <div className="report">
       <Header
-        passes={nrOfPasses}
-        failures={nrOfFailures}
+        passes={numberOfPasses}
+        failures={numberOfFailures}
         duration={duration}
         filter={this.state.filter}
         updateFilter={this.updateFilter}/>

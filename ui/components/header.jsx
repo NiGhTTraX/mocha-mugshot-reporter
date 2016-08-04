@@ -36,7 +36,7 @@ var Header = React.createClass({
             Failures
             <Badge className='red-bg'> {failures} </Badge>
           </NavItem>
-          <NavItem eventKey={3} disabled='true'>
+          <NavItem eventKey={3} disabled>
             Duration
             <Badge className='orange-bg'> {this.props.duration} ms</Badge>
           </NavItem>

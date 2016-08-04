@@ -16,7 +16,7 @@ var Failed = React.createClass({
   },
   changeValue: function(element) {
     this.setState({
-      value: element.target.value
+      value: Number(element.target.value)
     });
   },
   changeView: function(element) {
@@ -55,6 +55,7 @@ var Failed = React.createClass({
       <Button bsStyle='danger' bsSize="xsmall" onClick={this.openErrorMessage}>
         Show Error
       </Button>
+
       <Panel collapsible expanded={this.state.open} bsStyle="danger">
         {error.name} : {error.message}
       </Panel>
@@ -70,24 +71,24 @@ var Failed = React.createClass({
               /> : null }
 
           {this.state.is2Up ?
-            <Grid>
-                <Row className="show-grid">
-                  <Col xs={12} md={6}>
-                    <img
-                      className='baseline'
-                      src={images.baseline}
-                      key={images.baseline}
-                    />
-                  </Col>
-                  <Col xs={12} md={6}>
-                    <img
-                      className='screenshot'
-                      src={images.screenshot}
-                      key={images.screenshot}
-                    />
-                  </Col>
-                </Row>
-            </Grid> : null }
+              <Grid>
+                  <Row className="show-grid">
+                    <Col xs={12} md={6}>
+                      <img
+                        className='baseline'
+                        src={images.baseline}
+                        key={images.baseline}
+                      />
+                    </Col>
+                    <Col xs={12} md={6}>
+                      <img
+                        className='screenshot'
+                        src={images.screenshot}
+                        key={images.screenshot}
+                      />
+                    </Col>
+                  </Row>
+              </Grid> : null }
 
         </div>
 
@@ -109,7 +110,9 @@ var Failed = React.createClass({
                 onChange={this.changeValue}
               />
             </div> : null }
+
       </Jumbotron>
+
       <ButtonGroup className='view-selector'>
         {buttons}
       </ButtonGroup>

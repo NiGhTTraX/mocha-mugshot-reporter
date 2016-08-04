@@ -52,12 +52,16 @@ var Failed = React.createClass({
     });
 
     return <div className='diffs'>
+
       <Button bsStyle='danger' bsSize="xsmall" onClick={this.openErrorMessage}>
         Show Error
       </Button>
 
       <Panel collapsible expanded={this.state.open} bsStyle="danger">
-        {error.name} : {error.message}
+        {error.message === undefined ?
+          <p>This test did not failed because of Mugshot :( </p> :
+          <p> {error.name} : {error.message} </p>
+        }
       </Panel>
 
       <Jumbotron>

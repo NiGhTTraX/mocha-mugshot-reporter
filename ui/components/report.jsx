@@ -51,6 +51,7 @@ var Report = React.createClass({
         duration={duration}
         filter={this.state.filter}
         updateFilter={this.updateFilter}/>
+
       <Results suites={suites} filter={this.state.filter}/>
     </div>;
   }

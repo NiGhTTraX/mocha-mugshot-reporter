@@ -46,7 +46,10 @@ var Test = React.createClass({
               aria-hidden="true">
             </span>}
         {' ' + test.title} :
-        <span className='test-state'> {test.state} </span>
+        <span className='test-state'>
+          {' ' + test.state} in
+          <span className='orange'> {test.duration} </span> ms
+        </span>
       </p>
       <Details details={details}/>
     </div>;

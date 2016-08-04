@@ -7,6 +7,10 @@
   color: #CA3523;
 }
 
+.orange {
+  color: #FF9900;
+}
+
 .green-bg {
   background-color: #77AA32;
 }
@@ -35,13 +39,18 @@
   color: #9d9d9d;
 }
 
+.progress {
+  width: 60%;
+  margin: 0 auto;
+}
+
 /* Test description */
 
-.test p {
+.test-title {
   display: inline-block;
 }
 
-.test p:hover {
+.test-title:hover {
   cursor: pointer;
 }
 

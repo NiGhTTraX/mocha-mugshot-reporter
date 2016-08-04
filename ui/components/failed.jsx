@@ -11,14 +11,16 @@ var Failed = React.createClass({
       isDefault: true,
       is2Up: false,
       value: 0.5,
-      open: false
+      openError: false
     };
   },
+  /* handler for swipe and fade value*/
   changeValue: function(element) {
     this.setState({
       value: Number(element.target.value)
     });
   },
+  /* handler for switching between views */
   changeView: function(element) {
     var selectedView = element.target.name;
     this.setState({
@@ -27,80 +29,71 @@ var Failed = React.createClass({
       is2Up: selectedView === '2-up' ? true : false
     });
   },
+  /* handler for the error text box */
   openErrorMessage: function() {
     this.setState({
-      open: !this.state.open
+      openError: !this.state.openError
     });
   },
   render: function() {
-    var images = this.props.paths,
+    var _this = this,
+        baseline = this.props.paths.baseline,
+        screenshot = this.props.paths.screenshot,
+        diff = this.props.paths.diff,
         error = this.props.error,
-        changeView = this.changeView,
-        view = this.state.view,
-        buttons = [];
+        buttons = [],
+        report;
 
+    /* buttons to select the report type */
     ['default', '2-up', 'swipe', 'fade'].forEach(function(item) {
       buttons.push(
         <Button
           name={item}
           key={item}
-          onClick={changeView}
-          className={item === view ? 'active' : null}>
+          onClick={_this.changeView}
+          className={item === _this.state.view ? 'active' : null}>
             {item}
         </Button>
       );
     });
 
-    return <div className='diffs'>
-
-      <Button bsStyle='danger' bsSize="xsmall" onClick={this.openErrorMessage}>
-        Show Error
-      </Button>
-
-      <Panel collapsible expanded={this.state.open} bsStyle="danger">
-        {error.message === undefined ?
-          <p>This test did not failed because of Mugshot :( </p> :
-          <p> {error.name} : {error.message} </p>
-        }
-      </Panel>
-
-      <Jumbotron>
-        <div className='simple'>
-
-          {this.state.isDefault ?
-              <img
-                className='diff'
-                src={images.diff}
-                key={images.diff}
-              /> : null }
-
-          {this.state.is2Up ?
-              <Grid>
-                  <Row className="show-grid">
-                    <Col xs={12} md={6}>
-                      <img
-                        className='baseline'
-                        src={images.baseline}
-                        key={images.baseline}
-                      />
-                    </Col>
-                    <Col xs={12} md={6}>
-                      <img
-                        className='screenshot'
-                        src={images.screenshot}
-                        key={images.screenshot}
-                      />
-                    </Col>
-                  </Row>
-              </Grid> : null }
-
+    /* switch betwen report types */
+    if (this.state.isDefault) {
+      report = <div className='simple'>
+          <img
+            className='diff'
+            src={diff}
+            key={diff}
+          />
         </div>
-
-        {(!this.state.isDefault && !this.state.is2Up) ?
-            <div className='special'>
+    } else {
+      if (this.state.is2Up) {
+        report = <div className='simple'>
+            <Grid>
+              <Row className="show-grid">
+                <Col xs={12} md={6}>
+                  <img
+                    className='baseline'
+                    src={baseline}
+                    key={baseline}
+                  />
+                </Col>
+                <Col xs={12} md={6}>
+                  <img
+                    className='screenshot'
+                    src={screenshot}
+                    key={screenshot}
+                  />
+                </Col>
+              </Row>
+          </Grid>
+        </div>
+      } else {
+        if (!this.state.isDefault && !this.state.is2Up) {
+          report = <div className='special'>
               <ImageDiff
-                before={images.screenshot}
-                after={images.baseline}
+                before={screenshot}
+                after={baseline}
                 type={this.state.view}
                 value={this.state.value}
               />
@@ -113,13 +106,31 @@ var Failed = React.createClass({
                 defaultValue={this.state.value}
                 onChange={this.changeValue}
               />
-            </div> : null }
+            </div>;
+        }
+      }
+    }
 
-      </Jumbotron>
+    return <div className='diffs'>
 
-      <ButtonGroup className='view-selector'>
-        {buttons}
-      </ButtonGroup>
+      <Button bsStyle='danger' bsSize="xsmall" onClick={this.openErrorMessage}>
+        Show Error
+      </Button>
+
+      <Panel collapsible expanded={this.state.openError} bsStyle="danger">
+        {error.message === undefined ?
+          <p>This test did not fail because Mugshot found differences :( </p> :
+          <p> {error.name} : {error.message} </p>
+        }
+      </Panel>
+
+      {error.message !== undefined ?
+        <div>
+          <Jumbotron> {report} </Jumbotron>
+          <ButtonGroup className='view-selector'>
+            {buttons}
+          </ButtonGroup>
+        </div> : null }
     </div>;
   }
 });

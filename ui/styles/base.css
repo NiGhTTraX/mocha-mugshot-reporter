@@ -107,6 +107,9 @@
   display: table;
   margin: 0 auto;
 }
+.view-selector {
+  padding-bottom: 20px;
+}
 
 .ImageDiff * {
   box-sizing: content-box;

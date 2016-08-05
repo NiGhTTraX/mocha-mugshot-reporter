@@ -1,6 +1,7 @@
 /* globals window, document */
 
-var ReactDOM = require('react-dom'),
+var React = require('react'),
+    ReactDOM = require('react-dom'),
     Report = require('./components/report.jsx'),
     mochaTestDataVarName = require('../lib/mocha-test-data-var-name.js');
 

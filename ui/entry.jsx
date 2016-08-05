@@ -1,4 +1,5 @@
 /* globals window, document */
+/* eslint no-unused-vars: [2, {"varsIgnorePattern": "React"}] */
 
 var React = require('react'),
     ReactDOM = require('react-dom'),

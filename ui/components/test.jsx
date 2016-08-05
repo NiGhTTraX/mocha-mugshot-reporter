@@ -1,5 +1,5 @@
 import React from 'react';
-import addons from 'react-addons';
+import classNames from 'classnames';
 import Details from './details.jsx';
 
 var Test = React.createClass({
@@ -14,7 +14,7 @@ var Test = React.createClass({
   },
   render: function() {
     var test = this.props.test,
-        cx = addons.classSet,
+        cx = classNames,
         classes = cx({
           test: true,
           toggled: this.state.toggled

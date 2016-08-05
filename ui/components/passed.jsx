@@ -1,6 +1,6 @@
 import React from 'react';
 
-var Passed = React.createClass({
+var PassedTest = React.createClass({
   render: function() {
     var imgs = this.props.paths;
     return <div className='diffs'>
@@ -13,4 +13,4 @@ var Passed = React.createClass({
   }
 });
 
-module.exports = Passed;
+module.exports = PassedTest;

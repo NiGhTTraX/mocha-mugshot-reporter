@@ -4,7 +4,7 @@ import {Clearfix, ButtonGroup, Button,
   Jumbotron, Grid, Row, Col, Panel}
   from 'react-bootstrap';
 
-var Failed = React.createClass({
+var FailedTest = React.createClass({
   getInitialState: function() {
     return {
       view: 'default',
@@ -135,4 +135,4 @@ var Failed = React.createClass({
   }
 });
 
-module.exports = Failed;
+module.exports = FailedTest;

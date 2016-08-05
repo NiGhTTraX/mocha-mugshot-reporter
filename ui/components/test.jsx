@@ -45,11 +45,8 @@ var Test = React.createClass({
               className="glyphicon glyphicon-remove red"
               aria-hidden="true">
             </span>}
-        {' ' + test.title} :
-        <span className='test-state'>
-          {' ' + test.state} in
-          <span className='orange'> {test.duration} </span> ms
-        </span>
+        {' ' + test.title} : <span className='test-state'>{test.state}</span> in
+        <span className='orange'> {test.duration} </span> ms
       </p>
       <Details details={details}/>
     </div>;

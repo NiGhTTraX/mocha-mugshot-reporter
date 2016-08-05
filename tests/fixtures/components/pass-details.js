@@ -1,3 +1,6 @@
 module.exports = {
-  baseline: 'baselinePath'
+  paths: {
+    baseline: 'baselinePath'
+  },
+  error: 'undefined'
 };

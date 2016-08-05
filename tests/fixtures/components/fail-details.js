@@ -1,5 +1,8 @@
 module.exports = {
-  baseline: 'baselinePath',
-  diff: 'diffPath',
-  screenshot: 'screenshotPath'
+  paths: {
+    baseline: 'baselinePath',
+    diff: 'diffPath',
+    screenshot: 'screenshotPath'
+  },
+  error: 'undefined'
 };

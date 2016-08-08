@@ -1,0 +1,149 @@
+@import "colors";
+
+/* Header */
+.green {
+  color: @green;
+}
+
+.red {
+  color: @red;
+}
+
+.orange {
+  color: @orange;
+}
+
+.green-bg {
+  background-color: @green;
+}
+
+.red-bg {
+  background-color: @red;
+}
+
+.blue-bg {
+  background-color: @blue;
+}
+
+.orange-bg {
+  background-color: @orange;
+}
+
+.badge {
+  margin-left: 5px;
+}
+
+.navbar {
+  border-radius: 0px;
+}
+
+.navbar-inverse .navbar-nav>.disabled>a {
+  color: @grey;
+}
+
+.progress {
+  width: 60%;
+  margin: 0 auto;
+}
+
+/* Test description */
+
+.test-title {
+  display: inline-block;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.test-state {
+  font-style: italic;
+}
+
+.details {
+  height: auto;
+  max-height: 0px;
+  overflow: hidden;
+  transition: all 1s;
+
+  .clearfix {
+    padding-top: 10px;
+  }
+}
+
+.toggled .details {
+  max-height: 1000px;
+}
+
+/* Test report */
+
+.baseline {
+  border: 1px solid @light-green;
+}
+
+.screenshot {
+  border: 1px solid @light-red;
+}
+
+.btn-danger:focus {
+  color: @white;
+  background-color: @light-red;
+  border-color: @red;
+}
+
+.panel-danger {
+  border-color: @white;
+  box-shadow: inset 0px 0px 0px 2px rgba(235, 204, 209, 1);
+}
+
+.jumbotron {
+  position: relative;
+  padding: 20px;
+}
+
+.simple img, .special, .view-selector {
+  max-width: 100%;
+  max-height: 100%;
+  display: table;
+  margin: 0 auto;
+}
+.view-selector {
+  padding-bottom: 20px;
+}
+
+.ImageDiff * {
+  box-sizing: content-box;
+}
+
+.btn.active:focus, .btn:focus, .btn:active:focus {
+  outline: 0;
+}
+
+.btn-default.active:focus {
+  color: #333;
+  background-color: @dirty-white;
+  border-color: @lighter-grey;
+}
+
+input[type=range]{
+    -webkit-appearance: none;
+    &:focus {
+        outline: none;
+    }
+    &::-webkit-slider-runnable-track {
+        -webkit-appearance: none;
+        height: 3px;
+        background: @light-grey;
+        border: none;
+        border-radius: 2px;
+    }
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: none;
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        background: @blue;
+        margin-top: -4px;
+    }
+}

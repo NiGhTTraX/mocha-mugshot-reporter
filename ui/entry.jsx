@@ -6,7 +6,7 @@ var React = require('react'),
     Report = require('./components/report.jsx'),
     mochaTestDataVarName = require('../lib/mocha-test-data-var-name.js');
 
-require('./styles/base.css');
+require('./styles/base.less');
 
 var data = window[mochaTestDataVarName];
 

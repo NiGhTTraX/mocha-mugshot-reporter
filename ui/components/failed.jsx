@@ -65,13 +65,17 @@ module.exports = React.createClass({
     };
   },
   render: function() {
-    var baseline = this.props.paths.baseline,
-        screenshot = this.props.paths.screenshot,
-        diff = this.props.paths.diff,
+    var paths = this.props.paths,
         error = this.props.error,
         view = this.state.view,
         buttons = [],
         report;
+
+    if (paths !== undefined) {
+      var baseline = paths.baseline,
+          screenshot = paths.screenshot,
+          diff = paths.diff;
+    }
 
     /* buttons to select the report type */
     this.constructor.viewOptions.forEach(function(item) {
@@ -105,13 +109,13 @@ module.exports = React.createClass({
       </Button>
 
       <Panel collapsible expanded={this.state.openError} bsStyle="danger">
-        {error.message === undefined ?
+        {paths === undefined ?
           <p> This test did not fail because Mugshot found differences :( </p> :
           <p> {error.name} : {error.message} </p>
         }
       </Panel>
 
-      {error.message !== undefined ?
+      {paths !== undefined ?
         <div>
           <Jumbotron> {report} </Jumbotron>
           <ButtonGroup className="view-selector">

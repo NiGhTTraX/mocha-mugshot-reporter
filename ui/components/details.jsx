@@ -8,9 +8,11 @@ var Details = React.createClass({
         error = this.props.details.error;
 
     return <div className="details">
-      {Object.keys(paths).length === 1
-          ? <PassedTest paths={paths} />
-          : <FailedTest paths={paths} error={error} />}
+      {paths === undefined
+        ? <FailedTest paths={paths} />
+        : Object.keys(paths).length === 1
+            ? <PassedTest paths={paths} />
+            : <FailedTest paths={paths} error={error} />}
     </div>;
   }
 });

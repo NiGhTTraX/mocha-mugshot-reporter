@@ -7,8 +7,7 @@ module.exports = React.createClass({
     return <div className="diffs">
       <img className="baseline"
            src={imgs.baseline}
-           key={imgs.baseline}
-      />
+           key={imgs.baseline} />
     </div>;
   }
 });

@@ -26,7 +26,7 @@ function MugshotReporter(runner, options) {
   generateData(runner, function(data) {
     this.data = data;
   }.bind(this));
-};
+}
 
 MugshotReporter.prototype.done = function(failures, fn) {
   generateReport(this.data, {}, function(error) {
@@ -36,6 +36,6 @@ MugshotReporter.prototype.done = function(failures, fn) {
 
     fn(failures);
   });
-}
+};
 
 module.exports = MugshotReporter;

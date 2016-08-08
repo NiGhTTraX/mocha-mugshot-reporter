@@ -106,7 +106,7 @@ describe('Data generator', function() {
       done();
     });
 
-    runner.emit('suite',input.rootSuite);
+    runner.emit('suite', input.rootSuite);
 
     for (var i = 0; i < randomNumber; i++) {
       runner.emit('test end', input.passTest);
@@ -154,7 +154,7 @@ describe('Data generator', function() {
     for (var i = 0; i < randomNumber; i++) {
       runner.emit('suite', input.suite);
       runner.emit('suite end', input.suite);
-    };
+    }
 
     runner.emit('suite end', input.rootSuite);
     runner.emit('end');
@@ -232,55 +232,55 @@ describe('Data generator', function() {
   });
 
   it('should maintain the order in which the tests are executed',
-     function(done) {
-    var n = getRandomNumber(),
-        // Each value is the number of tests of the suite i.
-        randomNumbers = generateArrayOfRandomNumbers(n + 1);
+    function(done) {
+      var n = getRandomNumber(),
+          // Each value is the number of tests of the suite i.
+          randomNumbers = generateArrayOfRandomNumbers(n + 1);
 
-    generate(runner, function(data) {
-      var expected = generateSuites(n, 'global');
+      generate(runner, function(data) {
+        var expected = generateSuites(n, 'global');
 
-      for (var i = 0; i <= n; i++) {
-        expected[i].tests = generateTests(randomNumbers[i], 'passed');
+        for (var i = 0; i <= n; i++) {
+          expected[i].tests = generateTests(randomNumbers[i], 'passed');
 
-        // We are adding in the title an id only for testing purposes.
-        for (var j = 0; j < expected[i].tests.length; j++) {
-          expected[i].tests[j].title += j;
+          // We are adding in the title an id only for testing purposes.
+          for (var j = 0; j < expected[i].tests.length; j++) {
+            expected[i].tests[j].title += j;
+          }
         }
-      }
 
-      for (var i = 0; i <= n; i++) {
-        for (var j = 0; j < randomNumbers[i]; j++) {
-          expect(data[i].tests[j].title).to.be
-            .equal(expected[i].tests[j].title);
+        for (var i = 0; i <= n; i++) {
+          for (var j = 0; j < randomNumbers[i]; j++) {
+            expect(data[i].tests[j].title).to.be
+              .equal(expected[i].tests[j].title);
+          }
         }
-      }
 
-      done();
-    });
+        done();
+      });
 
-    runner.emit('suite', input.rootSuite);
-    for (var i = 0; i < randomNumbers[0]; i++) {
-      var test = objectAssign({}, input.passTest);
-
-      test.title += i;
-      runner.emit('test end', test);
-    }
-
-    for (var i = 1; i <= n; i++) {
-      runner.emit('suite', input.suite);
-
-      for (var j = 0; j < randomNumbers[i]; j++) {
+      runner.emit('suite', input.rootSuite);
+      for (var i = 0; i < randomNumbers[0]; i++) {
         var test = objectAssign({}, input.passTest);
 
-        test.title += j;
+        test.title += i;
         runner.emit('test end', test);
       }
 
-      runner.emit('suite end');
-    }
+      for (var i = 1; i <= n; i++) {
+        runner.emit('suite', input.suite);
 
-    runner.emit('suite end', input.rootSuite);
-    runner.emit('end');
-  });
+        for (var j = 0; j < randomNumbers[i]; j++) {
+          var test = objectAssign({}, input.passTest);
+
+          test.title += j;
+          runner.emit('test end', test);
+        }
+
+        runner.emit('suite end');
+      }
+
+      runner.emit('suite end', input.rootSuite);
+      runner.emit('end');
+    });
 });

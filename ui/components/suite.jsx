@@ -31,8 +31,8 @@ var Suite = React.createClass({
     return <div className="suite" style={suiteStyle}>
       <h2 className="suite-title" style={titleStyle}>{suite.title}</h2>
       {tests.map(function(test, index) {
-          return <Test test={test} key={index}/>
-        })}
+        return <Test test={test} key={index} />;
+      })}
     </div>;
   }
 });

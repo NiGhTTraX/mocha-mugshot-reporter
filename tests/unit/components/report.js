@@ -24,7 +24,7 @@ describe('Report', function() {
   });
 
   beforeEach(function() {
-    tree = sd.shallowRender(<Report data={fixture}/>);
+    tree = sd.shallowRender(<Report data={fixture} />);
   });
 
   it('should render the Header component', function() {

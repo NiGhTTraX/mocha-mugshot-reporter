@@ -20,14 +20,12 @@ function _render2UpView(baseline, screenshot) {
         <Col xs={12} md={6}>
           <img className="baseline"
                src={baseline}
-               key={baseline}
-          />
+               key={baseline} />
         </Col>
         <Col xs={12} md={6}>
           <img className="screenshot"
                src={screenshot}
-               key={screenshot}
-          />
+               key={screenshot} />
         </Col>
       </Row>
     </Grid>

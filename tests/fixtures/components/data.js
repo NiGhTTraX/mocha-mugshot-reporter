@@ -7,7 +7,7 @@ module.exports = [{
     title: 'Test global',
     state: 'passed',
     duration: _.random(0, 100, true)
-  }],
+  }]
 }, {
   title: 'Suite 1',
   indent: 1,

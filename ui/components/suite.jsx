@@ -1,5 +1,5 @@
-var React = require('react'),
-    Test = require('./test.jsx');
+import React from 'react';
+import Test from './test.jsx';
 
 var Suite = React.createClass({
   statics: {
@@ -13,13 +13,26 @@ var Suite = React.createClass({
         },
         titleStyle = {
           fontSize: this.constructor.FONT_SIZE / suite.indent + '%'
-        };
+        },
+        tests = [];
+
+    if (this.props.filter === 'all') {
+      tests = suite.tests;
+    } else {
+      if (this.props.filter === 'passes') {
+        tests = suite.passes;
+      } else {
+        if (this.props.filter === 'failures') {
+          tests = suite.failures;
+        }
+      }
+    }
 
     return <div className="suite" style={suiteStyle}>
       <h2 className="suite-title" style={titleStyle}>{suite.title}</h2>
-      {suite.tests.map(function(test, index) {
-          return <Test test={test} key={index}/>
-        })}
+      {tests.map(function(test, index) {
+        return <Test test={test} key={index} />;
+      })}
     </div>;
   }
 });

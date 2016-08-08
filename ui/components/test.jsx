@@ -1,5 +1,6 @@
-var React = require('react/addons'),
-    Details = require('./details.jsx');
+import React from 'react';
+import classNames from 'classnames';
+import Details from './details.jsx';
 
 var Test = React.createClass({
   statics: {
@@ -8,31 +9,49 @@ var Test = React.createClass({
   getInitialState: function() {
     return {toggled: false};
   },
-  displayDetails: function() {
-    this.setState({toggled: !this.state.toggled});
-  },
   render: function() {
     var test = this.props.test,
-        cx = React.addons.classSet,
+        cx = classNames,
         classes = cx({
           test: true,
           toggled: this.state.toggled
         }),
-        paths = {
-          baseline: test.result.baseline
-        };
+        paths,
+        details = {};
 
-    if (test.result.screenshot && test.result.diff) {
-      paths.diff = test.result.diff;
-      paths.screenshot = test.result.screenshot;
+    if (test.result) {
+      paths = {
+        baseline: test.result.baseline
+      };
+
+      if (test.result.screenshot && test.result.diff) {
+        paths.diff = test.result.diff;
+        paths.screenshot = test.result.screenshot;
+      }
+
+      details = {
+        paths: paths,
+        error: this.props.test.error
+      };
     }
 
     return <div className={classes}>
-      <p className='test-title' onClick={this.displayDetails}>{test.title}
-        <span className='test-state'>{test.state}</span>
+      <p className="test-title" onClick={this.displayDetails}>
+        {test.state === 'passed'
+            ? <span className="glyphicon glyphicon-ok green"
+                    aria-hidden="true">
+            </span>
+            : <span className="glyphicon glyphicon-remove red"
+                    aria-hidden="true">
+            </span> }
+        {' ' + test.title} : <span className="test-state">{test.state}</span> in
+        <span className="orange"> {test.duration} </span> ms
       </p>
-      <Details paths={paths}/>
+      <Details details={details} />
     </div>;
+  },
+  displayDetails: function() {
+    this.setState({toggled: !this.state.toggled});
   }
 });
 

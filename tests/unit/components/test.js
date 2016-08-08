@@ -9,7 +9,7 @@ describe('Test', function() {
 
   describe('Passing', function() {
     beforeEach(function() {
-      tree = sd.shallowRender(<Test test={passTest}/>);
+      tree = sd.shallowRender(<Test test={passTest} />);
     });
 
     it('should display the test title', function() {
@@ -25,7 +25,7 @@ describe('Test', function() {
     });
 
     it('should pass the passDetails to the Details component', function() {
-      expect(tree.findNode('Details').props.paths.baseline).to.be.equal(
+      expect(tree.findNode('Details').props.details.paths.baseline).to.be.equal(
         passTest.result.baseline);
     });
 
@@ -46,7 +46,7 @@ describe('Test', function() {
 
   describe('Failing', function() {
     beforeEach(function() {
-      tree = sd.shallowRender(<Test test={failTest}/>);
+      tree = sd.shallowRender(<Test test={failTest} />);
     });
 
     it('should display the fail state', function() {
@@ -54,12 +54,12 @@ describe('Test', function() {
     });
 
     it('should pass the diff path', function() {
-      expect(tree.findNode('Details').props.paths.diff).to.equal(
+      expect(tree.findNode('Details').props.details.paths.diff).to.equal(
         failTest.result.diff);
     });
 
     it('should pass the new screenshot path', function() {
-      expect(tree.findNode('Details').props.paths.screenshot).to.equal(
+      expect(tree.findNode('Details').props.details.paths.screenshot).to.equal(
         failTest.result.screenshot);
     });
   });

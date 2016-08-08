@@ -1,19 +1,18 @@
-var React = require('react');
+import React from 'react';
+import FailedTest from './failed.jsx';
+import PassedTest from './passed.jsx';
 
 var Details = React.createClass({
   render: function() {
-    var paths = this.props.paths,
-        imgs = [<img className='baseline' src={paths.baseline}
-            key={paths.baseline}/>];
+    var paths = this.props.details.paths,
+        error = this.props.details.error;
 
-    if (Object.keys(paths).length > 1) {
-      imgs.push(<img className='diff' src={paths.diff} key={paths.diff}/>);
-      imgs.push(<img className='screenshot' src={paths.screenshot}
-        key={paths.screenshot}/>);
-    }
-
-    return <div className='details'>
-      {imgs}
+    return <div className="details">
+      {paths === undefined
+        ? <FailedTest paths={paths} />
+        : Object.keys(paths).length === 1
+            ? <PassedTest paths={paths} />
+            : <FailedTest paths={paths} error={error} />}
     </div>;
   }
 });

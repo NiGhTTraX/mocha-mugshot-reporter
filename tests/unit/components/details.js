@@ -5,70 +5,67 @@ var sd = require('skin-deep'),
     failDetails = require('../../fixtures/components/fail-details.js');
 
 describe('Details', function() {
-  var tree;
+  var tree, node, passedTestPaths, failedTestPaths;
 
   describe('Passing', function() {
     beforeEach(function() {
       tree = sd.shallowRender(<Details details={passDetails}/>);
+      node = tree.findNode('PassedTest');
     });
 
     it('should render the PassedTest component', function() {
-      expect(tree.findNode('PassedTest')).to.not.be.false;
+      expect(node).to.not.be.false;
+      passedTestPaths = node.props.paths;
     });
 
     it('should pass the baseline to the PassedTest component', function() {
-      expect(tree.findNode('PassedTest').props.paths.baseline).to.be.equal(
-        passDetails.paths.baseline);
+      expect(passedTestPaths.baseline).to.be.equal(passDetails.paths.baseline);
     });
 
-    it('should not pass a screenshot to the PassedTest component',
-        function() {
-          expect(tree.findNode('PassedTest').props.paths.screenshot)
-              .to.be.undefined;
-        });
+    it('should not pass a screenshot to the PassedTest component', function() {
+      expect(passedTestPaths.screenshot).to.be.undefined;
+    });
 
     it('should not pass a diff to the PassedTest component', function() {
-      expect(tree.findNode('PassedTest').props.paths.diff).to.be.undefined;
+      expect(passedTestPaths.diff).to.be.undefined;
     });
 
     it('should pass the correct baseline path', function() {
-      expect(tree.findNode('PassedTest').props.paths.baseline).to.be.
-        equal(failDetails.paths.baseline);
+      expect(passedTestPaths.baseline).to.be.equal(failDetails.paths.baseline);
     });
   });
 
   describe('Fail details', function() {
     beforeEach(function() {
       tree = sd.shallowRender(<Details details={failDetails}/>);
+      node = tree.findNode('FailedTest');
     });
 
     it('should render the FailedTest component', function() {
-      expect(tree.findNode('FailedTest')).to.not.be.false;
+      expect(node).to.not.be.false;
+      failedTestPaths = node.props.paths;
     });
 
     it('should pass the baseline to the FailedTest component', function() {
-      expect(tree.findNode('FailedTest').props.paths.baseline).to.be.equal(
-        failDetails.paths.baseline);
+      expect(failedTestPaths.baseline).to.be.equal(failDetails.paths.baseline);
     });
 
     it('should pass the screenshot to the FailedTest component', function() {
-      expect(tree.findNode('FailedTest').props.paths.screenshot).to.be.equal(
-        failDetails.paths.screenshot);
+      expect(failedTestPaths.screenshot)
+          .to.be.equal(failDetails.paths.screenshot);
     });
 
     it('should pass the diff to the FailedTest component', function() {
-      expect(tree.findNode('FailedTest').props.paths.diff).to.be.equal(
-        failDetails.paths.diff);
+      expect(failedTestPaths.diff).to.be.equal(failDetails.paths.diff);
     });
 
     it('should pass the correct screenshot path', function() {
-      expect(tree.findNode('FailedTest').props.paths.screenshot).to.be.
-        equal(failDetails.paths.screenshot);
+      expect(failedTestPaths.screenshot)
+          .to.be.equal(failDetails.paths.screenshot);
     });
 
     it('should pass the correct diff path', function() {
-      expect(tree.findNode('FailedTest').props.paths.diff)
-          .to.be.equal(failDetails.paths.diff);
+      expect(failedTestPaths.diff).to.be.equal(failDetails.paths.diff);
     });
   });
 });

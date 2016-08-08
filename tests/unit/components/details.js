@@ -9,7 +9,7 @@ describe('Details', function() {
 
   describe('Passing', function() {
     beforeEach(function() {
-      tree = sd.shallowRender(<Details details={passDetails}/>);
+      tree = sd.shallowRender(<Details details={passDetails} />);
     });
 
     it('should render the PassedTest component', function() {
@@ -39,7 +39,7 @@ describe('Details', function() {
 
   describe('Fail details', function() {
     beforeEach(function() {
-      tree = sd.shallowRender(<Details details={failDetails}/>);
+      tree = sd.shallowRender(<Details details={failDetails} />);
     });
 
     it('should render the FailedTest component', function() {

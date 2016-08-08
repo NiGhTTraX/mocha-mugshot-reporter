@@ -2,9 +2,6 @@ import React from 'react';
 import {Badge, Navbar, Nav, NavItem} from 'react-bootstrap';
 
 var Header = React.createClass({
-  changeFilter: function(newFilter) {
-    this.props.updateFilter(newFilter);
-  },
   render: function() {
     var passes = this.props.passes,
         failures = this.props.failures,
@@ -13,7 +10,7 @@ var Header = React.createClass({
     return <Navbar inverse>
       <Navbar.Header>
         <Navbar.Brand>
-          <a href='https://github.com/uberVU/mocha-mugshot-reporter'>
+          <a href="https://github.com/uberVU/mocha-mugshot-reporter">
             Mocha-Mugshot-Reporter
           </a>
         </Navbar.Brand>
@@ -45,6 +42,9 @@ var Header = React.createClass({
         </Nav>
       </Navbar.Collapse>
     </Navbar>;
+  },
+  changeFilter: function(newFilter) {
+    this.props.updateFilter(newFilter);
   }
 });
 

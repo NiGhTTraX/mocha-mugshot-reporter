@@ -12,11 +12,6 @@ var Report = React.createClass({
       filter: 'all'
     };
   },
-  updateFilter: function(newFilter) {
-    this.setState({
-      filter: newFilter
-    });
-  },
   render: function() {
     var suites = this.props.data,
         numberOfPasses = 0,
@@ -45,10 +40,15 @@ var Report = React.createClass({
         failures={numberOfFailures}
         duration={duration}
         filter={this.state.filter}
-        updateFilter={this.updateFilter}/>
+        updateFilter={this.updateFilter} />
 
-      <Results suites={suites} filter={this.state.filter}/>
+      <Results suites={suites} filter={this.state.filter} />
     </div>;
+  },
+  updateFilter: function(newFilter) {
+    this.setState({
+      filter: newFilter
+    });
   }
 });
 

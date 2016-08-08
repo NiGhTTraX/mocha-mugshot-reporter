@@ -9,7 +9,7 @@ describe('Test', function() {
 
   describe('Passing', function() {
     beforeEach(function() {
-      tree = sd.shallowRender(<Test test={passTest}/>);
+      tree = sd.shallowRender(<Test test={passTest} />);
     });
 
     it('should display the test title', function() {
@@ -46,7 +46,7 @@ describe('Test', function() {
 
   describe('Failing', function() {
     beforeEach(function() {
-      tree = sd.shallowRender(<Test test={failTest}/>);
+      tree = sd.shallowRender(<Test test={failTest} />);
     });
 
     it('should display the fail state', function() {

@@ -7,7 +7,7 @@ describe('Suite', function() {
   var tree;
 
   beforeEach(function() {
-    tree = sd.shallowRender(<Suite suite={fixture}/>);
+    tree = sd.shallowRender(<Suite suite={fixture} />);
   });
 
   it('should indent the suite properly', function() {

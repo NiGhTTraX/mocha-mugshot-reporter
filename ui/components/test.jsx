@@ -9,9 +9,6 @@ var Test = React.createClass({
   getInitialState: function() {
     return {toggled: false};
   },
-  displayDetails: function() {
-    this.setState({toggled: !this.state.toggled});
-  },
   render: function() {
     var test = this.props.test,
         cx = classNames,
@@ -32,22 +29,25 @@ var Test = React.createClass({
     details = {
       paths: paths,
       error: this.props.test.error
-    }
+    };
 
     return <div className={classes}>
-      <p className='test-title' onClick={this.displayDetails}>
-        {test.state === 'passed' ?
-            <span className="glyphicon glyphicon-ok green"
-                  aria-hidden="true">
-            </span> :
-            <span className="glyphicon glyphicon-remove red"
-                  aria-hidden="true">
+      <p className="test-title" onClick={this.displayDetails}>
+        {test.state === 'passed'
+            ? <span className="glyphicon glyphicon-ok green"
+                    aria-hidden="true">
+            </span>
+            : <span className="glyphicon glyphicon-remove red"
+                    aria-hidden="true">
             </span> }
         {' ' + test.title} : <span className="test-state">{test.state}</span> in
         <span className="orange"> {test.duration} </span> ms
       </p>
-      <Details details={details}/>
+      <Details details={details} />
     </div>;
+  },
+  displayDetails: function() {
+    this.setState({toggled: !this.state.toggled});
   }
 });
 

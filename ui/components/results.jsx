@@ -6,12 +6,12 @@ var Results = React.createClass({
     var suites,
         filter = this.props.filter;
     suites = this.props.suites.slice(1).map(function(suite, index) {
-      return <Suite suite={suite} filter={filter} key={index}/>;
+      return <Suite suite={suite} filter={filter} key={index} />;
     });
 
     return <section className="results container">
       {suites}
-    </section>
+    </section>;
   }
 });
 

@@ -8,8 +8,7 @@ function _renderDefaultView(diff) {
   return <div className="simple">
     <img className="diff"
          src={diff}
-         key={diff}
-      />
+         key={diff} />
   </div>;
 }
 
@@ -37,24 +36,24 @@ function _renderSpecialView(baseline, screenshot, view, value, changeValue) {
     <ImageDiff before={screenshot}
                after={baseline}
                type={view}
-               value={value}
-    />
+               value={value} />
     <Clearfix />
     <input type="range"
            min={0}
            max={1}
            step={.01}
            defaultValue={value}
-           onChange={changeValue}
-    />
+           onChange={changeValue} />
   </div>;
 }
 
 module.exports = React.createClass({
   displayName: 'FailedTest',
+
   statics: {
     viewOptions: ['default', '2-up', 'swipe', 'fade']
   },
+
   getInitialState: function() {
     return {
       view: 'default',
@@ -62,6 +61,7 @@ module.exports = React.createClass({
       openError: false
     };
   },
+
   render: function() {
     var paths = this.props.paths,
         error = this.props.error,
@@ -122,12 +122,14 @@ module.exports = React.createClass({
         </div> : null }
     </div>;
   },
+
   /* handler for swipe and fade value*/
   changeValue: function(element) {
     this.setState({
       value: parseFloat(element.target.value)
     });
   },
+
   /* handler for switching between views */
   changeView: function(element) {
     var selectedView = element.target.name;
@@ -135,6 +137,7 @@ module.exports = React.createClass({
       view: selectedView
     });
   },
+
   /* handler for the error text box */
   openErrorMessage: function() {
     this.setState({

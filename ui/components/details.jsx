@@ -7,7 +7,7 @@ var Details = React.createClass({
     var paths = this.props.details.paths,
         error = this.props.details.error;
 
-    return <div className='details'>
+    return <div className="details">
       {Object.keys(paths).length === 1 ?
         <PassedTest paths={paths}/> : <FailedTest paths={paths} error={error}/>}
     </div>;

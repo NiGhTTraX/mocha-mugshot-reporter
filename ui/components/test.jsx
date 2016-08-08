@@ -37,16 +37,14 @@ var Test = React.createClass({
     return <div className={classes}>
       <p className='test-title' onClick={this.displayDetails}>
         {test.state === 'passed' ?
-            <span
-              className="glyphicon glyphicon-ok green"
-              aria-hidden="true">
+            <span className="glyphicon glyphicon-ok green"
+                  aria-hidden="true">
             </span> :
-            <span
-              className="glyphicon glyphicon-remove red"
-              aria-hidden="true">
-            </span>}
-        {' ' + test.title} : <span className='test-state'>{test.state}</span> in
-        <span className='orange'> {test.duration} </span> ms
+            <span className="glyphicon glyphicon-remove red"
+                  aria-hidden="true">
+            </span> }
+        {' ' + test.title} : <span className="test-state">{test.state}</span> in
+        <span className="orange"> {test.duration} </span> ms
       </p>
       <Details details={details}/>
     </div>;

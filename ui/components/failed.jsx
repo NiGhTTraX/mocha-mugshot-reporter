@@ -118,15 +118,14 @@ module.exports = React.createClass({
       }
     }
 
-    return <div className='diffs'>
-
-      <Button bsStyle='danger' bsSize="xsmall" onClick={this.openErrorMessage}>
+    return <div className="diffs">
+      <Button bsStyle="danger" bsSize="xsmall" onClick={this.openErrorMessage}>
         Show Error
       </Button>
 
       <Panel collapsible expanded={this.state.openError} bsStyle="danger">
         {error.message === undefined ?
-          <p>This test did not fail because Mugshot found differences :( </p> :
+          <p> This test did not fail because Mugshot found differences :( </p> :
           <p> {error.name} : {error.message} </p>
         }
       </Panel>
@@ -134,7 +133,7 @@ module.exports = React.createClass({
       {error.message !== undefined ?
         <div>
           <Jumbotron> {report} </Jumbotron>
-          <ButtonGroup className='view-selector'>
+          <ButtonGroup className="view-selector">
             {buttons}
           </ButtonGroup>
         </div> : null }

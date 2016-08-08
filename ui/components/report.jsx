@@ -19,24 +19,19 @@ var Report = React.createClass({
   },
   render: function() {
     var suites = this.props.data,
-        passes = [],
-        failures = [],
         numberOfPasses = 0,
         numberOfFailures = 0,
         duration = 0;
 
     suites.forEach(function(suite) {
-      passes = [];
-      failures = [];
-
-      suite.passes = passes.concat(suite.tests.filter(function(test) {
+      suite.passes = suite.tests.filter(function(test) {
         return _hasPassed(test);
-      }));
+      });
       numberOfPasses += suite.passes.length;
 
-      suite.failures = failures.concat(suite.tests.filter(function(test) {
+      suite.failures = suite.tests.filter(function(test) {
         return !_hasPassed(test);
-      }));
+      });
       numberOfFailures += suite.failures.length;
 
       suite.tests.forEach(function(test) {

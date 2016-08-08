@@ -2,8 +2,7 @@
   'root': true,
 
   'plugins': [
-    'react',
-    'ubervu'
+    'react'
   ],
 
   'parserOptions': {

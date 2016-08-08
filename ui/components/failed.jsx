@@ -108,7 +108,7 @@ module.exports = React.createClass({
     if (view === 'default') {
       report = _renderDefaultView(diff);
     } else {
-      if (view === 'is2Up') {
+      if (view === '2-up') {
         report = _render2UpView(baseline, screenshot);
       } else {
         if (view === 'swipe' || view === 'fade') {

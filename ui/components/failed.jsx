@@ -4,12 +4,62 @@ import {Clearfix, ButtonGroup, Button,
   Jumbotron, Grid, Row, Col, Panel}
   from 'react-bootstrap';
 
-var FailedTest = React.createClass({
+function _renderDefaultView(diff) {
+  return <div className="simple">
+      <img className="diff"
+           src={diff}
+           key={diff}
+      />
+    </div>;
+}
+
+function _render2UpView(baseline, screenshot) {
+  return <div className="simple">
+      <Grid>
+        <Row className="show-grid">
+          <Col xs={12} md={6}>
+            <img className="baseline"
+                 src={baseline}
+                 key={baseline}
+            />
+          </Col>
+          <Col xs={12} md={6}>
+            <img className="screenshot"
+                 src={screenshot}
+                 key={screenshot}
+            />
+          </Col>
+        </Row>
+    </Grid>
+  </div>;
+}
+
+function _renderSpecialView(baseline, screenshot, view, value, changeValue) {
+  return <div className="special">
+      <ImageDiff before={screenshot}
+                 after={baseline}
+                 type={view}
+                 value={value}
+      />
+      <Clearfix/>
+      <input type="range"
+             min={0}
+             max={1}
+             step={.01}
+             defaultValue={value}
+             onChange={changeValue}
+      />
+    </div>;
+}
+
+module.exports = React.createClass({
+  displayName: 'FailedTest',
+  statics: {
+    viewOptions: ['default', '2-up', 'swipe', 'fade']
+  },
   getInitialState: function() {
     return {
       view: 'default',
-      isDefault: true,
-      is2Up: false,
       value: 0.5,
       openError: false
     };
@@ -17,16 +67,14 @@ var FailedTest = React.createClass({
   /* handler for swipe and fade value*/
   changeValue: function(element) {
     this.setState({
-      value: Number(element.target.value)
+      value: parseFloat(element.target.value)
     });
   },
   /* handler for switching between views */
   changeView: function(element) {
     var selectedView = element.target.name;
     this.setState({
-      view: selectedView,
-      isDefault: selectedView === 'default' ? true : false,
-      is2Up: selectedView === '2-up' ? true : false
+      view: selectedView
     });
   },
   /* handler for the error text box */
@@ -36,77 +84,36 @@ var FailedTest = React.createClass({
     });
   },
   render: function() {
-    var _this = this,
-        baseline = this.props.paths.baseline,
+    var baseline = this.props.paths.baseline,
         screenshot = this.props.paths.screenshot,
         diff = this.props.paths.diff,
         error = this.props.error,
+        view = this.state.view,
         buttons = [],
         report;
 
     /* buttons to select the report type */
-    ['default', '2-up', 'swipe', 'fade'].forEach(function(item) {
+    this.constructor.viewOptions.forEach(function(item) {
       buttons.push(
-        <Button
-          name={item}
-          key={item}
-          onClick={_this.changeView}
-          className={item === _this.state.view ? 'active' : null}>
-            {item}
+        <Button name={item}
+                key={item}
+                onClick={this.changeView}
+                className={item === this.state.view ? 'active' : null}>
+          {item}
         </Button>
       );
-    });
+    }.bind(this));
 
     /* switch betwen report types */
-    if (this.state.isDefault) {
-      report = <div className='simple'>
-          <img
-            className='diff'
-            src={diff}
-            key={diff}
-          />
-        </div>
+    if (view === 'default') {
+      report = _renderDefaultView(diff);
     } else {
-      if (this.state.is2Up) {
-        report = <div className='simple'>
-            <Grid>
-              <Row className="show-grid">
-                <Col xs={12} md={6}>
-                  <img
-                    className='baseline'
-                    src={baseline}
-                    key={baseline}
-                  />
-                </Col>
-                <Col xs={12} md={6}>
-                  <img
-                    className='screenshot'
-                    src={screenshot}
-                    key={screenshot}
-                  />
-                </Col>
-              </Row>
-          </Grid>
-        </div>
+      if (view === 'is2Up') {
+        report = _render2UpView(baseline, screenshot);
       } else {
-        if (!this.state.isDefault && !this.state.is2Up) {
-          report = <div className='special'>
-              <ImageDiff
-                before={screenshot}
-                after={baseline}
-                type={this.state.view}
-                value={this.state.value}
-              />
-              <Clearfix/>
-              <input
-                type='range'
-                min={0}
-                max={1}
-                step={.01}
-                defaultValue={this.state.value}
-                onChange={this.changeValue}
-              />
-            </div>;
+        if (view === 'swipe' || view === 'fade') {
+          report = _renderSpecialView(baseline,
+              screenshot, view, this.state.value, this.changeValue);
         }
       }
     }
@@ -134,5 +141,3 @@ var FailedTest = React.createClass({
     </div>;
   }
 });
-
-module.exports = FailedTest;

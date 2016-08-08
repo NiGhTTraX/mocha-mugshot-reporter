@@ -19,19 +19,23 @@ var Test = React.createClass({
           test: true,
           toggled: this.state.toggled
         }),
-        paths = {
-          baseline: test.result.baseline
-        },
+        paths,
         details = {};
 
-    if (test.result.screenshot && test.result.diff) {
-      paths.diff = test.result.diff;
-      paths.screenshot = test.result.screenshot;
-    }
+    if (test.result) {
+      paths = {
+        baseline: test.result.baseline
+      };
 
-    details = {
-      paths: paths,
-      error: this.props.test.error
+      if (test.result.screenshot && test.result.diff) {
+        paths.diff = test.result.diff;
+        paths.screenshot = test.result.screenshot;
+      }
+
+      details = {
+        paths: paths,
+        error: this.props.test.error
+      }
     }
 
     return <div className={classes}>

@@ -5,12 +5,12 @@ class Suite extends React.Component {
 
   render() {
     const suite = this.props.suite,
-        suiteStyle = {
-          marginLeft: this.statics.MARGIN_LEFT * (suite.indent - 1)
-        },
-        titleStyle = {
-          fontSize: this.statics.FONT_SIZE / suite.indent + '%'
-        };
+          suiteStyle = {
+            marginLeft: this.statics.MARGIN_LEFT * (suite.indent - 1)
+          },
+          titleStyle = {
+            fontSize: this.statics.FONT_SIZE / suite.indent + '%'
+          };
     let tests = [];
 
     if (this.props.filter === 'all') {

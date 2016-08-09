@@ -4,7 +4,7 @@ import {Badge, Navbar, Nav, NavItem} from 'react-bootstrap';
 class Header extends React.Component {
   render() {
     const {passes, failures} = this.props,
-        onFilterChange = this.onFilterChange;
+          onFilterChange = this.onFilterChange;
 
     return <Navbar inverse>
       <Navbar.Header>

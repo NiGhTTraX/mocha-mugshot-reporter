@@ -5,7 +5,7 @@ import PassedTest from './passed.jsx';
 class Details extends React.Component {
   render() {
     const paths = this.props.details.paths,
-        error = this.props.details.error;
+          error = this.props.details.error;
 
     return <div className="details">
       {paths === undefined ? <FailedTest paths={paths} />

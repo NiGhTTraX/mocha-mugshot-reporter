@@ -6,11 +6,11 @@ class Test extends React.Component {
 
   render() {
     const test = this.props.test,
-        cx = classNames,
-        classes = cx({
-          test: true,
-          toggled: this.state.toggled
-        });
+          cx = classNames,
+          classes = cx({
+            test: true,
+            toggled: this.state.toggled
+          });
     let paths,
         details = {};
 

@@ -84,7 +84,7 @@ class FailedTest extends React.Component {
 
   render() {
     const {paths, error} = this.props,
-        view = this.state.view;
+          view = this.state.view;
     let buttons = [],
         report;
 

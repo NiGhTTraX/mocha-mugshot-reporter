@@ -31,7 +31,7 @@ function _render2UpView(baseline, screenshot) {
   </div>;
 }
 
-function _renderSpecialView(baseline, screenshot, view, value, changeValue) {
+function _renderSpecialView(baseline, screenshot, view, value, onChangeValue) {
   return <div className="special">
     <ImageDiff before={screenshot}
                after={baseline}
@@ -43,7 +43,7 @@ function _renderSpecialView(baseline, screenshot, view, value, changeValue) {
            max={1}
            step={.01}
            defaultValue={value}
-           onChange={changeValue} />
+           onChange={onChangeValue} />
   </div>;
 }
 
@@ -63,8 +63,7 @@ module.exports = React.createClass({
   },
 
   render: function() {
-    var paths = this.props.paths,
-        error = this.props.error,
+    var {paths, error} = this.props,
         view = this.state.view,
         buttons = [],
         report;
@@ -80,7 +79,7 @@ module.exports = React.createClass({
       buttons.push(
         <Button name={item}
                 key={item}
-                onClick={this.changeView}
+                onClick={this.onChangeView}
                 className={item === this.state.view ? 'active' : null}>
           {item}
         </Button>
@@ -96,13 +95,15 @@ module.exports = React.createClass({
       } else {
         if (view === 'swipe' || view === 'fade') {
           report = _renderSpecialView(baseline,
-              screenshot, view, this.state.value, this.changeValue);
+              screenshot, view, this.state.value, this.onChangeValue);
         }
       }
     }
 
     return <div className="diffs">
-      <Button bsStyle="danger" bsSize="xsmall" onClick={this.openErrorMessage}>
+      <Button bsStyle="danger"
+              bsSize="xsmall"
+              onClick={this.onOpenErrorMessage}>
         Show Error
       </Button>
 
@@ -124,14 +125,14 @@ module.exports = React.createClass({
   },
 
   /* handler for swipe and fade value*/
-  changeValue: function(element) {
+  onChangeValue: function(element) {
     this.setState({
       value: parseFloat(element.target.value)
     });
   },
 
   /* handler for switching between views */
-  changeView: function(element) {
+  onChangeView: function(element) {
     var selectedView = element.target.name;
     this.setState({
       view: selectedView
@@ -139,7 +140,7 @@ module.exports = React.createClass({
   },
 
   /* handler for the error text box */
-  openErrorMessage: function() {
+  onOpenErrorMessage: function() {
     this.setState({
       openError: !this.state.openError
     });

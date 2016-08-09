@@ -4,38 +4,38 @@ import {Clearfix, ButtonGroup, Button,
   Jumbotron, Grid, Row, Col, Panel}
   from 'react-bootstrap';
 
-function _renderDefaultView(diff) {
+function _renderDefaultView(paths) {
   return <div className="simple">
     <img className="diff"
-         src={diff}
-         key={diff} />
+         src={paths.diff}
+         key={paths.diff} />
   </div>;
 }
 
-function _render2UpView(baseline, screenshot) {
+function _render2UpView(paths) {
   return <div className="simple">
     <Grid>
       <Row className="show-grid">
         <Col xs={12} md={6}>
           <img className="baseline"
-               src={baseline}
-               key={baseline} />
+               src={paths.baseline}
+               key={paths.baseline} />
         </Col>
         <Col xs={12} md={6}>
           <img className="screenshot"
-               src={screenshot}
-               key={screenshot} />
+               src={paths.screenshot}
+               key={paths.screenshot} />
         </Col>
       </Row>
     </Grid>
   </div>;
 }
 
-function _renderSpecialView(baseline, screenshot, view, value, onChangeValue) {
+function _renderSwipeView(paths, value, onChangeValue) {
   return <div className="special">
-    <ImageDiff before={screenshot}
-               after={baseline}
-               type={view}
+    <ImageDiff before={paths.screenshot}
+               after={paths.baseline}
+               type="swipe"
                value={value} />
     <Clearfix />
     <input type="range"
@@ -47,11 +47,50 @@ function _renderSpecialView(baseline, screenshot, view, value, onChangeValue) {
   </div>;
 }
 
+function _renderFadeView(paths, value, onChangeValue) {
+  return <div className="special">
+    <ImageDiff before={paths.screenshot}
+               after={paths.baseline}
+               type="fade"
+               value={value} />
+    <Clearfix />
+    <input type="range"
+           min={0}
+           max={1}
+           step={.01}
+           defaultValue={value}
+           onChange={onChangeValue} />
+  </div>;
+}
+
+function _getSelectViewButtons(viewOptions, currentView, onChangeView) {
+  var buttons = [];
+
+  viewOptions.forEach(function(item) {
+    buttons.push(
+      <Button name={item}
+              key={item}
+              onClick={onChangeView}
+              className={item === currentView ? 'active' : null}>
+        {item}
+      </Button>
+    );
+  });
+
+  return buttons;
+}
+
 module.exports = React.createClass({
   displayName: 'FailedTest',
 
   statics: {
-    viewOptions: ['default', '2-up', 'swipe', 'fade']
+    viewOptions: ['default', '2-up', 'swipe', 'fade'],
+    viewHandlers: {
+      'default': _renderDefaultView,
+      '2-up': _render2UpView,
+      'swipe': _renderSwipeView,
+      'fade': _renderFadeView
+    }
   },
 
   getInitialState: function() {
@@ -69,35 +108,14 @@ module.exports = React.createClass({
         report;
 
     if (paths !== undefined) {
-      var baseline = paths.baseline,
-          screenshot = paths.screenshot,
-          diff = paths.diff;
-    }
 
-    /* buttons to select the report type */
-    this.constructor.viewOptions.forEach(function(item) {
-      buttons.push(
-        <Button name={item}
-                key={item}
-                onClick={this.onChangeView}
-                className={item === this.state.view ? 'active' : null}>
-          {item}
-        </Button>
-      );
-    }.bind(this));
+      /* buttons to select the report type */
+      buttons = _getSelectViewButtons(this.constructor.viewOptions,
+          view, this.onChangeView);
 
-    /* switch betwen report types */
-    if (view === 'default') {
-      report = _renderDefaultView(diff);
-    } else {
-      if (view === '2-up') {
-        report = _render2UpView(baseline, screenshot);
-      } else {
-        if (view === 'swipe' || view === 'fade') {
-          report = _renderSpecialView(baseline,
-              screenshot, view, this.state.value, this.onChangeValue);
-        }
-      }
+      /* switch betwen report types */
+      report = this.constructor.viewHandlers[view](paths,
+          this.state.value, this.onChangeValue);
     }
 
     return <div className="diffs">

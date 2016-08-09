@@ -4,14 +4,15 @@ var sd = require('skin-deep'),
     fixture = require('../../fixtures/components/suite.js');
 
 describe('Suite', function() {
-  var tree;
+  var tree, statics;
 
   beforeEach(function() {
     tree = sd.shallowRender(<Suite suite={fixture} />);
+    statics = tree.getMountedInstance().statics;
   });
 
   it('should indent the suite properly', function() {
-    var expected = Suite.MARGIN_LEFT * (fixture.indent - 1);
+    var expected = statics.MARGIN_LEFT * (fixture.indent - 1);
 
     expect(tree.findNode('.suite').props.style.marginLeft).to.be.
       equal(expected);
@@ -22,7 +23,7 @@ describe('Suite', function() {
   });
 
   it('should set the suite title fontSize correctly', function() {
-    var expected = Suite.FONT_SIZE / fixture.indent + '%';
+    var expected = statics.FONT_SIZE / fixture.indent + '%';
 
     expect(tree.findNode('.suite-title').props.style.fontSize).to.be.
       equal(expected);

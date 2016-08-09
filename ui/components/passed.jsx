@@ -1,14 +1,17 @@
 import React from 'react';
 
-module.exports = React.createClass({
-  displayName: 'PassedTest',
-  render: function() {
-    var imgs = this.props.paths;
+class PassedTest extends React.Component {
+  render() {
+    const baseline = this.props.paths.baseline;
 
     return <div className="diffs">
       <img className="baseline"
-           src={imgs.baseline}
-           key={imgs.baseline} />
+           src={baseline}
+           key={baseline} />
     </div>;
   }
-});
+}
+
+PassedTest.displayName = 'PassedTest';
+
+export default PassedTest;

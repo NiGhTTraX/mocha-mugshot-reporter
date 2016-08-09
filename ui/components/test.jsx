@@ -2,21 +2,16 @@ import React from 'react';
 import classNames from 'classnames';
 import Details from './details.jsx';
 
-var Test = React.createClass({
-  statics: {
-    DETAILS_TOGGLE_CLASS: 'toggled'
-  },
-  getInitialState: function() {
-    return {toggled: false};
-  },
-  render: function() {
-    var test = this.props.test,
+class Test extends React.Component {
+
+  render() {
+    const test = this.props.test,
         cx = classNames,
         classes = cx({
           test: true,
           toggled: this.state.toggled
-        }),
-        paths,
+        });
+    let paths,
         details = {};
 
     if (test.result) {
@@ -36,7 +31,7 @@ var Test = React.createClass({
     }
 
     return <div className={classes}>
-      <p className="test-title" onClick={this.displayDetails}>
+      <p className="test-title" onClick={this.onDetailsDisplay}>
         {test.state === 'passed'
             ? <span className="glyphicon glyphicon-ok green"
                     aria-hidden="true">
@@ -49,10 +44,23 @@ var Test = React.createClass({
       </p>
       <Details details={details} />
     </div>;
-  },
-  displayDetails: function() {
+  }
+
+  onDetailsDisplay() {
     this.setState({toggled: !this.state.toggled});
   }
-});
 
-module.exports = Test;
+  constructor(props) {
+    super(props);
+
+    this.state = {toggled: false};
+
+    this.statics = {DETAILS_TOGGLE_CLASS: 'toggled'};
+
+    this.onDetailsDisplay = this.onDetailsDisplay.bind(this);
+  }
+}
+
+Test.displayName = 'Test';
+
+export default Test;

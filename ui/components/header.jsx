@@ -1,11 +1,10 @@
 import React from 'react';
 import {Badge, Navbar, Nav, NavItem} from 'react-bootstrap';
 
-var Header = React.createClass({
-  render: function() {
-    var passes = this.props.passes,
-        failures = this.props.failures,
-        changeFilter = this.changeFilter;
+class Header extends React.Component {
+  render() {
+    const {passes, failures} = this.props,
+        onFilterChange = this.onFilterChange;
 
     return <Navbar inverse>
       <Navbar.Header>
@@ -18,17 +17,17 @@ var Header = React.createClass({
       </Navbar.Header>
       <Navbar.Collapse>
         <Nav pullRight>
-          <NavItem eventKey={0} onClick={changeFilter.bind(this, 'all')}
+          <NavItem eventKey={0} onClick={onFilterChange.bind(this, 'all')}
             className={this.props.filter === 'all' ? 'active' : null}>
             All
             <Badge className="all blue-bg"> {passes + failures} </Badge>
           </NavItem>
-          <NavItem eventKey={1} onClick={changeFilter.bind(this, 'passes')}
+          <NavItem eventKey={1} onClick={onFilterChange.bind(this, 'passes')}
             className={this.props.filter === 'passes' ? 'active' : null}>
             Passes
             <Badge className="passes green-bg"> {passes} </Badge>
           </NavItem>
-          <NavItem eventKey={2} onClick={changeFilter.bind(this, 'failures')}
+          <NavItem eventKey={2} onClick={onFilterChange.bind(this, 'failures')}
             className={this.props.filter === 'failures' ? 'active' : null}>
             Failures
             <Badge className="failures red-bg"> {failures} </Badge>
@@ -42,10 +41,18 @@ var Header = React.createClass({
         </Nav>
       </Navbar.Collapse>
     </Navbar>;
-  },
-  changeFilter: function(newFilter) {
+  }
+
+  onFilterChange(newFilter) {
     this.props.updateFilter(newFilter);
   }
-});
 
-module.exports = Header;
+  constructor(props) {
+    super(props);
+    this.onFilterChange = this.onFilterChange.bind(this);
+  }
+}
+
+Header.displayName = 'Header';
+
+export default Header;

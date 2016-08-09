@@ -2,9 +2,9 @@ import React from 'react';
 import FailedTest from './failed.jsx';
 import PassedTest from './passed.jsx';
 
-var Details = React.createClass({
-  render: function() {
-    var paths = this.props.details.paths,
+class Details extends React.Component {
+  render() {
+    const paths = this.props.details.paths,
         error = this.props.details.error;
 
     return <div className="details">
@@ -14,6 +14,8 @@ var Details = React.createClass({
                               : <FailedTest paths={paths} error={error} />}
     </div>;
   }
-});
+}
 
-module.exports = Details;
+Details.displayName = 'Details';
+
+export default Details;

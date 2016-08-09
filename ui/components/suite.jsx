@@ -1,20 +1,17 @@
 import React from 'react';
 import Test from './test.jsx';
 
-var Suite = React.createClass({
-  statics: {
-    MARGIN_LEFT: 20,
-    FONT_SIZE: 100
-  },
-  render: function() {
-    var suite = this.props.suite,
+class Suite extends React.Component {
+
+  render() {
+    const suite = this.props.suite,
         suiteStyle = {
-          marginLeft: this.constructor.MARGIN_LEFT * (suite.indent - 1)
+          marginLeft: this.statics.MARGIN_LEFT * (suite.indent - 1)
         },
         titleStyle = {
-          fontSize: this.constructor.FONT_SIZE / suite.indent + '%'
-        },
-        tests = [];
+          fontSize: this.statics.FONT_SIZE / suite.indent + '%'
+        };
+    let tests = [];
 
     if (this.props.filter === 'all') {
       tests = suite.tests;
@@ -35,6 +32,17 @@ var Suite = React.createClass({
       })}
     </div>;
   }
-});
 
-module.exports = Suite;
+  constructor(props) {
+    super(props);
+
+    this.statics = {
+      MARGIN_LEFT: 20,
+      FONT_SIZE: 100
+    };
+  }
+}
+
+Suite.displayName = 'Suite';
+
+export default Suite;

@@ -31,7 +31,7 @@ function _render2UpView(paths) {
   </div>;
 }
 
-function _renderSwipeView(paths, value, onChangeValue) {
+function _renderSwipeView(paths, value, onValueChange) {
   return <div className="special">
     <ImageDiff before={paths.screenshot}
                after={paths.baseline}
@@ -43,11 +43,11 @@ function _renderSwipeView(paths, value, onChangeValue) {
            max={1}
            step={.01}
            defaultValue={value}
-           onChange={onChangeValue} />
+           onChange={onValueChange} />
   </div>;
 }
 
-function _renderFadeView(paths, value, onChangeValue) {
+function _renderFadeView(paths, value, onValueChange) {
   return <div className="special">
     <ImageDiff before={paths.screenshot}
                after={paths.baseline}
@@ -59,18 +59,18 @@ function _renderFadeView(paths, value, onChangeValue) {
            max={1}
            step={.01}
            defaultValue={value}
-           onChange={onChangeValue} />
+           onChange={onValueChange} />
   </div>;
 }
 
-function _getSelectViewButtons(viewOptions, currentView, onChangeView) {
-  var buttons = [];
+function _getSelectViewButtons(viewOptions, currentView, onViewChange) {
+  let buttons = [];
 
   viewOptions.forEach(function(item) {
     buttons.push(
       <Button name={item}
               key={item}
-              onClick={onChangeView}
+              onClick={onViewChange}
               className={item === currentView ? 'active' : null}>
         {item}
       </Button>
@@ -80,87 +80,96 @@ function _getSelectViewButtons(viewOptions, currentView, onChangeView) {
   return buttons;
 }
 
-module.exports = React.createClass({
-  displayName: 'FailedTest',
+class FailedTest extends React.Component {
 
-  statics: {
-    viewOptions: ['default', '2-up', 'swipe', 'fade'],
-    viewHandlers: {
-      'default': _renderDefaultView,
-      '2-up': _render2UpView,
-      'swipe': _renderSwipeView,
-      'fade': _renderFadeView
-    }
-  },
-
-  getInitialState: function() {
-    return {
-      view: 'default',
-      value: 0.5,
-      openError: false
-    };
-  },
-
-  render: function() {
-    var {paths, error} = this.props,
-        view = this.state.view,
-        buttons = [],
+  render() {
+    const {paths, error} = this.props,
+        view = this.state.view;
+    let buttons = [],
         report;
 
     if (paths !== undefined) {
 
       /* buttons to select the report type */
-      buttons = _getSelectViewButtons(this.constructor.viewOptions,
-          view, this.onChangeView);
+      buttons = _getSelectViewButtons(this.statics.viewOptions,
+          view, this.onViewChange);
 
       /* switch betwen report types */
-      report = this.constructor.viewHandlers[view](paths,
-          this.state.value, this.onChangeValue);
+      report = this.statics.viewHandlers[view](paths,
+          this.state.value, this.onValueChange);
     }
 
     return <div className="diffs">
       <Button bsStyle="danger"
               bsSize="xsmall"
-              onClick={this.onOpenErrorMessage}>
+              onClick={this.onErrorMessageOpen}>
         Show Error
       </Button>
 
       <Panel collapsible expanded={this.state.openError} bsStyle="danger">
-        {paths === undefined ?
-          <p> This test did not fail because Mugshot found differences :( </p> :
-          <p> {error.name} : {error.message} </p>
-        }
+        {paths === undefined
+          ? <p> This test did not fail because Mugshot found differences :( </p>
+          : <p> {error.name} : {error.message} </p> }
       </Panel>
 
-      {paths !== undefined ?
-        <div>
+      {paths !== undefined
+        ? <div>
           <Jumbotron> {report} </Jumbotron>
           <ButtonGroup className="view-selector">
             {buttons}
           </ButtonGroup>
-        </div> : null }
+        </div>
+        : null }
     </div>;
-  },
+  }
 
   /* handler for swipe and fade value*/
-  onChangeValue: function(element) {
+  onValueChange(element) {
     this.setState({
       value: parseFloat(element.target.value)
     });
-  },
+  }
 
   /* handler for switching between views */
-  onChangeView: function(element) {
+  onViewChange(element) {
     var selectedView = element.target.name;
     this.setState({
       view: selectedView
     });
-  },
+  }
 
   /* handler for the error text box */
-  onOpenErrorMessage: function() {
+  onErrorMessageOpen() {
     this.setState({
       openError: !this.state.openError
     });
   }
-});
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      view: 'default',
+      value: 0.5,
+      openError: false
+    };
+
+    this.statics = {
+      viewOptions: ['default', '2-up', 'swipe', 'fade'],
+      viewHandlers: {
+        'default': _renderDefaultView,
+        '2-up': _render2UpView,
+        'swipe': _renderSwipeView,
+        'fade': _renderFadeView
+      }
+    };
+
+    this.onValueChange = this.onValueChange.bind(this);
+    this.onViewChange = this.onViewChange.bind(this);
+    this.onErrorMessageOpen = this.onErrorMessageOpen.bind(this);
+  }
+}
+
+FailedTest.displayName = 'FailedTest';
+
+export default FailedTest;

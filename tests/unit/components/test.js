@@ -40,7 +40,7 @@ describe('Test', function() {
       title = tree.findNode('.test-title');
       instance = tree.getMountedInstance();
 
-      expect(title.props.onClick).to.be.deep.equal(instance.displayDetails);
+      expect(title.props.onClick).to.be.deep.equal(instance.onDetailsDisplay);
     });
   });
 

@@ -9,9 +9,12 @@ function _hasPassed(test) {
 class Report extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       filter: 'all'
     };
+
+    this.onFilterUpdate = this.onFilterUpdate.bind(this);
   }
 
   render() {

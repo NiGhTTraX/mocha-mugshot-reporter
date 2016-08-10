@@ -1,5 +1,6 @@
 import React from 'react';
 import ImageDiff from 'react-image-diff';
+import classNames from 'classnames';
 import {Clearfix, ButtonGroup, Button,
   Jumbotron, Grid, Row, Col, Panel}
   from 'react-bootstrap';
@@ -71,7 +72,7 @@ function _getSelectViewButtons(currentView, viewOptions, onViewChange) {
       <Button name={item}
               key={item}
               onClick={onViewChange}
-              className={item === currentView ? 'active' : null}>
+              className={classNames({active: item === currentView})}>
         {item}
       </Button>
     );

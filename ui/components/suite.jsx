@@ -9,24 +9,16 @@ class Suite extends React.Component {
           },
           titleStyle = {
             fontSize: Suite.FONT_SIZE / suite.indent + '%'
+          },
+          tests = {
+            all: suite.tests,
+            passes: suite.passes,
+            failures: suite.failures
           };
-    let tests = [];
-
-    if (this.props.filter === 'all') {
-      tests = suite.tests;
-    } else {
-      if (this.props.filter === 'passes') {
-        tests = suite.passes;
-      } else {
-        if (this.props.filter === 'failures') {
-          tests = suite.failures;
-        }
-      }
-    }
 
     return <div className="suite" style={suiteStyle}>
       <h2 className="suite-title" style={titleStyle}>{suite.title}</h2>
-      {tests.map(function(test, index) {
+      {tests[this.props.filter].map(function(test, index) {
         return <Test test={test} key={index} />;
       })}
     </div>;

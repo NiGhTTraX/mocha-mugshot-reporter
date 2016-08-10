@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import {Badge, Navbar, Nav, NavItem} from 'react-bootstrap';
 
 class Header extends React.Component {
@@ -10,47 +11,77 @@ class Header extends React.Component {
 
   render() {
     const {passes, failures} = this.props,
-          onFilterChange = this.onFilterChange;
+          filters = [
+                {
+                  name: 'All',
+                  count: passes + failures,
+                  badgeClass: 'blue-bg'
+                },
+                {
+                  name: 'Passes',
+                  count: passes,
+                  badgeClass: 'green-bg'
+                },
+                {
+                  name: 'Failures',
+                  count: failures,
+                  badgeClass: 'red-bg'
+                },
+                {
+                  name: 'Duration',
+                  count: this.props.duration,
+                  badgeClass: 'orange-bg',
+                  disabled: true,
+                  textAfter: ' ms'
+                }
+          ];
 
     return <Navbar inverse>
-      <Navbar.Header>
-        <Navbar.Brand>
-          <a href="https://github.com/uberVU/mocha-mugshot-reporter">
-            Mocha-Mugshot-Reporter
-          </a>
-        </Navbar.Brand>
-        <Navbar.Toggle />
-      </Navbar.Header>
-      <Navbar.Collapse>
-        <Nav pullRight>
-          <NavItem eventKey={0} onClick={onFilterChange.bind(this, 'all')}
-            className={this.props.filter === 'all' ? 'active' : null}>
-            All
-            <Badge className="all blue-bg"> {passes + failures} </Badge>
-          </NavItem>
-          <NavItem eventKey={1} onClick={onFilterChange.bind(this, 'passes')}
-            className={this.props.filter === 'passes' ? 'active' : null}>
-            Passes
-            <Badge className="passes green-bg"> {passes} </Badge>
-          </NavItem>
-          <NavItem eventKey={2} onClick={onFilterChange.bind(this, 'failures')}
-            className={this.props.filter === 'failures' ? 'active' : null}>
-            Failures
-            <Badge className="failures red-bg"> {failures} </Badge>
-          </NavItem>
-          <NavItem eventKey={3} disabled>
-            Duration
-            <Badge className="duration orange-bg">
-              {this.props.duration} ms
-            </Badge>
-          </NavItem>
-        </Nav>
-      </Navbar.Collapse>
+      {this._renderHeader()}
+      {this._renderNavItems(filters)}
     </Navbar>;
   }
 
   onFilterChange(newFilter) {
     this.props.updateFilter(newFilter);
+  }
+
+  _renderHeader() {
+    return <Navbar.Header>
+      <Navbar.Brand>
+        <a href="https://github.com/uberVU/mocha-mugshot-reporter">
+          Mocha-Mugshot-Reporter
+        </a>
+      </Navbar.Brand>
+      <Navbar.Toggle />
+    </Navbar.Header>;
+  }
+
+  _renderNavItems(filters) {
+    let items = [];
+
+    filters.forEach(function(item, index) {
+      const filter = item.name.toLowerCase();
+
+      items.push(
+        <NavItem eventKey={index}
+                 key={index}
+                 onClick={this.onFilterChange.bind(this, filter)}
+                 className={classNames({active: this.props.filter === filter})}
+                 disabled={item.disabled}>
+          {item.name}
+          <Badge className={classNames(filter, item.badgeClass)}>
+            {item.count + (item.textAfter || '')}
+          </Badge>
+        </NavItem>
+      );
+    }.bind(this));
+
+    return <Navbar.Collapse>
+      <Nav pullRight>
+        {items}
+      </Nav>
+    </Navbar.Collapse>;
   }
 }
 

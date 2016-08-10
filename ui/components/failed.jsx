@@ -63,7 +63,7 @@ function _renderFadeView(paths, value, onValueChange) {
   </div>;
 }
 
-function _getSelectViewButtons(viewOptions, currentView, onViewChange) {
+function _getSelectViewButtons(currentView, viewOptions, onViewChange) {
   let buttons = [];
 
   viewOptions.forEach(function(item) {
@@ -81,7 +81,6 @@ function _getSelectViewButtons(viewOptions, currentView, onViewChange) {
 }
 
 class FailedTest extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -107,21 +106,7 @@ class FailedTest extends React.Component {
   }
 
   render() {
-    const {paths, error} = this.props,
-          view = this.state.view;
-    let buttons = [],
-        report;
-
-    if (paths !== undefined) {
-
-      /* buttons to select the report type */
-      buttons = _getSelectViewButtons(this.statics.viewOptions,
-          view, this.onViewChange);
-
-      /* switch betwen report types */
-      report = this.statics.viewHandlers[view](paths,
-          this.state.value, this.onValueChange);
-    }
+    const {paths, error} = this.props;
 
     return <div className="diffs">
       <Button bsStyle="danger"
@@ -137,13 +122,8 @@ class FailedTest extends React.Component {
       </Panel>
 
       {paths !== undefined
-        ? <div>
-          <Jumbotron> {report} </Jumbotron>
-          <ButtonGroup className="view-selector">
-            {buttons}
-          </ButtonGroup>
-        </div>
-        : null }
+          ? this._renderSelectedView(paths)
+          : null }
     </div>;
   }
 
@@ -167,6 +147,26 @@ class FailedTest extends React.Component {
     this.setState({
       openError: !this.state.openError
     });
+  }
+
+  _renderSelectedView(paths) {
+
+    const currentView = this.state.view;
+
+    /* buttons to select the report type */
+    const buttons = _getSelectViewButtons(currentView,
+      this.statics.viewOptions, this.onViewChange);
+
+    /* switch betwen report types */
+    const report = this.statics.viewHandlers[currentView](paths,
+      this.state.value, this.onValueChange);
+
+    return <div>
+      <Jumbotron> {report} </Jumbotron>
+      <ButtonGroup className="view-selector">
+        {buttons}
+      </ButtonGroup>
+    </div>;
   }
 }
 

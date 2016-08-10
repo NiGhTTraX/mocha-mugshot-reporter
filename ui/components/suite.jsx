@@ -3,6 +3,15 @@ import Test from './test.jsx';
 
 class Suite extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.statics = {
+      MARGIN_LEFT: 20,
+      FONT_SIZE: 100
+    };
+  }
+
   render() {
     const suite = this.props.suite,
           suiteStyle = {
@@ -31,15 +40,6 @@ class Suite extends React.Component {
         return <Test test={test} key={index} />;
       })}
     </div>;
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.statics = {
-      MARGIN_LEFT: 20,
-      FONT_SIZE: 100
-    };
   }
 }
 

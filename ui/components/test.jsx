@@ -3,6 +3,15 @@ import classNames from 'classnames';
 import Details from './details.jsx';
 
 class Test extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {toggled: false};
+
+    this.statics = {DETAILS_TOGGLE_CLASS: 'toggled'};
+
+    this.onDetailsDisplay = this.onDetailsDisplay.bind(this);
+  }
 
   render() {
     const test = this.props.test,
@@ -48,16 +57,6 @@ class Test extends React.Component {
 
   onDetailsDisplay() {
     this.setState({toggled: !this.state.toggled});
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.state = {toggled: false};
-
-    this.statics = {DETAILS_TOGGLE_CLASS: 'toggled'};
-
-    this.onDetailsDisplay = this.onDetailsDisplay.bind(this);
   }
 }
 

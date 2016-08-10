@@ -29,6 +29,7 @@
     'react/sort-comp': [2, {
       order: [
         'displayName',
+        'constructor',
         'propTypes',
         'mixins',
         'statics',

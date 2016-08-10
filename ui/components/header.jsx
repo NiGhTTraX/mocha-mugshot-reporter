@@ -2,6 +2,11 @@ import React from 'react';
 import {Badge, Navbar, Nav, NavItem} from 'react-bootstrap';
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onFilterChange = this.onFilterChange.bind(this);
+  }
+
   render() {
     const {passes, failures} = this.props,
           onFilterChange = this.onFilterChange;
@@ -45,11 +50,6 @@ class Header extends React.Component {
 
   onFilterChange(newFilter) {
     this.props.updateFilter(newFilter);
-  }
-
-  constructor(props) {
-    super(props);
-    this.onFilterChange = this.onFilterChange.bind(this);
   }
 }
 

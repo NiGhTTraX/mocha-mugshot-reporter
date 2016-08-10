@@ -7,6 +7,12 @@ function _hasPassed(test) {
 }
 
 class Report extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filter: 'all'
+    };
+  }
 
   render() {
     const suites = this.props.data;
@@ -46,13 +52,6 @@ class Report extends React.Component {
     this.setState({
       filter: newFilter
     });
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      filter: 'all'
-    };
   }
 }
 

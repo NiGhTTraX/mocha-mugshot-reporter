@@ -82,6 +82,30 @@ function _getSelectViewButtons(viewOptions, currentView, onViewChange) {
 
 class FailedTest extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      view: 'default',
+      value: 0.5,
+      openError: false
+    };
+
+    this.statics = {
+      viewOptions: ['default', '2-up', 'swipe', 'fade'],
+      viewHandlers: {
+        'default': _renderDefaultView,
+        '2-up': _render2UpView,
+        'swipe': _renderSwipeView,
+        'fade': _renderFadeView
+      }
+    };
+
+    this.onValueChange = this.onValueChange.bind(this);
+    this.onViewChange = this.onViewChange.bind(this);
+    this.onErrorMessageOpen = this.onErrorMessageOpen.bind(this);
+  }
+
   render() {
     const {paths, error} = this.props,
           view = this.state.view;
@@ -143,30 +167,6 @@ class FailedTest extends React.Component {
     this.setState({
       openError: !this.state.openError
     });
-  }
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      view: 'default',
-      value: 0.5,
-      openError: false
-    };
-
-    this.statics = {
-      viewOptions: ['default', '2-up', 'swipe', 'fade'],
-      viewHandlers: {
-        'default': _renderDefaultView,
-        '2-up': _render2UpView,
-        'swipe': _renderSwipeView,
-        'fade': _renderFadeView
-      }
-    };
-
-    this.onValueChange = this.onValueChange.bind(this);
-    this.onViewChange = this.onViewChange.bind(this);
-    this.onErrorMessageOpen = this.onErrorMessageOpen.bind(this);
   }
 }
 

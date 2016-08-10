@@ -4,6 +4,7 @@ import {Badge, Navbar, Nav, NavItem} from 'react-bootstrap';
 class Header extends React.Component {
   constructor(props) {
     super(props);
+
     this.onFilterChange = this.onFilterChange.bind(this);
   }
 

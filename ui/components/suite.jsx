@@ -2,23 +2,13 @@ import React from 'react';
 import Test from './test.jsx';
 
 class Suite extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    this.statics = {
-      MARGIN_LEFT: 20,
-      FONT_SIZE: 100
-    };
-  }
-
   render() {
     const suite = this.props.suite,
           suiteStyle = {
-            marginLeft: this.statics.MARGIN_LEFT * (suite.indent - 1)
+            marginLeft: Suite.MARGIN_LEFT * (suite.indent - 1)
           },
           titleStyle = {
-            fontSize: this.statics.FONT_SIZE / suite.indent + '%'
+            fontSize: Suite.FONT_SIZE / suite.indent + '%'
           };
     let tests = [];
 
@@ -44,5 +34,7 @@ class Suite extends React.Component {
 }
 
 Suite.displayName = 'Suite';
+Suite.MARGIN_LEFT = 20;
+Suite.FONT_SIZE = 100;
 
 export default Suite;

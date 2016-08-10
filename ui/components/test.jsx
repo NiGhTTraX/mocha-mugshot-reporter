@@ -8,8 +8,6 @@ class Test extends React.Component {
 
     this.state = {toggled: false};
 
-    this.statics = {DETAILS_TOGGLE_CLASS: 'toggled'};
-
     this.onDetailsDisplay = this.onDetailsDisplay.bind(this);
   }
 

@@ -90,16 +90,6 @@ class FailedTest extends React.Component {
       openError: false
     };
 
-    this.statics = {
-      viewOptions: ['default', '2-up', 'swipe', 'fade'],
-      viewHandlers: {
-        'default': _renderDefaultView,
-        '2-up': _render2UpView,
-        'swipe': _renderSwipeView,
-        'fade': _renderFadeView
-      }
-    };
-
     this.onValueChange = this.onValueChange.bind(this);
     this.onViewChange = this.onViewChange.bind(this);
     this.onErrorMessageOpen = this.onErrorMessageOpen.bind(this);
@@ -155,10 +145,10 @@ class FailedTest extends React.Component {
 
     /* buttons to select the report type */
     const buttons = _getSelectViewButtons(currentView,
-      this.statics.viewOptions, this.onViewChange);
+      FailedTest.VIEW_OPTIONS, this.onViewChange);
 
     /* switch betwen report types */
-    const report = this.statics.viewHandlers[currentView](paths,
+    const report = FailedTest.VIEW_HANDLERS[currentView](paths,
       this.state.value, this.onValueChange);
 
     return <div>
@@ -171,5 +161,12 @@ class FailedTest extends React.Component {
 }
 
 FailedTest.displayName = 'FailedTest';
+FailedTest.VIEW_OPTIONS = ['default', '2-up', 'swipe', 'fade'];
+FailedTest.VIEW_HANDLERS = {
+  'default': _renderDefaultView,
+  '2-up': _render2UpView,
+  'swipe': _renderSwipeView,
+  'fade': _renderFadeView
+};
 
 export default FailedTest;

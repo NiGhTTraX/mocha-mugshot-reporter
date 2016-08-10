@@ -9,7 +9,7 @@ describe('Details', function() {
 
   describe('Passing', function() {
     beforeEach(function() {
-      tree = sd.shallowRender(<Details details={passDetails}/>);
+      tree = sd.shallowRender(<Details details={passDetails} />);
       node = tree.findNode('PassedTest');
     });
 
@@ -37,7 +37,7 @@ describe('Details', function() {
 
   describe('Fail details', function() {
     beforeEach(function() {
-      tree = sd.shallowRender(<Details details={failDetails}/>);
+      tree = sd.shallowRender(<Details details={failDetails} />);
       node = tree.findNode('FailedTest');
     });
 

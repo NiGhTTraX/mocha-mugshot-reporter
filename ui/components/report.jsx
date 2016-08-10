@@ -6,20 +6,20 @@ function _hasPassed(test) {
   return test.state === 'passed';
 }
 
-var Report = React.createClass({
-  getInitialState: function() {
-    return {
+class Report extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       filter: 'all'
     };
-  },
-  updateFilter: function(newFilter) {
-    this.setState({
-      filter: newFilter
-    });
-  },
-  render: function() {
-    var suites = this.props.data,
-        numberOfPasses = 0,
+
+    this.onFilterUpdate = this.onFilterUpdate.bind(this);
+  }
+
+  render() {
+    const suites = this.props.data;
+    let numberOfPasses = 0,
         numberOfFailures = 0,
         duration = 0;
 
@@ -45,11 +45,19 @@ var Report = React.createClass({
         failures={numberOfFailures}
         duration={duration}
         filter={this.state.filter}
-        updateFilter={this.updateFilter}/>
+        updateFilter={this.onFilterUpdate} />
 
-      <Results suites={suites} filter={this.state.filter}/>
+      <Results suites={suites} filter={this.state.filter} />
     </div>;
   }
-});
 
-module.exports = Report;
+  onFilterUpdate(newFilter) {
+    this.setState({
+      filter: newFilter
+    });
+  }
+}
+
+Report.displayName = 'Report';
+
+export default Report;

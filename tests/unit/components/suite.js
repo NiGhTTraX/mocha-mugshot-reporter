@@ -7,12 +7,11 @@ describe('Suite', function() {
   var tree;
 
   beforeEach(function() {
-    tree = sd.shallowRender(<Suite suite={fixture}/>);
+    tree = sd.shallowRender(<Suite suite={fixture} filter="all" />);
   });
 
   it('should indent the suite properly', function() {
     var expected = Suite.MARGIN_LEFT * (fixture.indent - 1);
-
     expect(tree.findNode('.suite').props.style.marginLeft).to.be.
       equal(expected);
   });

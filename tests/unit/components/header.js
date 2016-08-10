@@ -8,7 +8,7 @@ describe('Header', function() {
 
   beforeEach(function() {
     tree = sd.shallowRender(<Header passes={fixture.passes}
-      failures={fixture.failures} duration={fixture.duration}/>);
+      failures={fixture.failures} duration={fixture.duration} />);
   });
 
   it('should contain all tests number from props', function() {

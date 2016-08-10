@@ -7,7 +7,7 @@ describe('Results', function() {
   var tree;
 
   beforeEach(function() {
-    tree = sd.shallowRender(<Results suites={fixture}/>);
+    tree = sd.shallowRender(<Results suites={fixture} />);
   });
 
   it('should not render the root suite', function() {

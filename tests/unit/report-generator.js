@@ -100,25 +100,25 @@ describe('Report generator', function() {
   });
 
   it('should copy the statics directory into the rootDirectory',
-     function(done) {
-    generateReport({}, {}, function(error) {
-      expect(error).to.be.null;
+    function(done) {
+      generateReport({}, {}, function(error) {
+        expect(error).to.be.null;
 
-      var staticsDirectoryCopy = path.join(rootDirectory, staticsDirectory),
-          stats = fs.statSync(staticsDirectoryCopy);
+        var staticsDirectoryCopy = path.join(rootDirectory, staticsDirectory),
+            stats = fs.statSync(staticsDirectoryCopy);
 
-      expect(stats.isDirectory()).to.be.true;
+        expect(stats.isDirectory()).to.be.true;
 
-      fs.readdir(staticsDirectory, function(error, staticsFiles) {
-        fs.readdir(staticsDirectoryCopy, function(error, staticsFilesCopy) {
+        fs.readdir(staticsDirectory, function(error, staticsFiles) {
+          fs.readdir(staticsDirectoryCopy, function(error, staticsFilesCopy) {
 
-          for (var i = 0; i < staticsFilesCopy; i++) {
-            expect(staticsFilesCopy[i]).to.be.equal(staticsFiles[i]);
-          }
+            for (var i = 0; i < staticsFilesCopy; i++) {
+              expect(staticsFilesCopy[i]).to.be.equal(staticsFiles[i]);
+            }
+          });
         });
-      });
 
-      done();
+        done();
+      });
     });
-  });
 });

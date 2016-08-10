@@ -9,7 +9,7 @@ describe('Test', function() {
 
   describe('Passing', function() {
     beforeEach(function() {
-      tree = sd.shallowRender(<Test test={passTest}/>);
+      tree = sd.shallowRender(<Test test={passTest} />);
     });
 
     it('should display the test title', function() {
@@ -40,13 +40,13 @@ describe('Test', function() {
       title = tree.findNode('.test-title');
       instance = tree.getMountedInstance();
 
-      expect(title.props.onClick).to.be.deep.equal(instance.displayDetails);
+      expect(title.props.onClick).to.be.deep.equal(instance.onDetailsDisplay);
     });
   });
 
   describe('Failing', function() {
     beforeEach(function() {
-      tree = sd.shallowRender(<Test test={failTest}/>);
+      tree = sd.shallowRender(<Test test={failTest} />);
     });
 
     it('should display the fail state', function() {

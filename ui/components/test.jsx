@@ -2,24 +2,23 @@ import React from 'react';
 import classNames from 'classnames';
 import Details from './details.jsx';
 
-var Test = React.createClass({
-  statics: {
-    DETAILS_TOGGLE_CLASS: 'toggled'
-  },
-  getInitialState: function() {
-    return {toggled: false};
-  },
-  displayDetails: function() {
-    this.setState({toggled: !this.state.toggled});
-  },
-  render: function() {
-    var test = this.props.test,
-        cx = classNames,
-        classes = cx({
-          test: true,
-          toggled: this.state.toggled
-        }),
-        paths,
+class Test extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {toggled: false};
+
+    this.onDetailsDisplay = this.onDetailsDisplay.bind(this);
+  }
+
+  render() {
+    const test = this.props.test,
+          cx = classNames,
+          classes = cx({
+            test: true,
+            toggled: this.state.toggled
+          });
+    let paths,
         details = {};
 
     if (test.result) {
@@ -35,24 +34,30 @@ var Test = React.createClass({
       details = {
         paths: paths,
         error: this.props.test.error
-      }
+      };
     }
 
     return <div className={classes}>
-      <p className='test-title' onClick={this.displayDetails}>
-        {test.state === 'passed' ?
-            <span className="glyphicon glyphicon-ok green"
-                  aria-hidden="true">
-            </span> :
-            <span className="glyphicon glyphicon-remove red"
-                  aria-hidden="true">
+      <p className="test-title" onClick={this.onDetailsDisplay}>
+        {test.state === 'passed'
+            ? <span className="glyphicon glyphicon-ok green"
+                    aria-hidden="true">
+            </span>
+            : <span className="glyphicon glyphicon-remove red"
+                    aria-hidden="true">
             </span> }
         {' ' + test.title} : <span className="test-state">{test.state}</span> in
         <span className="orange"> {test.duration} </span> ms
       </p>
-      <Details details={details}/>
+      <Details details={details} />
     </div>;
   }
-});
 
-module.exports = Test;
+  onDetailsDisplay() {
+    this.setState({toggled: !this.state.toggled});
+  }
+}
+
+Test.displayName = 'Test';
+
+export default Test;

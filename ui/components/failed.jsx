@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import ImageDiff from 'react-image-diff';
 import classNames from 'classnames';
@@ -107,14 +108,12 @@ class FailedTest extends React.Component {
       </Button>
 
       <Panel collapsible expanded={this.state.openError} bsStyle="danger">
-        {paths === undefined
+        {_.isUndefined(paths)
           ? <p> This test did not fail because Mugshot found differences :( </p>
           : <p> {error.name} : {error.message} </p> }
       </Panel>
 
-      {paths !== undefined
-          ? this._renderSelectedView(paths)
-          : null }
+      {!_.isUndefined(paths) ? this._renderSelectedView(paths) : null }
     </div>;
   }
 
@@ -128,6 +127,7 @@ class FailedTest extends React.Component {
   /* handler for switching between views */
   onViewChange(element) {
     var selectedView = element.target.name;
+
     this.setState({
       view: selectedView
     });

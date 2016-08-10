@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import FailedTest from './failed.jsx';
 import PassedTest from './passed.jsx';
@@ -8,10 +9,10 @@ class Details extends React.Component {
           error = this.props.details.error;
 
     return <div className="details">
-      {paths === undefined ? <FailedTest paths={paths} />
-                           : Object.keys(paths).length === 1
-                              ? <PassedTest paths={paths} />
-                              : <FailedTest paths={paths} error={error} />}
+      {_.isUndefined(paths) ? <FailedTest paths={paths} />
+                            : Object.keys(paths).length === 1
+                                ? <PassedTest paths={paths} />
+                                : <FailedTest paths={paths} error={error} />}
     </div>;
   }
 }

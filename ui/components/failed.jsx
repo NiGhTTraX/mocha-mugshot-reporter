@@ -123,11 +123,9 @@ class FailedTest extends React.Component {
   _renderSelectedView(paths) {
     const currentView = this.state.view;
 
-    /* buttons to select the report type */
     const buttons = this._getSelectViewButtons(currentView,
       FailedTest.VIEW_OPTIONS, this.onViewChange);
 
-    /* switch betwen report types */
     const report = FailedTest.VIEW_HANDLERS[currentView](paths,
       this.state.value, this.onSwipeOrFadeValueChange);
 

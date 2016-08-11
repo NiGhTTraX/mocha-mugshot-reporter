@@ -33,7 +33,7 @@ function _render2UpView(paths) {
   </div>;
 }
 
-function _renderSwipeView(paths, value, onValueChange) {
+function _renderSwipeView(paths, value, onSwipeOrFadeValueChange) {
   return <div className="special">
     <ImageDiff before={paths.screenshot}
                after={paths.baseline}
@@ -45,11 +45,11 @@ function _renderSwipeView(paths, value, onValueChange) {
            max={1}
            step={.01}
            defaultValue={value}
-           onChange={onValueChange} />
+           onChange={onSwipeOrFadeValueChange} />
   </div>;
 }
 
-function _renderFadeView(paths, value, onValueChange) {
+function _renderFadeView(paths, value, onSwipeOrFadeValueChange) {
   return <div className="special">
     <ImageDiff before={paths.screenshot}
                after={paths.baseline}
@@ -61,7 +61,7 @@ function _renderFadeView(paths, value, onValueChange) {
            max={1}
            step={.01}
            defaultValue={value}
-           onChange={onValueChange} />
+           onChange={onSwipeOrFadeValueChange} />
   </div>;
 }
 
@@ -92,7 +92,7 @@ class FailedTest extends React.Component {
       openError: false
     };
 
-    this.onValueChange = this.onValueChange.bind(this);
+    this.onSwipeOrFadeValueChange = this.onSwipeOrFadeValueChange.bind(this);
     this.onViewChange = this.onViewChange.bind(this);
     this.onErrorMessageOpen = this.onErrorMessageOpen.bind(this);
   }
@@ -117,14 +117,12 @@ class FailedTest extends React.Component {
     </div>;
   }
 
-  /* handler for swipe and fade value*/
-  onValueChange(element) {
+  onSwipeOrFadeValueChange(element) {
     this.setState({
       value: parseFloat(element.target.value)
     });
   }
 
-  /* handler for switching between views */
   onViewChange(element) {
     var selectedView = element.target.name;
 
@@ -133,7 +131,6 @@ class FailedTest extends React.Component {
     });
   }
 
-  /* handler for the error text box */
   onErrorMessageOpen() {
     this.setState({
       openError: !this.state.openError
@@ -150,7 +147,7 @@ class FailedTest extends React.Component {
 
     /* switch betwen report types */
     const report = FailedTest.VIEW_HANDLERS[currentView](paths,
-      this.state.value, this.onValueChange);
+      this.state.value, this.onSwipeOrFadeValueChange);
 
     return <div>
       <Jumbotron> {report} </Jumbotron>

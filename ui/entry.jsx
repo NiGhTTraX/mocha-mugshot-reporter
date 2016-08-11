@@ -1,5 +1,4 @@
 /* globals window, document */
-/* eslint no-unused-vars: [2, {"varsIgnorePattern": "React"}] */
 
 import React from 'react';
 import ReactDOM from 'react-dom';

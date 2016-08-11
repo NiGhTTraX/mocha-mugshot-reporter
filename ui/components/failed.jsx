@@ -65,23 +65,6 @@ function _renderFadeView(paths, value, onSwipeOrFadeValueChange) {
   </div>;
 }
 
-function _getSelectViewButtons(currentView, viewOptions, onViewChange) {
-  let buttons = [];
-
-  viewOptions.forEach(function(item) {
-    buttons.push(
-      <Button name={item}
-              key={item}
-              onClick={onViewChange}
-              className={classNames({active: item === currentView})}>
-        {item}
-      </Button>
-    );
-  });
-
-  return buttons;
-}
-
 class FailedTest extends React.Component {
   constructor(props) {
     super(props);
@@ -138,11 +121,10 @@ class FailedTest extends React.Component {
   }
 
   _renderSelectedView(paths) {
-
     const currentView = this.state.view;
 
     /* buttons to select the report type */
-    const buttons = _getSelectViewButtons(currentView,
+    const buttons = this._getSelectViewButtons(currentView,
       FailedTest.VIEW_OPTIONS, this.onViewChange);
 
     /* switch betwen report types */
@@ -155,6 +137,23 @@ class FailedTest extends React.Component {
         {buttons}
       </ButtonGroup>
     </div>;
+  }
+
+  _getSelectViewButtons(currentView, viewOptions, onViewChange) {
+    let buttons = [];
+
+    viewOptions.forEach(function(item) {
+      buttons.push(
+        <Button name={item}
+                key={item}
+                onClick={onViewChange}
+                className={classNames({active: item === currentView})}>
+          {item}
+        </Button>
+      );
+    });
+
+    return buttons;
   }
 }
 

@@ -58,23 +58,20 @@ class Header extends React.Component {
   }
 
   _renderNavItems(filters) {
-    let items = [];
 
-    filters.forEach(function(item, index) {
+    let items = filters.map(function(item, index) {
       const filter = item.name.toLowerCase();
 
-      items.push(
-        <NavItem eventKey={index}
+      return <NavItem eventKey={index}
                  key={index}
                  onClick={this.onFilterChange.bind(this, filter)}
                  className={classNames({active: this.props.filter === filter})}
                  disabled={item.disabled}>
-          {item.name}
-          <Badge className={classNames(filter, item.badgeClass)}>
-            {item.count + (item.textAfter || '')}
-          </Badge>
-        </NavItem>
-      );
+        {item.name}
+        <Badge className={classNames(filter, item.badgeClass)}>
+          {item.count + (item.textAfter || '')}
+        </Badge>
+      </NavItem>;
     }.bind(this));
 
     return <Navbar.Collapse>

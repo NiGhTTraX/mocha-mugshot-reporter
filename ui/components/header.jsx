@@ -11,30 +11,25 @@ class Header extends React.Component {
 
   render() {
     const {passes, failures} = this.props,
-          filters = [
-                {
-                  name: 'All',
-                  count: passes + failures,
-                  badgeClass: 'blue-bg'
-                },
-                {
-                  name: 'Passes',
-                  count: passes,
-                  badgeClass: 'green-bg'
-                },
-                {
-                  name: 'Failures',
-                  count: failures,
-                  badgeClass: 'red-bg'
-                },
-                {
-                  name: 'Duration',
-                  count: this.props.duration,
-                  badgeClass: 'orange-bg',
-                  disabled: true,
-                  textAfter: ' ms'
-                }
-          ];
+          filters = [{
+            name: 'All',
+            count: passes + failures,
+            badgeClass: 'blue-bg'
+          }, {
+            name: 'Passes',
+            count: passes,
+            badgeClass: 'green-bg'
+          }, {
+            name: 'Failures',
+            count: failures,
+            badgeClass: 'red-bg'
+          }, {
+            name: 'Duration',
+            count: this.props.duration,
+            badgeClass: 'orange-bg',
+            disabled: true,
+            textAfter: ' ms'
+          }];
 
     return <Navbar inverse>
       {this._renderHeader()}

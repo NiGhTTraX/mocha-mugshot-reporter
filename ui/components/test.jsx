@@ -40,11 +40,9 @@ class Test extends React.Component {
     return <div className={classes}>
       <p className="test-title" onClick={this.onDetailsDisplay}>
         {test.state === 'passed'
-            ? <span className="glyphicon glyphicon-ok green"
-                    aria-hidden="true">
+            ? <span className="glyphicon glyphicon-ok green">
             </span>
-            : <span className="glyphicon glyphicon-remove red"
-                    aria-hidden="true">
+            : <span className="glyphicon glyphicon-remove red">
             </span> }
         {' ' + test.title} : <span className="test-state">{test.state}</span> in
         <span className="orange"> {test.duration} </span> ms

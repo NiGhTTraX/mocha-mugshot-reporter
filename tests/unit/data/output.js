@@ -23,7 +23,10 @@ module.exports = {
     result: {
       isEqual: false
     },
-    error: new Error('big error'),
+    error: {
+      name: 'Error',
+      message: 'big error'
+    },
     duration: 1.5
   }
 };

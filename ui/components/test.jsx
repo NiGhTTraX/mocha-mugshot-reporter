@@ -32,10 +32,11 @@ class Test extends React.Component {
       }
 
       details = {
-        paths: paths,
-        error: this.props.test.error
+        paths: paths
       };
     }
+
+    details.error = this.props.test.error;
 
     return <div className={classes}>
       <p className="test-title" onClick={this.onDetailsDisplay}>

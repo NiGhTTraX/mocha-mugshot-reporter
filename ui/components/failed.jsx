@@ -32,9 +32,7 @@ class FailedTest extends React.Component {
       </Button>
 
       <Panel collapsible expanded={this.state.openError} bsStyle="danger">
-        {_.isUndefined(paths)
-          ? <p> This test did not fail because Mugshot found differences :( </p>
-          : <p> {error.name} : {error.message} </p> }
+        {error.name} : {error.message}
       </Panel>
 
       {!_.isUndefined(paths) ? this._renderSelectedView(paths) : null }

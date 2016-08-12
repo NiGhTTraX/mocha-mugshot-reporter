@@ -9,10 +9,9 @@ class Details extends React.Component {
           error = this.props.details.error;
 
     return <div className="details">
-      {_.isUndefined(paths) ? <FailedTest paths={paths} />
-                            : Object.keys(paths).length === 1
-                                ? <PassedTest paths={paths} />
-                                : <FailedTest paths={paths} error={error} />}
+      {_.isUndefined(paths) || Object.keys(paths).length !== 1
+          ? <FailedTest paths={paths} error={error} />
+          : <PassedTest paths={paths} />}
     </div>;
   }
 }

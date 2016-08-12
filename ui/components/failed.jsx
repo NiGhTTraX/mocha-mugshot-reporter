@@ -1,69 +1,12 @@
 import _ from 'lodash';
 import React from 'react';
-import ImageDiff from 'react-image-diff';
 import classNames from 'classnames';
-import {Clearfix, ButtonGroup, Button,
-  Jumbotron, Grid, Row, Col, Panel}
-  from 'react-bootstrap';
+import {ButtonGroup, Button, Jumbotron, Panel} from 'react-bootstrap';
 
-function _renderDefaultView(paths) {
-  return <div className="simple">
-    <img className="diff"
-         src={paths.diff}
-         key={paths.diff} />
-  </div>;
-}
-
-function _render2UpView(paths) {
-  return <div className="simple">
-    <Grid>
-      <Row className="show-grid">
-        <Col xs={12} md={6}>
-          <img className="baseline"
-               src={paths.baseline}
-               key={paths.baseline} />
-        </Col>
-        <Col xs={12} md={6}>
-          <img className="screenshot"
-               src={paths.screenshot}
-               key={paths.screenshot} />
-        </Col>
-      </Row>
-    </Grid>
-  </div>;
-}
-
-function _renderSwipeView(paths, value, onSwipeOrFadeValueChange) {
-  return <div className="special">
-    <ImageDiff before={paths.screenshot}
-               after={paths.baseline}
-               type="swipe"
-               value={value} />
-    <Clearfix />
-    <input type="range"
-           min={0}
-           max={1}
-           step={.01}
-           defaultValue={value}
-           onChange={onSwipeOrFadeValueChange} />
-  </div>;
-}
-
-function _renderFadeView(paths, value, onSwipeOrFadeValueChange) {
-  return <div className="special">
-    <ImageDiff before={paths.screenshot}
-               after={paths.baseline}
-               type="fade"
-               value={value} />
-    <Clearfix />
-    <input type="range"
-           min={0}
-           max={1}
-           step={.01}
-           defaultValue={value}
-           onChange={onSwipeOrFadeValueChange} />
-  </div>;
-}
+import DefaultView from './views/defaultView.jsx';
+import TwoUpView from './views/twoUpView.jsx';
+import SwipeView from './views/swipeView.jsx';
+import FadeView from './views/fadeView.jsx';
 
 class FailedTest extends React.Component {
   constructor(props) {
@@ -71,11 +14,9 @@ class FailedTest extends React.Component {
 
     this.state = {
       view: 'default',
-      value: 0.5,
       openError: false
     };
 
-    this.onSwipeOrFadeValueChange = this.onSwipeOrFadeValueChange.bind(this);
     this.onViewChange = this.onViewChange.bind(this);
     this.onErrorMessageOpen = this.onErrorMessageOpen.bind(this);
   }
@@ -100,12 +41,6 @@ class FailedTest extends React.Component {
     </div>;
   }
 
-  onSwipeOrFadeValueChange(element) {
-    this.setState({
-      value: parseFloat(element.target.value)
-    });
-  }
-
   onViewChange(element) {
     var selectedView = element.target.name;
 
@@ -121,32 +56,30 @@ class FailedTest extends React.Component {
   }
 
   _renderSelectedView(paths) {
-    const currentView = this.state.view;
-
-    const buttons = this._getSelectViewButtons(currentView,
-      FailedTest.VIEW_OPTIONS, this.onViewChange);
-
-    const report = FailedTest.VIEW_HANDLERS[currentView](paths,
-      this.state.value, this.onSwipeOrFadeValueChange);
+    const Component =
+      _.find(FailedTest.VIEW_COMPONENTS, {name: this.state.view}).component;
 
     return <div>
-      <Jumbotron> {report} </Jumbotron>
+      <Jumbotron> <Component paths={paths} /> </Jumbotron>
       <ButtonGroup className="view-selector">
-        {buttons}
+        {this._getSelectViewButtons()}
       </ButtonGroup>
     </div>;
   }
 
-  _getSelectViewButtons(currentView, viewOptions, onViewChange) {
+  _getSelectViewButtons() {
+    const onViewChange = this.onViewChange,
+          currentView = this.state.view;
     let buttons = [];
 
-    viewOptions.forEach(function(item) {
+    FailedTest.VIEW_COMPONENTS.forEach(function(item) {
+      const name = item.name;
       buttons.push(
-        <Button name={item}
-                key={item}
+        <Button name={name}
+                key={name}
                 onClick={onViewChange}
-                className={classNames({active: item === currentView})}>
-          {item}
+                className={classNames({active: name === currentView})}>
+          {name}
         </Button>
       );
     });
@@ -156,12 +89,12 @@ class FailedTest extends React.Component {
 }
 
 FailedTest.displayName = 'FailedTest';
-FailedTest.VIEW_OPTIONS = ['default', '2-up', 'swipe', 'fade'];
-FailedTest.VIEW_HANDLERS = {
-  'default': _renderDefaultView,
-  '2-up': _render2UpView,
-  'swipe': _renderSwipeView,
-  'fade': _renderFadeView
-};
+
+FailedTest.VIEW_COMPONENTS = [
+  {name: 'default', component: DefaultView},
+  {name: '2-up', component: TwoUpView},
+  {name: 'swipe', component: SwipeView},
+  {name: 'fade', component: FadeView}
+];
 
 export default FailedTest;

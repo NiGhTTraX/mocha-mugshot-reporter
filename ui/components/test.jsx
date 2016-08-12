@@ -32,19 +32,18 @@ class Test extends React.Component {
       }
 
       details = {
-        paths: paths,
-        error: this.props.test.error
+        paths: paths
       };
     }
+
+    details.error = this.props.test.error;
 
     return <div className={classes}>
       <p className="test-title" onClick={this.onDetailsDisplay}>
         {test.state === 'passed'
-            ? <span className="glyphicon glyphicon-ok green"
-                    aria-hidden="true">
+            ? <span className="glyphicon glyphicon-ok green">
             </span>
-            : <span className="glyphicon glyphicon-remove red"
-                    aria-hidden="true">
+            : <span className="glyphicon glyphicon-remove red">
             </span> }
         {' ' + test.title} : <span className="test-state">{test.state}</span> in
         <span className="orange"> {test.duration} </span> ms

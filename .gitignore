@@ -28,3 +28,7 @@ node_modules
 
 # Bundled UI.
 statics/
+
+visual-tests
+visual-report
+test.js

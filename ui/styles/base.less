@@ -61,18 +61,9 @@
 }
 
 .details {
-  height: auto;
-  max-height: 0px;
-  overflow: hidden;
-  transition: all 1s;
-
   .clearfix {
     padding-top: 10px;
   }
-}
-
-.toggled .details {
-  max-height: 1000px;
 }
 
 /* Test report */
@@ -103,6 +94,12 @@
 
 .ImageDiff * {
   box-sizing: content-box;
+}
+
+.panel-default {
+  border-color: @white;
+  box-shadow: none;
+  margin-bottom: 0px;
 }
 
 .panel-danger {

@@ -39,6 +39,7 @@
     "object-assign": "~4.0.1",
     "react": "~0.14.8",
     "react-addons-test-utils": "~0.14.8",
+    "react-component-tree": "^0.4.0",
     "react-dom": "~0.14.8",
     "react-image-diff": "~0.1.0",
     "skin-deep": "~0.6.0",

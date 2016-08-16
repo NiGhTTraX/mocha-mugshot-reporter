@@ -1,14 +1,26 @@
 import React from 'react';
 import classNames from 'classnames';
 import Details from './details.jsx';
+import {Component} from 'react-component-tree';
 
-class Test extends React.Component {
+class Test extends Component {
   constructor(props) {
     super(props);
 
     this.state = {toggled: false};
 
     this.onDetailsDisplay = this.onDetailsDisplay.bind(this);
+  }
+
+  get children() {
+    return {
+      details: (details) => {
+        return {
+          component: Details,
+          details: details
+        };
+      }
+    };
   }
 
   render() {
@@ -48,7 +60,7 @@ class Test extends React.Component {
         {' ' + test.title} : <span className="test-state">{test.state}</span> in
         <span className="orange"> {test.duration} </span> ms
       </p>
-      <Details details={details} />
+      {this.loadChild('details', details)}
     </div>;
   }
 

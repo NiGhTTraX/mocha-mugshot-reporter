@@ -2,13 +2,14 @@ import _ from 'lodash';
 import React from 'react';
 import classNames from 'classnames';
 import {ButtonGroup, Button, Jumbotron, Panel} from 'react-bootstrap';
+import {Component} from 'react-component-tree';
 
 import DefaultView from './views/defaultView.jsx';
 import TwoUpView from './views/twoUpView.jsx';
 import SwipeView from './views/swipeView.jsx';
 import FadeView from './views/fadeView.jsx';
 
-class FailedTest extends React.Component {
+class FailedTest extends Component {
   constructor(props) {
     super(props);
 
@@ -19,6 +20,35 @@ class FailedTest extends React.Component {
 
     this.onViewChange = this.onViewChange.bind(this);
     this.onErrorMessageOpen = this.onErrorMessageOpen.bind(this);
+  }
+
+  get children() {
+    return {
+      default: (paths) => {
+        return {
+          component: DefaultView,
+          paths: paths
+        };
+      },
+      twoUp: (paths) => {
+        return {
+          component: TwoUpView,
+          paths: paths
+        };
+      },
+      swipe: (paths) => {
+        return {
+          component: SwipeView,
+          paths: paths
+        };
+      },
+      fade: (paths) => {
+        return {
+          component: FadeView,
+          paths: paths
+        };
+      }
+    };
   }
 
   render() {
@@ -54,11 +84,9 @@ class FailedTest extends React.Component {
   }
 
   _renderSelectedView(paths) {
-    const Component =
-      _.find(FailedTest.VIEW_COMPONENTS, {name: this.state.view}).component;
 
     return <div>
-      <Jumbotron> <Component paths={paths} /> </Jumbotron>
+      <Jumbotron> {this.loadChild(this.state.view, paths)} </Jumbotron>
       <ButtonGroup className="view-selector">
         {this._getSelectViewButtons()}
       </ButtonGroup>
@@ -70,14 +98,13 @@ class FailedTest extends React.Component {
           currentView = this.state.view;
     let buttons = [];
 
-    FailedTest.VIEW_COMPONENTS.forEach(function(item) {
-      const name = item.name;
+    FailedTest.VIEWS.forEach(function(item) {
       buttons.push(
-        <Button name={name}
-                key={name}
+        <Button name={item}
+                key={item}
                 onClick={onViewChange}
-                className={classNames({active: name === currentView})}>
-          {name}
+                className={classNames({active: item === currentView})}>
+          {item}
         </Button>
       );
     });
@@ -88,11 +115,6 @@ class FailedTest extends React.Component {
 
 FailedTest.displayName = 'FailedTest';
 
-FailedTest.VIEW_COMPONENTS = [
-  {name: 'default', component: DefaultView},
-  {name: '2-up', component: TwoUpView},
-  {name: 'swipe', component: SwipeView},
-  {name: 'fade', component: FadeView}
-];
+FailedTest.VIEWS = ['default', 'twoUp', 'swipe', 'fade'];
 
 export default FailedTest;

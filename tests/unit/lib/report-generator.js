@@ -1,8 +1,8 @@
 var expect = require('chai').expect,
-    generateReport = require('../../lib/report-generator.js'),
+    generateReport = require('../../../lib/report-generator.js'),
     fs = require('fs-extra'),
     path = require('path'),
-    mochaTestDataVarName = require('../../lib/mocha-test-data-var-name.js');
+    mochaTestDataVarName = require('../../../lib/mocha-test-data-var-name.js');
 
 var rootDirectory = 'visual-report',
     staticsDirectory = 'statics',

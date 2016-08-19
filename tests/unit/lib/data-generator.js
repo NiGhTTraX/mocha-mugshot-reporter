@@ -1,7 +1,7 @@
 var expect = require('chai').expect,
     objectAssign = require('object-assign'),
     _ = require('lodash'),
-    generate = require('../../lib/data-generator.js'),
+    generate = require('../../../lib/data-generator.js'),
     EventEmitter = require('events').EventEmitter;
 
 var input = require('./data/input.js'),

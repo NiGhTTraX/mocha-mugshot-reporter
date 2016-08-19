@@ -31,8 +31,12 @@ class Suite extends Component {
           },
           _this = this;
 
-    return <div className="suite" style={suiteStyle}>
-      <h2 className="suite-title" style={titleStyle}>{suite.title}</h2>
+    return <div className="suite" ref="suite" style={suiteStyle}>
+      <h2 className="suite-title"
+          ref="suiteTitle"
+          style={titleStyle}>
+            {suite.title}
+      </h2>
       {tests[this.props.filter].map(function(test, index) {
         return _this.loadChild('test', test, index);
       })}

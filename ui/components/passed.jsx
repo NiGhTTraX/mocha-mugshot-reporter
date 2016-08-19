@@ -6,7 +6,8 @@ class PassedTest extends React.Component {
 
     return <div className="diffs">
       <img className="baseline"
-           src={baseline} />
+           src={baseline}
+           ref="baseline" />
     </div>;
   }
 }

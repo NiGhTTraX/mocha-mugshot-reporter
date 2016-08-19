@@ -47,6 +47,16 @@ class FailedTest extends Component {
           component: FadeView,
           paths: paths
         };
+      },
+      selectViewButton: (view) => {
+        return {
+          component: Button,
+          name: view,
+          key: view,
+          onClick: this.onViewChange,
+          className: classNames({active: view === this.state.view}),
+          children: view
+        };
       }
     };
   }
@@ -57,6 +67,7 @@ class FailedTest extends Component {
     return <div className="diffs">
       <Button bsStyle="danger"
               bsSize="xsmall"
+              ref="errorButton"
               onClick={this.onErrorMessageOpen}>
         Show Error
       </Button>
@@ -94,18 +105,12 @@ class FailedTest extends Component {
   }
 
   _getSelectViewButtons() {
-    const onViewChange = this.onViewChange,
-          currentView = this.state.view;
+    const _this = this;
     let buttons = [];
 
     FailedTest.VIEWS.forEach(function(item) {
       buttons.push(
-        <Button name={item}
-                key={item}
-                onClick={onViewChange}
-                className={classNames({active: item === currentView})}>
-          {item}
-        </Button>
+        _this.loadChild('selectViewButton', item)
       );
     });
 

@@ -27,7 +27,7 @@ class Details extends Component {
     const {paths, error} = this.props.details;
 
     return <div className="details">
-      {_.isUndefined(paths) || Object.keys(paths).length !== 1
+      {_.isUndefined(paths) || !paths.isEqual
           ? this.loadChild('failedTest', paths, error)
           : this.loadChild('passedTest', paths)}
     </div>;

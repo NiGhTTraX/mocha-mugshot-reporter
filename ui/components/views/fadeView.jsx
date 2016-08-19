@@ -20,10 +20,12 @@ class FadeView extends React.Component {
     return <div className="special">
       <ImageDiff before={paths.screenshot}
                  after={paths.baseline}
+                 ref="imageDiff"
                  type="fade"
                  value={value} />
       <Clearfix />
       <input type="range"
+             ref="inputRange"
              min={0}
              max={1}
              step={.01}
@@ -40,5 +42,6 @@ class FadeView extends React.Component {
 }
 
 FadeView.displayName = 'FadeView';
+FadeView.DEFAULT_VALUE = 0.5;
 
 export default FadeView;

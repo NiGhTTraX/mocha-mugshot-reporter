@@ -61,7 +61,6 @@ class Report extends Component {
         duration += test.duration;
       });
     });
-
     return <div className="report">
       {this.loadChild('header', numberOfPasses, numberOfFailures, duration)}
       {this.loadChild('results', suites)}

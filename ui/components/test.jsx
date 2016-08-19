@@ -29,36 +29,22 @@ class Test extends Component {
           classes = cx({
             test: true,
             toggled: this.state.toggled
-          });
-    let paths,
-        details = {};
-
-    if (test.result) {
-      paths = {
-        baseline: test.result.baseline
-      };
-
-      if (test.result.screenshot && test.result.diff) {
-        paths.diff = test.result.diff;
-        paths.screenshot = test.result.screenshot;
-      }
-
-      details = {
-        paths: paths
-      };
-    }
-
-    details.error = this.props.test.error;
+          }),
+          details = {
+            paths: test.result,
+            error: test.error
+          };
 
     return <div className={classes}>
-      <p className="test-title" onClick={this.onDetailsDisplay}>
+      <p className="test-title" ref="testTitle" onClick={this.onDetailsDisplay}>
         {test.state === 'passed'
             ? <span className="glyphicon glyphicon-ok green">
             </span>
             : <span className="glyphicon glyphicon-remove red">
             </span> }
-        {' ' + test.title} : <span className="test-state">{test.state}</span> in
-        <span className="orange"> {test.duration} </span> ms
+        {' ' + test.title + ' : '}
+        <span className="test-state" ref="testState">{test.state}</span> in
+        <span className="orange" ref="testDuration"> {test.duration} </span> ms
       </p>
       {this.loadChild('details', details)}
     </div>;

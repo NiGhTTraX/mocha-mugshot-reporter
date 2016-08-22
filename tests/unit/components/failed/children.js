@@ -13,17 +13,20 @@ describe('Failed', function() {
     });
 
     FailedTest.VIEWS.forEach(function(item) {
-      it(`should pass the paths to the ${item} view child`,
+      it(`should pass the component & the paths to the ${item.name} view child`,
         function() {
-          props = getChildProps(component, item, [paths]);
+          const viewComponent = item.component;
+
+          props = getChildProps(component, 'view', [viewComponent, paths]);
+          expect(props.component).to.equal(viewComponent);
           expect(props.paths).to.equal(paths);
         });
     });
 
     FailedTest.VIEWS.forEach(function(item) {
-      it(`should have attached to the ${item} button the onViewChange cb`,
+      it(`should have attached to the ${item.name} button the onViewChange cb`,
         function() {
-          props = getChildProps(component, 'selectViewButton', [item]);
+          props = getChildProps(component, 'selectViewButton', [item.name]);
           expect(props.onClick).to.equal(component.onViewChange);
         });
     });

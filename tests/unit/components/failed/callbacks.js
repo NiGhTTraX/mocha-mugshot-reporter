@@ -12,9 +12,11 @@ describe('Failed', function() {
     });
 
     FailedTest.VIEWS.forEach(function(item) {
-      it(`should change the view to ${item}`, function() {
-        component.onViewChange({target: {name: item}});
-        expect(component.state.view).to.equal(item);
+      it(`should change the view to ${item.name}`, function() {
+        const view = item.name;
+
+        component.onViewChange({target: {name: view}});
+        expect(component.state.view).to.equal(view);
       });
     });
 

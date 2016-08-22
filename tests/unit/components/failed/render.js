@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import FailedTest from '../../../../ui/components/failed.jsx';
 import fixture from '../../../fixtures/components/failed/failed.js';
 import {render, stubMethod} from '../../helpers.js';
@@ -22,22 +23,27 @@ describe('Failed', function() {
       });
 
     it('should initially render the default view child', function() {
-      expect(loadChildStub).to.have.been.calledWith('default', fixture.paths);
+      const viewComponent =
+        _.find(FailedTest.VIEWS, {name: 'default'}).component;
+
+      expect(loadChildStub)
+          .to.have.been.calledWith('view', viewComponent, fixture.paths);
     });
 
     FailedTest.VIEWS.slice(1).forEach(function(item) {
-      it(`should render the ${item} view child`,
+      it(`should render the ${item.name} view child`,
         function() {
-          component.onViewChange({target: {name: item}});
-          expect(loadChildStub).to.have.been.calledWith(item, fixture.paths);
+          component.onViewChange({target: {name: item.name}});
+          expect(loadChildStub)
+              .to.have.been.calledWith('view', item.component, fixture.paths);
         });
     });
 
     FailedTest.VIEWS.forEach(function(item) {
-      it(`should render selectViewButton child to select the ${item} view`,
+      it(`should render the selectViewButton child to select ${item.name} view`,
         function() {
           expect(loadChildStub)
-              .to.have.been.calledWith('selectViewButton', item);
+              .to.have.been.calledWith('selectViewButton', item.name);
         });
     });
   });

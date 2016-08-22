@@ -5,7 +5,7 @@ import {render, stubMethod, getChildProps} from '../../helpers.js';
 
 describe('Report', function() {
   describe('Children', function() {
-    let {
+    const {
       suites,
       numberOfPasses,
       numberOfFailures,

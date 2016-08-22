@@ -65,7 +65,7 @@ class Header extends React.Component {
                  onClick={this.onFilterChange.bind(this, filter)}>
         {item.name}
         <Badge className={classNames(filter, item.badgeClass)}
-               ref={filter + 'Badge'}>
+               ref={`${filter}Badge`}>
           {item.count + (item.textAfter || '')}
         </Badge>
       </NavItem>;

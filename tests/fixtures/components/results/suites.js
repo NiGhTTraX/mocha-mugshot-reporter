@@ -3,7 +3,7 @@ import _ from 'lodash';
 let passedTestDuration = _.random(0, 100, true);
 let failedTestDuration = _.random(0, 100, true);
 
-module.exports = {
+export default {
   suites: [{}, {
     title: 'Suite 1',
     indent: _.random(0, 100),

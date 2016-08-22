@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   details: {
     paths: {
       isEqual: false,

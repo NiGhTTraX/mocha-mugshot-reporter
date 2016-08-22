@@ -1,5 +1,5 @@
 import fixture from '../failed/failed.js';
 
-module.exports = {
+export default {
   paths: fixture.paths
 };

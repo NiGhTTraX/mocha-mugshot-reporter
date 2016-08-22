@@ -1,3 +1,3 @@
 import fixture from '../details/details-failed.js';
 
-module.exports = fixture.details;
+export default fixture.details;

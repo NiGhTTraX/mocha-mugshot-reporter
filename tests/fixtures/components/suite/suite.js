@@ -1,6 +1,6 @@
 import fixture from '../results/suites.js';
 
-module.exports = {
+export default {
   suite: fixture.suites[1],
   filter: 'all'
 };

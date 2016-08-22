@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-module.exports = {
+export default {
   data: [{
     title: '',
     indent: 0,

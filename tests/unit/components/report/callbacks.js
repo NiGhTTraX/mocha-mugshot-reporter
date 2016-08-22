@@ -5,7 +5,6 @@ import {render, stubMethod} from '../../helpers.js';
 const FILTERS = ['passes', 'failures', 'all'];
 
 describe('Report', function() {
-
   describe('Callbacks', function() {
     let component;
 

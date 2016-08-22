@@ -3,7 +3,6 @@ import fixture from '../../../../fixtures/components/views/paths.js';
 import {render} from '../../../helpers.js';
 
 describe('DefaultView', function() {
-
   describe('Render', function() {
     let component;
 

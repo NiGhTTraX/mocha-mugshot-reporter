@@ -4,7 +4,6 @@ import suitesParser from './setup.js';
 import {render, stubMethod, getChildProps} from '../../helpers.js';
 
 describe('Report', function() {
-
   describe('Children', function() {
     let {
       suites,
@@ -20,7 +19,6 @@ describe('Report', function() {
     });
 
     describe('Header', function() {
-
       beforeEach(function() {
         props = getChildProps(component, 'header',
           [numberOfPasses, numberOfFailures, duration]);
@@ -44,7 +42,6 @@ describe('Report', function() {
     });
 
     describe('Results', function() {
-
       beforeEach(function() {
         props = getChildProps(component, 'results', [suites]);
       });

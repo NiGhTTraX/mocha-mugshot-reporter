@@ -3,9 +3,7 @@ import fixture from '../../../../fixtures/components/test/failedTest.js';
 import {render, stubMethod} from '../../../helpers.js';
 
 describe('Test', function() {
-
   describe('Render', function() {
-
     describe('Failing', function() {
       let component, loadChildStub;
 

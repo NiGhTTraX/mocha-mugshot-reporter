@@ -4,7 +4,6 @@ import fixture from '../../../../fixtures/components/views/paths.js';
 import {render, stubMethod} from '../../../helpers.js';
 
 describe('FadeView', function() {
-
   describe('Callbacks', function() {
     let component;
 

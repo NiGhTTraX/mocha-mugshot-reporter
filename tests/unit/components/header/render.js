@@ -5,9 +5,7 @@ import {render} from '../../helpers.js';
 const MENU_ITEMS = ['all', 'passes', 'failures'];
 
 describe('Header', function() {
-
   describe('Render', function() {
-
     const {passes, failures} = fixture,
           all = passes + failures;
     let component;

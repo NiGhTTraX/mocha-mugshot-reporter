@@ -3,7 +3,6 @@ import fixture from '../../../fixtures/components/failed/failed.js';
 import {render, stubMethod} from '../../helpers.js';
 
 describe('Failed', function() {
-
   describe('Callbacks', function() {
     let component;
 

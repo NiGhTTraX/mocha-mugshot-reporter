@@ -3,7 +3,6 @@ import fixture from '../../../fixtures/components/suite/suite.js';
 import {render, stubMethod, getChildProps} from '../../helpers.js';
 
 describe('Suite', function() {
-
   describe('Children', function() {
     let component, props;
 

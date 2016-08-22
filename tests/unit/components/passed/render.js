@@ -3,7 +3,6 @@ import fixture from '../../../fixtures/components/passed/passed.js';
 import {render} from '../../helpers.js';
 
 describe('Passed', function() {
-
   describe('Render', function() {
     let component;
 

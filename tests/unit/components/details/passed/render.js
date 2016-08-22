@@ -3,9 +3,7 @@ import fixture from '../../../../fixtures/components/details/details-passed.js';
 import {render, stubMethod} from '../../../helpers.js';
 
 describe('Details', function() {
-
   describe('Render', function() {
-
     describe('Passed Test', function() {
       let loadChildStub;
 

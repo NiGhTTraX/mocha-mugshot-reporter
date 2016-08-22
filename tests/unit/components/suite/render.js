@@ -3,7 +3,6 @@ import fixture from '../../../fixtures/components/suite/suite.js';
 import {render, stubMethod} from '../../helpers.js';
 
 describe('Suite', function() {
-
   describe('Render', function() {
     let component, loadChildStub;
 

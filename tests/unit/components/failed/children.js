@@ -3,7 +3,6 @@ import fixture from '../../../fixtures/components/failed/failed.js';
 import {render, stubMethod, getChildProps} from '../../helpers.js';
 
 describe('Failed', function() {
-
   describe('Children', function() {
     const paths = fixture.paths;
     let props, component;

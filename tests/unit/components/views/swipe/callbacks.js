@@ -4,7 +4,6 @@ import fixture from '../../../../fixtures/components/views/paths.js';
 import {render, stubMethod} from '../../../helpers.js';
 
 describe('SwipeView', function() {
-
   describe('Callbacks', function() {
     let component;
 

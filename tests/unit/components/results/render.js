@@ -3,7 +3,6 @@ import fixture from '../../../fixtures/components/results/suites.js';
 import {render, stubMethod} from '../../helpers.js';
 
 describe('Results', function() {
-
   describe('Render', function() {
     let loadChildStub;
 

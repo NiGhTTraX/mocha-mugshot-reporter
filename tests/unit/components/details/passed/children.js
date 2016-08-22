@@ -3,9 +3,7 @@ import fixture from '../../../../fixtures/components/details/details-passed.js';
 import {render, stubMethod, getChildProps} from '../../../helpers.js';
 
 describe('Details', function() {
-
   describe('Children', function() {
-
     describe('Passed Test', function() {
       let component, props, expectedPaths, childPaths;
 

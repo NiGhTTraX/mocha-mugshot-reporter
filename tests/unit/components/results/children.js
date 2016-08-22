@@ -3,7 +3,6 @@ import fixture from '../../../fixtures/components/results/suites.js';
 import {render, stubMethod, getChildProps} from '../../helpers.js';
 
 describe('Results', function() {
-
   describe('Children', function() {
     const filter = fixture.filter;
     let component, props;

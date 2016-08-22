@@ -4,7 +4,6 @@ import suitesParser from './setup.js';
 import {render, stubMethod} from '../../helpers.js';
 
 describe('Report', function() {
-
   describe('Render', function() {
     const {
       suites,

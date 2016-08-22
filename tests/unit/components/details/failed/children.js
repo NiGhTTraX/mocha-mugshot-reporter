@@ -3,9 +3,7 @@ import fixture from '../../../../fixtures/components/details/details-failed.js';
 import {render, stubMethod, getChildProps} from '../../../helpers.js';
 
 describe('Details', function() {
-
   describe('Children', function() {
-
     describe('Failed Test', function() {
       let component, props, expectedPaths, expectedError, childPaths;
 
@@ -40,5 +38,4 @@ describe('Details', function() {
       });
     });
   });
-
 });

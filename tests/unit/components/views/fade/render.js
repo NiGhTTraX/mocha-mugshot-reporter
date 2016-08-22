@@ -7,7 +7,6 @@ import {render} from '../../../helpers.js';
 const RANDOM_VALUE = _.random(0, 1, true);
 
 describe('FadeView', function() {
-
   describe('Render', function() {
     let component, imageDiffProps, inputRangeProps, paths;
 

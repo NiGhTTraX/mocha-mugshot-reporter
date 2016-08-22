@@ -1,11 +1,10 @@
 /* globals window, document */
 
+import './styles/base.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Report from './components/report.jsx';
 import mochaTestDataVarName from '../lib/mocha-test-data-var-name.js';
-
-require('./styles/base.less');
 
 const data = window[mochaTestDataVarName];
 

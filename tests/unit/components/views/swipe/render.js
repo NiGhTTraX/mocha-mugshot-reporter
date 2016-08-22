@@ -1,6 +1,10 @@
+import _ from 'lodash';
+import TestUtils from 'react-addons-test-utils';
 import SwipeView from '../../../../../ui/components/views/swipeView.jsx';
 import fixture from '../../../../fixtures/components/views/paths.js';
 import {render} from '../../../helpers.js';
+
+const RANDOM_VALUE = _.random(0, 1, true);
 
 describe('SwipeView', function() {
 
@@ -36,8 +40,10 @@ describe('SwipeView', function() {
 
     it('should have attached on the inputRange the onValueChange cb',
       function() {
-        expect(component.refs.inputRange.props.onChange)
-          .to.equal(component.onValueChange);
+        component.refs.inputRange.value = RANDOM_VALUE;
+        TestUtils.Simulate.change(component.refs.inputRange);
+
+        expect(component.state.value).to.equal(RANDOM_VALUE);
       });
   });
 });

@@ -43,6 +43,7 @@
     "mugshot": "^0.2.0",
     "object-assign": "~4.0.1",
     "react": "~0.14.8",
+    "react-addons-test-utils": "~0.14.8",
     "react-dom": "~0.14.8",
     "react-image-diff": "~0.1.0",
     "sinon": "github:ubervu/Sinon.JS",

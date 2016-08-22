@@ -9,10 +9,7 @@
     'expect': false,
     'sandbox': false,
     'document': false,
-    'window': false,
-    'React': false,
-    'ReactDOM': false,
-    'TestUtils': false
+    'window': false
   },
 
   'rules': {

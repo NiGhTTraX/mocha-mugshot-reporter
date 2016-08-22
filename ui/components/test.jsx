@@ -1,3 +1,4 @@
+import '../styles/components/test.less';
 import React from 'react';
 import Details from './details.jsx';
 import {Panel} from 'react-bootstrap';

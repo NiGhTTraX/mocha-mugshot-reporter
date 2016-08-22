@@ -24,27 +24,9 @@ class FailedTest extends Component {
 
   get children() {
     return {
-      default: (paths) => {
+      view: (component, paths) => {
         return {
-          component: DefaultView,
-          paths: paths
-        };
-      },
-      twoUp: (paths) => {
-        return {
-          component: TwoUpView,
-          paths: paths
-        };
-      },
-      swipe: (paths) => {
-        return {
-          component: SwipeView,
-          paths: paths
-        };
-      },
-      fade: (paths) => {
-        return {
-          component: FadeView,
+          component: component,
           paths: paths
         };
       },
@@ -95,9 +77,11 @@ class FailedTest extends Component {
   }
 
   _renderSelectedView(paths) {
+    const component =
+      _.find(FailedTest.VIEWS, {name: this.state.view}).component;
 
     return <div>
-      <Jumbotron> {this.loadChild(this.state.view, paths)} </Jumbotron>
+      <Jumbotron> {this.loadChild('view', component, paths)} </Jumbotron>
       <ButtonGroup className="view-selector">
         {this._getSelectViewButtons()}
       </ButtonGroup>
@@ -108,7 +92,7 @@ class FailedTest extends Component {
     let buttons = [];
 
     FailedTest.VIEWS.forEach(item => {
-      buttons.push(this.loadChild('selectViewButton', item));
+      buttons.push(this.loadChild('selectViewButton', item.name));
     });
 
     return buttons;
@@ -117,6 +101,11 @@ class FailedTest extends Component {
 
 FailedTest.displayName = 'FailedTest';
 
-FailedTest.VIEWS = ['default', 'twoUp', 'swipe', 'fade'];
+FailedTest.VIEWS = [
+  {name: 'default', component: DefaultView},
+  {name: '2-up', component: TwoUpView},
+  {name: 'swipe', component: SwipeView},
+  {name: 'fade', component: FadeView}
+];
 
 export default FailedTest;

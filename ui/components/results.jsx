@@ -18,11 +18,10 @@ class Results extends Component {
   }
 
   render() {
-    const filter = this.props.filter,
-          _this = this;
-    let suites = this.props.suites.slice(1).map(function(suite, index) {
-      return _this.loadChild('suite', suite, filter, index);
-    });
+    const filter = this.props.filter;
+
+    let suites = this.props.suites.slice(1).map((suite, index) =>
+        this.loadChild('suite', suite, filter, index));
 
     return <section className="results container">
       {suites}

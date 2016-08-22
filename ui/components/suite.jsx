@@ -28,8 +28,7 @@ class Suite extends Component {
             all: suite.tests,
             passes: suite.passes,
             failures: suite.failures
-          },
-          _this = this;
+          };
 
     return <div className="suite" ref="suite" style={suiteStyle}>
       <h2 className="suite-title"
@@ -37,9 +36,8 @@ class Suite extends Component {
           style={titleStyle}>
             {suite.title}
       </h2>
-      {tests[this.props.filter].map(function(test, index) {
-        return _this.loadChild('test', test, index);
-      })}
+      {tests[this.props.filter].map((test, index) =>
+          this.loadChild('test', test, index))}
     </div>;
   }
 }

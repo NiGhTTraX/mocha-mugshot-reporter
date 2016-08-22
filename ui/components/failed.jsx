@@ -105,13 +105,10 @@ class FailedTest extends Component {
   }
 
   _getSelectViewButtons() {
-    const _this = this;
     let buttons = [];
 
-    FailedTest.VIEWS.forEach(function(item) {
-      buttons.push(
-        _this.loadChild('selectViewButton', item)
-      );
+    FailedTest.VIEWS.forEach(item => {
+      buttons.push(this.loadChild('selectViewButton', item));
     });
 
     return buttons;

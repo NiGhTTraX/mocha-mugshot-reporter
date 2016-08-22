@@ -26,7 +26,7 @@ describe('Failed', function() {
       expect(loadChildStub).to.have.been.calledWith('default', fixture.paths);
     });
 
-    FailedTest.VIEWS.slice(1, 4).forEach(function(item) {
+    FailedTest.VIEWS.slice(1).forEach(function(item) {
       it(`should render the ${item} view child`,
         function() {
           component.onViewChange({target: {name: item}});

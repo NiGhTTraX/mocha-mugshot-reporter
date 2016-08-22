@@ -1,3 +1,4 @@
+import '../styles/components/failed.less';
 import _ from 'lodash';
 import React from 'react';
 import classNames from 'classnames';

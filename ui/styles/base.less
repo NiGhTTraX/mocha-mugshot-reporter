@@ -1,12 +1,5 @@
 @import "constants/colors";
 
-/* Test report */
-
-.jumbotron {
-  position: relative;
-  padding: 20px;
-}
-
 .baseline {
   border: 1px solid @light-green;
   max-width: 100%;
@@ -23,9 +16,6 @@
   margin: 0 auto;
 }
 
-.view-selector {
-  padding-bottom: 20px;
-}
 
 .ImageDiff * {
   box-sizing: content-box;
@@ -40,25 +30,6 @@
 .panel-danger {
   border-color: @white;
   box-shadow: inset 0px 0px 0px 2px @pink;
-}
-
-.btn {
-  &:focus, &:active, &:active:focus {
-    outline: 0;
-  }
-}
-.btn.active:focus {
-  outline: 0;
-}
-.btn-default.active:focus {
-  color: #333;
-  background-color: @dirty-white;
-  border-color: @lighter-grey;
-}
-.btn-danger:focus {
-  color: @white;
-  background-color: @light-red;
-  border-color: @red;
 }
 
 input[type=range]{

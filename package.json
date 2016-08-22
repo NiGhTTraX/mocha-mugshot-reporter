@@ -48,7 +48,6 @@
     "react-image-diff": "~0.1.0",
     "sinon": "github:ubervu/Sinon.JS",
     "sinon-chai": "~2.8.0",
-    "skin-deep": "~0.6.0",
     "style-loader": "~0.12.4",
     "webdriverio": "~3.4.0",
     "webpack": "~1.12.2"

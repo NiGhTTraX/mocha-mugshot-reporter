@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha --compilers js:babel-register --recursive tests/unit/setup-node.js tests/unit/ --require ignore-styles",
     "test-acceptance:generate-report": "mocha --compilers js:babel-register tests/acceptance/setup/test.js -R index.js",
+    "test-acceptance": "mocha --compilers js:babel-register tests/acceptance/test.js",
     "test-integration": "mocha tests/integration",
     "browser": "phantomjs --webdriver=4444",
     "prepublish": "webpack",

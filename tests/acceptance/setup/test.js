@@ -8,7 +8,7 @@ import path from 'path';
 
 const WebdriverIOAdapter = Mugshot.adapters.WebdriverIO;
 const MUGSHOT_OPTIONS = {
-  rootDirectory: './tests/acceptance/visual-tests'
+  rootDirectory: './tests/acceptance/setup/visual-tests'
 };
 const BROWSER_OPTIONS = {
   desiredCapabilities: {

@@ -1,7 +1,9 @@
+import '../styles/components/test.less';
 import React from 'react';
-import classNames from 'classnames';
 import Details from './details.jsx';
 import {Component} from 'react-component-tree';
+import {Panel} from 'react-bootstrap';
+import classNames from 'classnames';
 
 class Test extends Component {
   constructor(props) {
@@ -46,7 +48,10 @@ class Test extends Component {
         <span className="test-state" ref="testState">{test.state}</span> in
         <span className="orange" ref="testDuration"> {test.duration} </span> ms
       </p>
-      {this.loadChild('details', details)}
+
+      <Panel collapsible expanded={this.state.toggled}>
+        {this.loadChild('details', details)}
+      </Panel>
     </div>;
   }
 

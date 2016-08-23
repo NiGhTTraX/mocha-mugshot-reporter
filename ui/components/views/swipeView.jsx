@@ -1,3 +1,4 @@
+import '../../styles/components/views.less';
 import React from 'react';
 import ImageDiff from 'react-image-diff';
 import {Clearfix} from 'react-bootstrap';

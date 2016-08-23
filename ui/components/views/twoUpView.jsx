@@ -1,3 +1,4 @@
+import '../../styles/components/views.less';
 import React from 'react';
 import {Grid, Row, Col} from 'react-bootstrap';
 

@@ -1,3 +1,4 @@
+import '../styles/components/details.less';
 import _ from 'lodash';
 import React from 'react';
 import FailedTest from './failed.jsx';

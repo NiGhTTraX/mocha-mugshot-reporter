@@ -4,7 +4,7 @@
   "description": "Mocha reporter for the Mugshot visual regression testing lib",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-register --recursive tests/unit/setup-node.js tests/unit/",
+    "test": "mocha --compilers js:babel-register --recursive tests/unit/setup-node.js tests/unit/ --require ignore-styles",
     "test-integration": "mocha tests/integration",
     "prepublish": "webpack",
     "lint": "eslint . --ext js --ext jsx --ignore-path .gitignore"
@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/uberVU/mocha-mugshot-reporter#readme",
   "devDependencies": {
+    "autoprefixer": "~6.4.0",
     "babel": "~5.8.23",
     "babel-core": "~6.13.2",
     "babel-loader": "~6.2.4",
@@ -38,10 +39,15 @@
     "eslint": "~2.0.0",
     "eslint-plugin-react": "~4.1.0",
     "jsdom": "~9.4.1",
+    "extract-text-webpack-plugin": "~1.0.1",
+    "ignore-styles": "~4.0.0",
+    "less": "~2.7.1",
+    "less-loader": "~2.2.3",
     "lodash": "~3.10.1",
     "mocha": "~2.3.1",
     "mugshot": "^0.2.0",
     "object-assign": "~4.0.1",
+    "postcss-loader": "~0.9.1",
     "react": "~0.14.8",
     "react-addons-test-utils": "~0.14.8",
     "react-dom": "~0.14.8",

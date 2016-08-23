@@ -1,3 +1,4 @@
+import '../styles/components/header.less';
 import React from 'react';
 import classNames from 'classnames';
 import {Badge, Navbar, Nav, NavItem} from 'react-bootstrap';

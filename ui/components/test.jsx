@@ -1,6 +1,7 @@
+import '../styles/components/test.less';
 import React from 'react';
-import classNames from 'classnames';
 import Details from './details.jsx';
+import {Panel} from 'react-bootstrap';
 
 class Test extends React.Component {
   constructor(props) {
@@ -12,12 +13,7 @@ class Test extends React.Component {
   }
 
   render() {
-    const test = this.props.test,
-          cx = classNames,
-          classes = cx({
-            test: true,
-            toggled: this.state.toggled
-          });
+    const test = this.props.test;
     let paths,
         details = {};
 
@@ -38,7 +34,7 @@ class Test extends React.Component {
 
     details.error = this.props.test.error;
 
-    return <div className={classes}>
+    return <div className="test">
       <p className="test-title" onClick={this.onDetailsDisplay}>
         {test.state === 'passed'
             ? <span className="glyphicon glyphicon-ok green">
@@ -48,7 +44,10 @@ class Test extends React.Component {
         {' ' + test.title} : <span className="test-state">{test.state}</span> in
         <span className="orange"> {test.duration} </span> ms
       </p>
-      <Details details={details} />
+
+      <Panel collapsible expanded={this.state.toggled}>
+        <Details details={details} />
+      </Panel>
     </div>;
   }
 

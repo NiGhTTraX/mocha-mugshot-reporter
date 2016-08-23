@@ -1,3 +1,4 @@
+import '../../styles/components/views.less';
 import React from 'react';
 
 class DefaultView extends React.Component {

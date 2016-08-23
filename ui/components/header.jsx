@@ -60,11 +60,13 @@ class Header extends React.Component {
 
       return <NavItem eventKey={index}
                  key={index}
-                 onClick={this.onFilterChange.bind(this, filter)}
                  className={classNames({active: this.props.filter === filter})}
-                 disabled={item.disabled}>
+                 disabled={item.disabled}
+                 ref={filter}
+                 onClick={this.onFilterChange.bind(this, filter)}>
         {item.name}
-        <Badge className={classNames(filter, item.badgeClass)}>
+        <Badge className={classNames(filter, item.badgeClass)}
+               ref={`${filter}Badge`}>
           {item.count + (item.textAfter || '')}
         </Badge>
       </NavItem>;

@@ -3,13 +3,14 @@ import _ from 'lodash';
 import React from 'react';
 import classNames from 'classnames';
 import {ButtonGroup, Button, Jumbotron, Panel} from 'react-bootstrap';
+import {Component} from 'react-component-tree';
 
 import DefaultView from './views/defaultView.jsx';
 import TwoUpView from './views/twoUpView.jsx';
 import SwipeView from './views/swipeView.jsx';
 import FadeView from './views/fadeView.jsx';
 
-class FailedTest extends React.Component {
+class FailedTest extends Component {
   constructor(props) {
     super(props);
 
@@ -22,12 +23,34 @@ class FailedTest extends React.Component {
     this.onErrorMessageOpen = this.onErrorMessageOpen.bind(this);
   }
 
+  get children() {
+    return {
+      view: (component, paths) => {
+        return {
+          component: component,
+          paths: paths
+        };
+      },
+      selectViewButton: (view) => {
+        return {
+          component: Button,
+          name: view,
+          key: view,
+          onClick: this.onViewChange,
+          className: classNames({active: view === this.state.view}),
+          children: view
+        };
+      }
+    };
+  }
+
   render() {
     const {paths, error} = this.props;
 
     return <div className="diffs">
       <Button bsStyle="danger"
               bsSize="xsmall"
+              ref="errorButton"
               onClick={this.onErrorMessageOpen}>
         Show Error
       </Button>
@@ -55,11 +78,11 @@ class FailedTest extends React.Component {
   }
 
   _renderSelectedView(paths) {
-    const Component =
-      _.find(FailedTest.VIEW_COMPONENTS, {name: this.state.view}).component;
+    const component =
+      _.find(FailedTest.VIEWS, {name: this.state.view}).component;
 
     return <div>
-      <Jumbotron> <Component paths={paths} /> </Jumbotron>
+      <Jumbotron> {this.loadChild('view', component, paths)} </Jumbotron>
       <ButtonGroup className="view-selector">
         {this._getSelectViewButtons()}
       </ButtonGroup>
@@ -67,20 +90,10 @@ class FailedTest extends React.Component {
   }
 
   _getSelectViewButtons() {
-    const onViewChange = this.onViewChange,
-          currentView = this.state.view;
     let buttons = [];
 
-    FailedTest.VIEW_COMPONENTS.forEach(function(item) {
-      const name = item.name;
-      buttons.push(
-        <Button name={name}
-                key={name}
-                onClick={onViewChange}
-                className={classNames({active: name === currentView})}>
-          {name}
-        </Button>
-      );
+    FailedTest.VIEWS.forEach(item => {
+      buttons.push(this.loadChild('selectViewButton', item.name));
     });
 
     return buttons;
@@ -89,7 +102,7 @@ class FailedTest extends React.Component {
 
 FailedTest.displayName = 'FailedTest';
 
-FailedTest.VIEW_COMPONENTS = [
+FailedTest.VIEWS = [
   {name: 'default', component: DefaultView},
   {name: '2-up', component: TwoUpView},
   {name: 'swipe', component: SwipeView},

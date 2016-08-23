@@ -1,12 +1,13 @@
 import React from 'react';
 import Header from './header.jsx';
 import Results from './results.jsx';
+import {Component} from 'react-component-tree';
 
 function _hasPassed(test) {
   return test.state === 'passed';
 }
 
-class Report extends React.Component {
+class Report extends Component {
   constructor(props) {
     super(props);
 
@@ -15,6 +16,28 @@ class Report extends React.Component {
     };
 
     this.onFilterUpdate = this.onFilterUpdate.bind(this);
+  }
+
+  get children() {
+    return {
+      header: (numberOfPasses, numberOfFailures, duration) => {
+        return {
+          component: Header,
+          passes: numberOfPasses,
+          failures: numberOfFailures,
+          duration: duration,
+          filter: this.state.filter,
+          updateFilter: this.onFilterUpdate
+        };
+      },
+      results: (suites) => {
+        return {
+          component: Results,
+          suites: suites,
+          filter: this.state.filter
+        };
+      }
+    };
   }
 
   render() {
@@ -38,16 +61,9 @@ class Report extends React.Component {
         duration += test.duration;
       });
     });
-
     return <div className="report">
-      <Header
-        passes={numberOfPasses}
-        failures={numberOfFailures}
-        duration={duration}
-        filter={this.state.filter}
-        updateFilter={this.onFilterUpdate} />
-
-      <Results suites={suites} filter={this.state.filter} />
+      {this.loadChild('header', numberOfPasses, numberOfFailures, duration)}
+      {this.loadChild('results', suites)}
     </div>;
   }
 

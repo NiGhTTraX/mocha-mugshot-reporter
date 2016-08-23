@@ -6,6 +6,7 @@ class DefaultView extends React.Component {
     let paths = this.props.paths;
     return <div className="simple">
       <img className="diff"
+           ref="diff"
            src={paths.diff}
            key={paths.diff} />
     </div>;

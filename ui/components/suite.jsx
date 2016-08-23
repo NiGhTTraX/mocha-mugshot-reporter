@@ -1,7 +1,21 @@
 import React from 'react';
 import Test from './test.jsx';
+import {Component} from 'react-component-tree';
 
-class Suite extends React.Component {
+class Suite extends Component {
+
+  get children() {
+    return {
+      test: (test, key) => {
+        return {
+          component: Test,
+          test: test,
+          key: key
+        };
+      }
+    };
+  }
+
   render() {
     const suite = this.props.suite,
           suiteStyle = {
@@ -16,11 +30,14 @@ class Suite extends React.Component {
             failures: suite.failures
           };
 
-    return <div className="suite" style={suiteStyle}>
-      <h2 className="suite-title" style={titleStyle}>{suite.title}</h2>
-      {tests[this.props.filter].map(function(test, index) {
-        return <Test test={test} key={index} />;
-      })}
+    return <div className="suite" ref="suite" style={suiteStyle}>
+      <h2 className="suite-title"
+          ref="suiteTitle"
+          style={titleStyle}>
+            {suite.title}
+      </h2>
+      {tests[this.props.filter].map((test, index) =>
+          this.loadChild('test', test, index))}
     </div>;
   }
 }

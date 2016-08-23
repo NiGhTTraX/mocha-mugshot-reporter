@@ -21,10 +21,12 @@ class SwipeView extends React.Component {
     return <div className="special">
       <ImageDiff before={paths.screenshot}
                  after={paths.baseline}
+                 ref="imageDiff"
                  type="swipe"
                  value={value} />
       <Clearfix />
       <input type="range"
+             ref="inputRange"
              min={0}
              max={1}
              step={.01}
@@ -41,5 +43,6 @@ class SwipeView extends React.Component {
 }
 
 SwipeView.displayName = 'SwipeView';
+SwipeView.DEFAULT_VALUE = 0.5;
 
 export default SwipeView;

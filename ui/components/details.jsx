@@ -1,4 +1,5 @@
 import '../styles/components/details.less';
+import _ from 'lodash';
 import React from 'react';
 import FailedTest from './failed.jsx';
 import PassedTest from './passed.jsx';
@@ -27,7 +28,7 @@ class Details extends Component {
     const {paths, error} = this.props.details;
 
     return <div className="details">
-      {!paths.isEqual
+      {_.isUndefined(paths) || !paths.isEqual
           ? this.loadChild('failedTest', paths, error)
           : this.loadChild('passedTest', paths)}
     </div>;

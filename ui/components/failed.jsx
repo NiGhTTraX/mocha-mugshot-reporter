@@ -48,21 +48,16 @@ class FailedTest extends Component {
     const {paths, error} = this.props;
 
     return <div className="diffs">
+      <Button bsStyle="danger"
+              bsSize="xsmall"
+              ref="errorButton"
+              onClick={this.onErrorMessageOpen}>
+        Show Error
+      </Button>
 
-      {!_.isUndefined(error)
-      ? <div>
-        <Button bsStyle="danger"
-                bsSize="xsmall"
-                ref="errorButton"
-                onClick={this.onErrorMessageOpen}>
-          Show Error
-        </Button>
-
-        <Panel collapsible expanded={this.state.openError} bsStyle="danger">
-          {error.name} : {error.message}
-        </Panel>
-      </div>
-      : null}
+      <Panel collapsible expanded={this.state.openError} bsStyle="danger">
+        {error.name} : {error.message}
+      </Panel>
 
       {!_.isUndefined(paths) ? this._renderSelectedView(paths) : null }
     </div>;

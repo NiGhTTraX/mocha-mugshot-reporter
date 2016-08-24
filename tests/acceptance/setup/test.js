@@ -17,74 +17,70 @@ const BROWSER_OPTIONS = {
 };
 const URL = 'file://' + path.join(__dirname, 'test.html');
 
-describe('Testing the first time', function() {
-  let browser, webdriverioInstance;
+describe('Generate a dummy report for testing', function() {
+  describe('First suite', function() {
+    let browser, mugshot, webdriverioInstance;
 
-  before(function(done) {
-    webdriverioInstance = webdriverio.remote(BROWSER_OPTIONS).init()
-      .url(URL)
-      .then(function() {
-        browser = new WebdriverIOAdapter(webdriverioInstance);
+    before(function(done) {
+      webdriverioInstance = webdriverio.remote(BROWSER_OPTIONS).init()
+        .url(URL)
+        .then(function() {
+          browser = new WebdriverIOAdapter(webdriverioInstance);
+          mugshot = new Mugshot(browser, MUGSHOT_OPTIONS);
 
-        done();
-      });
+          done();
+        });
+    });
+
+    it('should be ok', function() {
+      const captureItem = {name: 'screen1'};
+
+      chai.use(chaiMugshot(mugshot, this.test.ctx));
+      return expect(captureItem).to.be.identical;
+    });
+
+    it('should pass and generate diffs', function() {
+      const captureItem = {name: 'screen2'};
+
+      chai.use(chaiMugshot(mugshot, this.test.ctx));
+      return expect(captureItem).to.not.be.identical;
+    });
+
+    after(function() {
+      return webdriverioInstance.end();
+    });
   });
 
-  it('should be ok', function() {
-    const captureItem = {name: 'screen1'},
-          mugshot = new Mugshot(browser, MUGSHOT_OPTIONS),
-          _this = this;
+  describe('Second suite', function() {
+    let browser, mugshot, webdriverioInstance;
 
-    chai.use(chaiMugshot(mugshot, _this.test.ctx));
-    return expect(captureItem).to.be.identical;
-  });
+    before(function(done) {
+      webdriverioInstance = webdriverio.remote(BROWSER_OPTIONS).init()
+        .url(URL)
+        .then(function() {
+          browser = new WebdriverIOAdapter(webdriverioInstance);
+          mugshot = new Mugshot(browser, MUGSHOT_OPTIONS);
 
-  it('should be ok too', function() {
-    const captureItem = {name: 'screen2'},
-          mugshot = new Mugshot(browser, MUGSHOT_OPTIONS),
-          _this = this;
+          done();
+        });
+    });
 
-    chai.use(chaiMugshot(mugshot, _this.test.ctx));
-    return expect(captureItem).to.be.identical;
-  });
+    it('should pass and generate diffs', function() {
+      const captureItem = {name: 'screen3'};
 
-  after(function() {
-    return webdriverioInstance.end();
-  });
-});
+      chai.use(chaiMugshot(mugshot, this.test.ctx));
+      return expect(captureItem).to.not.be.identical;
+    });
 
-describe('Testing the second time', function() {
-  let browser, webdriverioInstance;
+    it('should be ok', function() {
+      const captureItem = {name: 'screen4'};
 
-  before(function(done) {
-    webdriverioInstance = webdriverio.remote(BROWSER_OPTIONS).init()
-      .url(URL)
-      .then(function() {
-        browser = new WebdriverIOAdapter(webdriverioInstance);
+      chai.use(chaiMugshot(mugshot, this.test.ctx));
+      return expect(captureItem).to.be.identical;
+    });
 
-        done();
-      });
-  });
-
-  it('should be ok', function() {
-    const captureItem = {name: 'screen1'},
-          mugshot = new Mugshot(),
-          _this = this;
-
-    chai.use(chaiMugshot(mugshot, _this.test.ctx));
-    return expect(captureItem).to.be.identical;
-  });
-
-  it('should be ok too', function() {
-    const captureItem = {name: 'screen2'},
-          mugshot = new Mugshot(browser, MUGSHOT_OPTIONS),
-          _this = this;
-
-    chai.use(chaiMugshot(mugshot, _this.test.ctx));
-    return expect(captureItem).to.be.identical;
-  });
-
-  after(function() {
-    return webdriverioInstance.end();
+    after(function() {
+      return webdriverioInstance.end();
+    });
   });
 });

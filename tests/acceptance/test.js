@@ -17,13 +17,10 @@ const URL = 'file://' + path.join(__dirname, '..', '..', 'visual-report',
 describe('Mocha Mugshot acceptace tests', function() {
   let client;
 
-  before(function(done) {
-    client = webdriverio.remote(BROWSER_OPTIONS).init()
+  before(function() {
+    return client = webdriverio.remote(BROWSER_OPTIONS).init()
       .setViewportSize(VIEWPORT_SIZE)
-      .url(URL)
-      .then(function() {
-        done();
-      });
+      .url(URL);
   });
 
   it('should display the navigation bar', function() {

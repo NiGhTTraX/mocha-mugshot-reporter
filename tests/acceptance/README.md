@@ -8,7 +8,7 @@ The file is generated using Mugshot, so you first need to run a browser:
 npm run browser
 ```
 
-Then you can generate the report. Two tests are made to fail.
+Then you can generate the report. Two tests are made to generate diffs.
 
 ```sh
 npm run test-acceptance:generate-report

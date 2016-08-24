@@ -30,7 +30,7 @@ describe('Suite', function() {
     });
 
     it('should set the suite title fontSize correctly', function() {
-      const expected = Suite.FONT_SIZE / fixture.suite.indent + '%';
+      const expected = Suite.FONT_SIZE - fixture.suite.indent + '%';
 
       expect(component.refs.suiteTitle.style.fontSize).to.equal(`${expected}`);
     });

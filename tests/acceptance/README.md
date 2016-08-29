@@ -11,13 +11,13 @@ npm run browser
 Then you can generate the report. Two tests are made to generate diffs.
 
 ```sh
-npm run test-acceptance:generate-report
+npm run test:acceptance:setup
 ```
 
 You are all set to run the tests:
 
 ```sh
-npm run test-acceptance
+npm run test:acceptance
 ```
 
 The report is generated testing `tests/acceptance/setup/test.html` and saved in `visual-report`.

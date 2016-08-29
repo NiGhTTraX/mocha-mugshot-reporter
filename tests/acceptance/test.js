@@ -14,7 +14,7 @@ const VIEWPORT_SIZE = {
 const URL = 'file://' + path.join(__dirname, '..', '..', 'visual-report',
             'statics', 'index.html');
 
-describe('Mocha Mugshot acceptace tests', function() {
+describe('Mocha Mugshot acceptance tests', function() {
   let client;
 
   before(function() {

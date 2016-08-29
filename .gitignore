@@ -29,6 +29,6 @@ node_modules
 # Bundled UI.
 statics/
 
-visual-tests
+# Acceptance tests generated files
 visual-report
-test.js
+visual-tests

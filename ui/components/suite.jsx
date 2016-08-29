@@ -22,7 +22,7 @@ class Suite extends Component {
             marginLeft: Suite.MARGIN_LEFT * (suite.indent - 1)
           },
           titleStyle = {
-            fontSize: Suite.FONT_SIZE / suite.indent + '%'
+            fontSize: Suite.FONT_SIZE - suite.indent + '%'
           },
           tests = {
             all: suite.tests,

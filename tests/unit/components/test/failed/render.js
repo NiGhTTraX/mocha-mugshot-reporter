@@ -9,9 +9,6 @@ describe('Test', function() {
 
       beforeEach(function() {
         loadChildStub = stubMethod(Test, 'loadChild', null);
-      });
-
-      beforeEach(function() {
         component = render(Test, fixture);
       });
 

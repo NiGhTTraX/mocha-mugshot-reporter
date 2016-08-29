@@ -1,4 +1,3 @@
-'use strict';
 import {expect} from 'chai';
 import chai from 'chai';
 import Mugshot from 'mugshot';

@@ -1,7 +1,6 @@
 /* globals window, document */
 
 import './styles/base.less';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Report from './components/report.jsx';

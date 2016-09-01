@@ -44,6 +44,7 @@
     "eslint": "~2.0.0",
     "eslint-plugin-react": "~4.1.0",
     "extract-text-webpack-plugin": "~1.0.1",
+    "file-loader": "^0.9.0",
     "ignore-styles": "~4.0.0",
     "jsdom": "~9.4.1",
     "less": "~2.7.1",
@@ -63,6 +64,7 @@
     "sinon": "github:ubervu/Sinon.JS",
     "sinon-chai": "~2.8.0",
     "style-loader": "~0.12.4",
+    "url-loader": "^0.5.7",
     "webdriverio": "~3.4.0",
     "webpack": "~1.12.2"
   },

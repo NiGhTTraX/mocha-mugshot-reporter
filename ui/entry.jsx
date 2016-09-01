@@ -1,11 +1,11 @@
 /* globals window, document */
 
-var React = require('react'),
-    Report = require('./components/report.jsx'),
-    mochaTestDataVarName = require('../lib/mocha-test-data-var-name.js');
+import './styles/base.less';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Report from './components/report.jsx';
+import mochaTestDataVarName from '../lib/mocha-test-data-var-name.js';
 
-require('./styles/base.css');
+const data = window[mochaTestDataVarName];
 
-var data = window[mochaTestDataVarName];
-
-React.render(<Report data={data}/>, document.getElementById('content'));
+ReactDOM.render(<Report data={data} />, document.getElementById('content'));

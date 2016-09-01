@@ -1,39 +1,65 @@
-var React = require('react/addons'),
-    Details = require('./details.jsx');
+import '../styles/components/test.less';
+import React from 'react';
+import Details from './details.jsx';
+import {Component} from 'react-component-tree';
+import {Panel} from 'react-bootstrap';
+import classNames from 'classnames';
 
-var Test = React.createClass({
-  statics: {
-    DETAILS_TOGGLE_CLASS: 'toggled'
-  },
-  getInitialState: function() {
-    return {toggled: false};
-  },
-  displayDetails: function() {
-    this.setState({toggled: !this.state.toggled});
-  },
-  render: function() {
-    var test = this.props.test,
-        cx = React.addons.classSet,
-        classes = cx({
-          test: true,
-          toggled: this.state.toggled
-        }),
-        paths = {
-          baseline: test.result.baseline
+class Test extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {toggled: false};
+
+    this.onDetailsDisplay = this.onDetailsDisplay.bind(this);
+  }
+
+  get children() {
+    return {
+      details: (details) => {
+        return {
+          component: Details,
+          details: details
         };
+      }
+    };
+  }
 
-    if (test.result.screenshot && test.result.diff) {
-      paths.diff = test.result.diff;
-      paths.screenshot = test.result.screenshot;
-    }
+  render() {
+    const test = this.props.test,
+          cx = classNames,
+          classes = cx({
+            test: true,
+            toggled: this.state.toggled
+          }),
+          details = {
+            paths: test.result,
+            error: test.error
+          };
 
     return <div className={classes}>
-      <p className='test-title' onClick={this.displayDetails}>{test.title}
-        <span className='test-state'>{test.state}</span>
+      <p className="test-title" ref="testTitle" onClick={this.onDetailsDisplay}>
+        {test.state === 'passed'
+            ? <span className="glyphicon glyphicon-ok green">
+            </span>
+            : <span className="glyphicon glyphicon-remove red">
+            </span> }
+        {' ' + test.title + ' : '}
+        <span className="test-state" ref="testState">{test.state}</span> in
+        <span className="orange" ref="testDuration"> {test.duration} </span> ms
       </p>
-      <Details paths={paths}/>
+
+      <Panel collapsible expanded={this.state.toggled}>
+        {this.loadChild('details', details)}
+      </Panel>
     </div>;
   }
-});
 
-module.exports = Test;
+  onDetailsDisplay() {
+    this.setState({toggled: !this.state.toggled});
+  }
+}
+
+Test.displayName = 'Test';
+
+export default Test;

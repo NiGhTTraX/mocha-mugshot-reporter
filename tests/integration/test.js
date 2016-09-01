@@ -51,20 +51,19 @@ describe('Mocha-Mugshot CLI reporting', function() {
     var reporterName = reporter === '' ? 'default' : reporter;
 
     it('should output the same with Mocha ' + reporterName + ' reporter',
-       function(done) {
-      getOutputs(reporter, function(mochaReporterOutput,
-         mugshotReporterOutput) {
+      function(done) {
+        getOutputs(reporter, function(mochaReporterOutput,
+           mugshotReporterOutput) {
 
-        // Delete the time, because it is variable.
-        var regex = /\([0-9]+ms\)/i,
-            mochaOutput = mochaReporterOutput.replace(regex, ''),
-            mugshotOutput = mugshotReporterOutput.replace(regex, '');
+          // Delete the time, because it is variable.
+          var regex = /\([0-9]+ms\)/i,
+              mochaOutput = mochaReporterOutput.replace(regex, ''),
+              mugshotOutput = mugshotReporterOutput.replace(regex, '');
 
-        expect(mugshotOutput).to.be.equal(mochaOutput);
+          expect(mugshotOutput).to.be.equal(mochaOutput);
 
-        done();
+          done();
+        });
       });
-    });
   });
 });
-

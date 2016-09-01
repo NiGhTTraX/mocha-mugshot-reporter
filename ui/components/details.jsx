@@ -1,21 +1,40 @@
-var React = require('react');
+import '../styles/components/details.less';
+import _ from 'lodash';
+import React from 'react';
+import FailedTest from './failed.jsx';
+import PassedTest from './passed.jsx';
+import {Component} from 'react-component-tree';
 
-var Details = React.createClass({
-  render: function() {
-    var paths = this.props.paths,
-        imgs = [<img className='baseline' src={paths.baseline}
-            key={paths.baseline}/>];
+class Details extends Component {
+  get children() {
+    return {
+      passedTest: (paths) => {
+        return {
+          component: PassedTest,
+          paths: paths
+        };
+      },
+      failedTest: (paths, error) => {
+        return {
+          component: FailedTest,
+          paths: paths,
+          error: error
+        };
+      }
+    };
+  }
 
-    if (Object.keys(paths).length > 1) {
-      imgs.push(<img className='diff' src={paths.diff} key={paths.diff}/>);
-      imgs.push(<img className='screenshot' src={paths.screenshot}
-        key={paths.screenshot}/>);
-    }
+  render() {
+    const {paths, error} = this.props.details;
 
-    return <div className='details'>
-      {imgs}
+    return <div className="details">
+      {_.isUndefined(paths) || !paths.isEqual
+          ? this.loadChild('failedTest', paths, error)
+          : this.loadChild('passedTest', paths)}
     </div>;
   }
-});
+}
 
-module.exports = Details;
+Details.displayName = 'Details';
+
+export default Details;

@@ -1,18 +1,34 @@
-var React = require('react'),
-    Suite = require('./suite.jsx');
+import React from 'react';
+import Suite from './suite.jsx';
+import {Component} from 'react-component-tree';
 
-var Results = React.createClass({
-  render: function() {
-    var suites;
+class Results extends Component {
 
-    suites = this.props.suites.slice(1).map(function(suite, index) {
-      return <Suite suite={suite} key={index}/>;
-    });
-
-    return <section className="results">
-      {suites}
-    </section>
+  get children() {
+    return {
+      suite: (suite, filter, key) => {
+        return {
+          component: Suite,
+          suite: suite,
+          filter: filter,
+          key: key
+        };
+      }
+    };
   }
-});
 
-module.exports = Results;
+  render() {
+    const filter = this.props.filter;
+
+    let suites = this.props.suites.slice(1).map((suite, index) =>
+        this.loadChild('suite', suite, filter, index));
+
+    return <section className="results container">
+      {suites}
+    </section>;
+  }
+}
+
+Results.displayName = 'Results';
+
+export default Results;

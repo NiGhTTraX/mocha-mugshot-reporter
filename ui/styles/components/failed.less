@@ -1,0 +1,28 @@
+@import "../constants/colors";
+
+.jumbotron {
+  position: relative;
+  padding: 20px;
+}
+
+.btn {
+  &:focus, &:active, &:active:focus {
+    outline: 0;
+  }
+}
+.btn.active:focus {
+  outline: 0;
+}
+.btn-default.active:focus {
+  color: #333;
+  background-color: @dirty-white;
+  border-color: @lighter-grey;
+}
+
+.view-selector {
+  max-width: 100%;
+  max-height: 100%;
+  display: table;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}

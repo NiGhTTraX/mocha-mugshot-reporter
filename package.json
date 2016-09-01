@@ -69,7 +69,8 @@
     "webpack": "~1.12.2"
   },
   "peerDependencies": {
-    "mocha": "~2.3.1"
+    "mocha": "~2.3.1",
+    "mugshot": "~0.2.0"
   },
   "dependencies": {
     "fs-extra": "~0.24.0"

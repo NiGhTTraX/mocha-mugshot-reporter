@@ -27,7 +27,7 @@ build/Release
 node_modules
 
 # Bundled UI.
-statics/
+
 
 # Acceptance tests generated files
 visual-report

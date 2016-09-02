@@ -4,7 +4,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: './ui/entry.jsx',
   output: {
-    filename: './statics/bundle.js'
+    path: './statics/bundled/',
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
@@ -22,6 +23,6 @@ module.exports = {
     autoprefixer({browsers: ['last 2 versions']})
   ],
   plugins: [
-    new ExtractTextPlugin('./statics/style.css')
+    new ExtractTextPlugin('style.css')
   ]
 };

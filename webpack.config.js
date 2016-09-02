@@ -15,8 +15,8 @@ module.exports = {
       {test: /\.less$/, loader: ExtractTextPlugin.extract('style',
         'css!postcss!less')},
       // handles the bootstrap glyphicons
-      {test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url-loader?limit=100000&name=./statics/icons.svg'}
+      {test: /\.(woff|woff2|eot|ttf|svg)$/,
+        loader: 'file-loader?name=icons/icons.[ext]'}
     ]
   },
   postcss: [

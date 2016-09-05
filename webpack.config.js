@@ -16,7 +16,7 @@ module.exports = {
         'css!postcss!less')},
       // handles the bootstrap glyphicons
       {test: /\.(woff|woff2|eot|ttf|svg)$/,
-        loader: 'file-loader?name=icons/icons.[ext]'}
+        loader: 'file-loader'}
     ]
   },
   postcss: [

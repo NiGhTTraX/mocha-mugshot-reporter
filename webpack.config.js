@@ -23,6 +23,6 @@ module.exports = {
     autoprefixer({browsers: ['last 2 versions']})
   ],
   plugins: [
-    new ExtractTextPlugin('style.css')
+    new ExtractTextPlugin('bundle.css')
   ]
 };

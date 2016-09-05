@@ -4,7 +4,8 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: './ui/entry.jsx',
   output: {
-    filename: './statics/bundle.js'
+    path: './statics/build/',
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
@@ -14,14 +15,14 @@ module.exports = {
       {test: /\.less$/, loader: ExtractTextPlugin.extract('style',
         'css!postcss!less')},
       // handles the bootstrap glyphicons
-      {test: /\.(png|woff|woff2|eot|ttf|svg)$/,
-        loader: 'url-loader?limit=100000&name=./statics/icons.svg'}
+      {test: /\.(woff|woff2|eot|ttf|svg)$/,
+        loader: 'file-loader'}
     ]
   },
   postcss: [
     autoprefixer({browsers: ['last 2 versions']})
   ],
   plugins: [
-    new ExtractTextPlugin('./statics/style.css')
+    new ExtractTextPlugin('bundle.css')
   ]
 };

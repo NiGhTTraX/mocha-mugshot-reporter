@@ -2,10 +2,10 @@ import {expect} from 'chai';
 import chai from 'chai';
 import Mugshot from 'mugshot';
 import chaiMugshot from 'chai-mugshot';
+import WebdriverIOAdapter from 'mugshot-webdriverio';
 import webdriverio from 'webdriverio';
 import path from 'path';
 
-const WebdriverIOAdapter = Mugshot.adapters.WebdriverIO;
 const MUGSHOT_OPTIONS = {
   rootDirectory: './tests/acceptance/setup/visual-tests'
 };

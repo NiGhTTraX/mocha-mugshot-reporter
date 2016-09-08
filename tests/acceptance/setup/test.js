@@ -4,7 +4,7 @@ import Mugshot from 'mugshot';
 import chaiMugshot from 'chai-mugshot';
 import webdriverio from 'webdriverio';
 import path from 'path';
-import fs from 'fs-extra';
+import {cleanUp} from '../helpers.js';
 
 const WebdriverIOAdapter = Mugshot.adapters.WebdriverIO;
 const MUGSHOT_OPTIONS = {
@@ -17,28 +17,22 @@ const BROWSER_OPTIONS = {
 };
 const URL = 'file://' + path.join(__dirname, 'test.html');
 
-function cleanUp() {
-  fs.remove('visual-report', function(error) {
-    if (error && error.code !== 'ENOENT') {
-      throw error;
-    }
-  });
-}
-
 describe('Generate a dummy report for testing', function() {
   describe('First suite', function() {
     let browser, mugshot, webdriverioInstance;
 
     before(function(done) {
-      cleanUp();
-      webdriverioInstance = webdriverio.remote(BROWSER_OPTIONS).init()
-        .url(URL)
-        .then(function() {
-          browser = new WebdriverIOAdapter(webdriverioInstance);
-          mugshot = new Mugshot(browser, MUGSHOT_OPTIONS);
+      cleanUp('visual-report', function() {
+        webdriverioInstance = webdriverio.remote(BROWSER_OPTIONS).init()
+          .url(URL)
+          .then(function() {
+            browser = new WebdriverIOAdapter(webdriverioInstance);
+            mugshot = new Mugshot(browser, MUGSHOT_OPTIONS);
 
-          done();
-        });
+            done();
+          });
+      });
+
     });
 
     it('should be ok', function() {

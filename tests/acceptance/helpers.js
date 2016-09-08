@@ -1,12 +1,13 @@
 import fs from 'fs-extra';
 
-module.exports = {
-  cleanUp: function(path, done) {
-    fs.remove(path, function(error) {
+export function cleanUp(path) {
+
+  return new Promise((resolve, reject) => {
+    fs.remove(path, error => {
       if (error && error.code !== 'ENOENT') {
-        throw error;
+        return reject(error);
       }
-      done();
+      resolve();
     });
-  }
-};
+  });
+}

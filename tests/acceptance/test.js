@@ -72,8 +72,9 @@ describe('Mocha Mugshot acceptance tests', function() {
     });
 
   after(function(done) {
-    cleanUp('visual-report', function() {
-      done();
-    });
+    cleanUp('visual-report')
+      .then(function() {
+        done();
+      });
   });
 });

@@ -22,17 +22,17 @@ describe('Generate a dummy report for testing', function() {
     let browser, mugshot, webdriverioInstance;
 
     before(function(done) {
-      cleanUp('visual-report', function() {
-        webdriverioInstance = webdriverio.remote(BROWSER_OPTIONS).init()
-          .url(URL)
-          .then(function() {
-            browser = new WebdriverIOAdapter(webdriverioInstance);
-            mugshot = new Mugshot(browser, MUGSHOT_OPTIONS);
+      cleanUp('visual-report')
+        .then(function() {
+          webdriverioInstance = webdriverio.remote(BROWSER_OPTIONS).init()
+            .url(URL)
+            .then(function() {
+              browser = new WebdriverIOAdapter(webdriverioInstance);
+              mugshot = new Mugshot(browser, MUGSHOT_OPTIONS);
 
-            done();
-          });
-      });
-
+              done();
+            });
+        });
     });
 
     it('should be ok', function() {

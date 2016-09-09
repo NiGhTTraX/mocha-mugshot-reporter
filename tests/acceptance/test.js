@@ -1,6 +1,7 @@
 import {expect} from 'chai';
 import webdriverio from 'webdriverio';
 import path from 'path';
+import {cleanUp} from './helpers.js';
 
 const BROWSER_OPTIONS = {
   desiredCapabilities: {
@@ -69,4 +70,9 @@ describe('Mocha Mugshot acceptance tests', function() {
             return expect(content).to.not.contain('passed');
           });
     });
+
+  after(function() {
+    // Clean up after running the acceptance tests
+    return cleanUp('visual-report');
+  });
 });

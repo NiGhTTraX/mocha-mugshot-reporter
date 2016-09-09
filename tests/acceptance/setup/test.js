@@ -5,6 +5,7 @@ import chaiMugshot from 'chai-mugshot';
 import WebdriverIOAdapter from 'mugshot-webdriverio';
 import webdriverio from 'webdriverio';
 import path from 'path';
+import {cleanUp} from '../helpers.js';
 
 const MUGSHOT_OPTIONS = {
   rootDirectory: './tests/acceptance/setup/visual-tests'
@@ -20,14 +21,17 @@ describe('Generate a dummy report for testing', function() {
   describe('First suite', function() {
     let browser, mugshot, webdriverioInstance;
 
-    before(function(done) {
-      webdriverioInstance = webdriverio.remote(BROWSER_OPTIONS).init()
-        .url(URL)
-        .then(function() {
+    before(function() {
+      // Clean up before running the tests so the visual-report directory
+      // will be created from scratch
+      return cleanUp('visual-report')
+        .then(() => {
+          return webdriverioInstance = webdriverio.remote(BROWSER_OPTIONS)
+            .init().url(URL);
+        })
+        .then(() => {
           browser = new WebdriverIOAdapter(webdriverioInstance);
           mugshot = new Mugshot(browser, MUGSHOT_OPTIONS);
-
-          done();
         });
     });
 

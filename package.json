@@ -1,6 +1,6 @@
 {
   "name": "mocha-mugshot-reporter",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Mocha reporter for the Mugshot visual regression testing lib",
   "main": "index.js",
   "scripts": {

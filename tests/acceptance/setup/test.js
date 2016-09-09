@@ -21,19 +21,17 @@ describe('Generate a dummy report for testing', function() {
   describe('First suite', function() {
     let browser, mugshot, webdriverioInstance;
 
-    before(function(done) {
+    before(function() {
       // Clean up before running the tests so the visual-report directory
       // will be created from scratch
-      cleanUp('visual-report')
-        .then(function() {
-          webdriverioInstance = webdriverio.remote(BROWSER_OPTIONS).init()
-            .url(URL)
-            .then(function() {
-              browser = new WebdriverIOAdapter(webdriverioInstance);
-              mugshot = new Mugshot(browser, MUGSHOT_OPTIONS);
-
-              done();
-            });
+      return cleanUp('visual-report')
+        .then(() => {
+          return webdriverioInstance = webdriverio.remote(BROWSER_OPTIONS)
+            .init().url(URL);
+        })
+        .then(() => {
+          browser = new WebdriverIOAdapter(webdriverioInstance);
+          mugshot = new Mugshot(browser, MUGSHOT_OPTIONS);
         });
     });
 

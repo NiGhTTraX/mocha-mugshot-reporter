@@ -72,6 +72,7 @@ describe('Mocha Mugshot acceptance tests', function() {
     });
 
   after(function(done) {
+    // Clean up after running the acceptance tests
     cleanUp('visual-report')
       .then(function() {
         done();

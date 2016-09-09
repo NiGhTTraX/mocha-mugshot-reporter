@@ -22,6 +22,8 @@ describe('Generate a dummy report for testing', function() {
     let browser, mugshot, webdriverioInstance;
 
     before(function(done) {
+      // Clean up before running the tests so the visual-report directory
+      // will be created from scratch
       cleanUp('visual-report')
         .then(function() {
           webdriverioInstance = webdriverio.remote(BROWSER_OPTIONS).init()

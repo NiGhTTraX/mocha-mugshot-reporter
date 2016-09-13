@@ -12,8 +12,8 @@ describe('Test', function() {
         component = render(Test, fixture);
       });
 
-      it('should render the details child', function() {
-        expect(loadChildStub).to.have.been.calledWith('details');
+      it('should render the detailsWithDiff child', function() {
+        expect(loadChildStub).to.have.been.calledWith('detailsWithDiff');
       });
 
       it('should render the test title', function() {

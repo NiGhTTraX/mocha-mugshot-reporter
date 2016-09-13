@@ -42,7 +42,7 @@ describe('Generate a dummy report for testing', function() {
       return expect(captureItem).to.be.identical;
     });
 
-    it('should fail and generate diffs', function() {
+    it('should pass and generate diffs', function() {
       const captureItem = {name: 'screen2'};
 
       chai.use(chaiMugshot(mugshot, this.test.ctx));

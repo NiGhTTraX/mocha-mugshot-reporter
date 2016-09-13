@@ -10,7 +10,7 @@ import TwoUpView from './views/twoUpView.jsx';
 import SwipeView from './views/swipeView.jsx';
 import FadeView from './views/fadeView.jsx';
 
-class FailedTest extends Component {
+class DetailsWithDiff extends Component {
   constructor(props) {
     super(props);
 
@@ -48,16 +48,21 @@ class FailedTest extends Component {
     const {paths, error} = this.props;
 
     return <div className="diffs">
-      <Button bsStyle="danger"
-              bsSize="xsmall"
-              ref="errorButton"
-              onClick={this.onErrorMessageOpen}>
-        Show Error
-      </Button>
 
-      <Panel collapsible expanded={this.state.openError} bsStyle="danger">
-        {error.name} : {error.message}
-      </Panel>
+      { !_.isUndefined(error) ?
+        <div>
+          <Button bsStyle="danger"
+                  bsSize="xsmall"
+                  ref="errorButton"
+                  onClick={this.onErrorMessageOpen}>
+            Show Error
+          </Button>
+
+          <Panel collapsible expanded={this.state.openError} bsStyle="danger">
+            {error.name} : {error.message}
+          </Panel>
+        </div>
+      : null}
 
       {!_.isUndefined(paths) ? this._renderSelectedView(paths) : null }
     </div>;
@@ -79,7 +84,7 @@ class FailedTest extends Component {
 
   _renderSelectedView(paths) {
     const component =
-      _.find(FailedTest.VIEWS, {name: this.state.view}).component;
+      _.find(DetailsWithDiff.VIEWS, {name: this.state.view}).component;
 
     return <div>
       <Jumbotron> {this.loadChild('view', component, paths)} </Jumbotron>
@@ -92,7 +97,7 @@ class FailedTest extends Component {
   _getSelectViewButtons() {
     let buttons = [];
 
-    FailedTest.VIEWS.forEach(item => {
+    DetailsWithDiff.VIEWS.forEach(item => {
       buttons.push(this.loadChild('selectViewButton', item.name));
     });
 
@@ -100,13 +105,13 @@ class FailedTest extends Component {
   }
 }
 
-FailedTest.displayName = 'FailedTest';
+DetailsWithDiff.displayName = 'FailedTest';
 
-FailedTest.VIEWS = [
+DetailsWithDiff.VIEWS = [
   {name: 'default', component: DefaultView},
   {name: '2-up', component: TwoUpView},
   {name: 'swipe', component: SwipeView},
   {name: 'fade', component: FadeView}
 ];
 
-export default FailedTest;
+export default DetailsWithDiff;

@@ -1,36 +1,13 @@
-import '../styles/components/details.less';
-import _ from 'lodash';
 import React from 'react';
-import FailedTest from './failed.jsx';
-import PassedTest from './passed.jsx';
-import {Component} from 'react-component-tree';
 
-class Details extends Component {
-  get children() {
-    return {
-      passedTest: (paths) => {
-        return {
-          component: PassedTest,
-          paths: paths
-        };
-      },
-      failedTest: (paths, error) => {
-        return {
-          component: FailedTest,
-          paths: paths,
-          error: error
-        };
-      }
-    };
-  }
-
+class Details extends React.Component {
   render() {
-    const {paths, error} = this.props.details;
+    const baseline = this.props.paths.baseline;
 
-    return <div className="details">
-      {_.isUndefined(paths) || !paths.isEqual
-          ? this.loadChild('failedTest', paths, error)
-          : this.loadChild('passedTest', paths)}
+    return <div className="diffs">
+      <img className="baseline"
+           src={baseline}
+           ref="baseline" />
     </div>;
   }
 }

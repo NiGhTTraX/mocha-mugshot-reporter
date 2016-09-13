@@ -46,7 +46,7 @@ describe('Generate a dummy report for testing', function() {
       const captureItem = {name: 'screen2'};
 
       chai.use(chaiMugshot(mugshot, this.test.ctx));
-      return expect(captureItem).to.be.identical;
+      return expect(captureItem).to.not.be.identical;
     });
 
     after(function() {

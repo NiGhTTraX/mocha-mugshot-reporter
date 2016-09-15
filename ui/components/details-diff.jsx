@@ -83,8 +83,8 @@ class DetailsWithDiff extends Component {
   }
 
   _renderSelectedView(paths) {
-    const component =
-      _.find(DetailsWithDiff.VIEWS, {name: this.state.view}).component;
+    const component = _.find(DetailsWithDiff.VIEWS,
+        {name: this.state.view}).component;
 
     return <div>
       <Jumbotron> {this.loadChild('view', component, paths)} </Jumbotron>

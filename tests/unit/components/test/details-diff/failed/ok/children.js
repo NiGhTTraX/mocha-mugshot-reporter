@@ -1,6 +1,6 @@
-import Test from '../../../../../../ui/components/test.jsx';
-import fixture from '../../../../../fixtures/components/failed/details-diff.js';
-import {render, stubMethod, getChildProps} from '../../../../helpers.js';
+import Test from '../../../../../../../ui/components/test.jsx';
+import fixture from '../../../../../../fixtures/components/failed/details-diff.js';
+import {render, stubMethod, getChildProps} from '../../../../../helpers.js';
 
 describe('Test', function() {
   describe('Children', function() {

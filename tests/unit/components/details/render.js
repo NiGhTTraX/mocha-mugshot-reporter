@@ -1,5 +1,5 @@
-import Passed from '../../../../ui/components/passed.jsx';
-import fixture from '../../../fixtures/components/passed/passed.js';
+import Details from '../../../../ui/components/details.jsx';
+import fixture from '../../../fixtures/components/passed/details.js';
 import {render} from '../../helpers.js';
 
 describe('Passed', function() {
@@ -7,7 +7,7 @@ describe('Passed', function() {
     let component;
 
     beforeEach(function() {
-      component = render(Passed, fixture);
+      component = render(Details, fixture);
     });
 
     it('should display the baseline image', function() {

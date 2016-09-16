@@ -1,5 +1,5 @@
-import FailedTest from '../../../../ui/components/failed.jsx';
-import fixture from '../../../fixtures/components/failed/failed.js';
+import DetailsWithDiff from '../../../../ui/components/details-diff.jsx';
+import fixture from '../../../fixtures/components/failed/details-diff.js';
 import {render, stubMethod, getChildProps} from '../../helpers.js';
 
 describe('Failed', function() {
@@ -8,11 +8,11 @@ describe('Failed', function() {
     let props, component;
 
     beforeEach(function() {
-      stubMethod(FailedTest, 'render', null);
-      component = render(FailedTest, fixture);
+      stubMethod(DetailsWithDiff, 'render', null);
+      component = render(DetailsWithDiff, fixture);
     });
 
-    FailedTest.VIEWS.forEach(function(item) {
+    DetailsWithDiff.VIEWS.forEach(function(item) {
       it(`should pass the component & the paths to the ${item.name} view child`,
         function() {
           const viewComponent = item.component;
@@ -23,7 +23,7 @@ describe('Failed', function() {
         });
     });
 
-    FailedTest.VIEWS.forEach(function(item) {
+    DetailsWithDiff.VIEWS.forEach(function(item) {
       it(`should have attached to the ${item.name} button the onViewChange cb`,
         function() {
           props = getChildProps(component, 'selectViewButton', [item.name]);

@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import FailedTest from '../../../../ui/components/failed.jsx';
-import fixture from '../../../fixtures/components/failed/failed.js';
+import DetailsWithDiff from '../../../../ui/components/details-diff.jsx';
+import fixture from '../../../fixtures/components/failed/details-diff.js';
 import {render, stubMethod} from '../../helpers.js';
 
 describe('Failed', function() {
@@ -8,8 +8,8 @@ describe('Failed', function() {
     let component, loadChildStub;
 
     beforeEach(function() {
-      loadChildStub = stubMethod(FailedTest, 'loadChild', null);
-      component = render(FailedTest, fixture);
+      loadChildStub = stubMethod(DetailsWithDiff, 'loadChild', null);
+      component = render(DetailsWithDiff, fixture);
     });
 
     it('should render the button which toggles the error message', function() {
@@ -24,13 +24,13 @@ describe('Failed', function() {
 
     it('should initially render the default view child', function() {
       const viewComponent =
-        _.find(FailedTest.VIEWS, {name: 'default'}).component;
+        _.find(DetailsWithDiff.VIEWS, {name: 'default'}).component;
 
       expect(loadChildStub)
           .to.have.been.calledWith('view', viewComponent, fixture.paths);
     });
 
-    FailedTest.VIEWS.slice(1).forEach(function(item) {
+    DetailsWithDiff.VIEWS.slice(1).forEach(function(item) {
       it(`should render the ${item.name} view child`,
         function() {
           component.onViewChange({target: {name: item.name}});
@@ -39,7 +39,7 @@ describe('Failed', function() {
         });
     });
 
-    FailedTest.VIEWS.forEach(function(item) {
+    DetailsWithDiff.VIEWS.forEach(function(item) {
       it(`should render the selectViewButton child to select ${item.name} view`,
         function() {
           expect(loadChildStub)

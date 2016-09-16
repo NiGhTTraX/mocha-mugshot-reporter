@@ -1,25 +1,33 @@
 import '../styles/components/test.less';
+import _ from 'lodash';
+import classNames from 'classnames';
 import React from 'react';
-import Details from './details.jsx';
 import {Component} from 'react-component-tree';
 import {Panel} from 'react-bootstrap';
-import classNames from 'classnames';
+import Details from './details.jsx';
+import DetailsWithDiff from './details-diff.jsx';
 
 class Test extends Component {
   constructor(props) {
     super(props);
 
     this.state = {toggled: false};
-
     this.onDetailsDisplay = this.onDetailsDisplay.bind(this);
   }
 
   get children() {
     return {
-      details: (details) => {
+      details: (paths) => {
         return {
           component: Details,
-          details: details
+          paths: paths
+        };
+      },
+      detailsWithDiff: (paths, error) => {
+        return {
+          component: DetailsWithDiff,
+          paths: paths,
+          error: error
         };
       }
     };
@@ -32,10 +40,7 @@ class Test extends Component {
             test: true,
             toggled: this.state.toggled
           }),
-          details = {
-            paths: test.result,
-            error: test.error
-          };
+          paths = test.result;
 
     return <div className={classes}>
       <p className="test-title" ref="testTitle" onClick={this.onDetailsDisplay}>
@@ -50,7 +55,11 @@ class Test extends Component {
       </p>
 
       <Panel collapsible expanded={this.state.toggled}>
-        {this.loadChild('details', details)}
+        <div className="details">
+          {_.isUndefined(paths) || !paths.isEqual
+              ? this.loadChild('detailsWithDiff', paths, test.error)
+              : this.loadChild('details', paths)}
+        </div>
       </Panel>
     </div>;
   }

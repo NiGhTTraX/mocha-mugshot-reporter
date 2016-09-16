@@ -1,4 +1,4 @@
-import fixture from '../failed/failed.js';
+import fixture from '../failed/details-diff.js';
 
 export default {
   paths: fixture.paths

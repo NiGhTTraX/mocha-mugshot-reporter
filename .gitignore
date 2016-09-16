@@ -30,4 +30,5 @@ node_modules
 build/
 
 # Acceptance tests generated files
+visual-test
 visual-report

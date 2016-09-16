@@ -10,7 +10,7 @@
     "test": "npm run test:unit && npm run test:integration && npm run test:acceptance",
     "test:unit": "mocha --compilers js:babel-register --recursive tests/unit/setup-node.js tests/unit/ --require ignore-styles",
     "test:acceptance:setup": "mocha --compilers js:babel-register tests/acceptance/setup/test.js -R index.js",
-    "test:acceptance": "npm run test:acceptance:setup || mocha --compilers js:babel-register tests/acceptance/test.js",
+    "test:acceptance": "npm run test:acceptance:setup && mocha --compilers js:babel-register tests/acceptance/test.js",
     "test:integration": "mocha tests/integration"
   },
   "repository": {

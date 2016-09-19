@@ -55,28 +55,33 @@ describe('Generate a dummy report for testing', function() {
   });
 
   describe('Second suite', function() {
-    let browser, webdriverioInstance;
+    let browser, mugshot, webdriverioInstance;
 
     before(function(done) {
       webdriverioInstance = webdriverio.remote(BROWSER_OPTIONS).init()
         .url(URL)
         .then(function() {
           browser = new WebdriverIOAdapter(webdriverioInstance);
+          mugshot = new Mugshot(browser, MUGSHOT_OPTIONS);
           done();
         });
     });
 
-    it('should fail with \'No browser provided\' error', function() {
-      const captureItem = {name: 'screen3'},
-            mugshot = new Mugshot();
+    it('should pass and generate diffs', function() {
+      const captureItem = {
+        name: 'screen3',
+        selector: '#rectangle2'
+      };
 
       chai.use(chaiMugshot(mugshot, this.test.ctx));
-      return expect(captureItem).to.be.identical;
+      return expect(captureItem).to.not.be.identical;
     });
 
     it('should be ok', function() {
-      const captureItem = {name: 'screen4'},
-            mugshot = new Mugshot(browser, MUGSHOT_OPTIONS);
+      const captureItem = {
+        name: 'screen4',
+        selector: '#rectangle3'
+      };
 
       chai.use(chaiMugshot(mugshot, this.test.ctx));
       return expect(captureItem).to.be.identical;

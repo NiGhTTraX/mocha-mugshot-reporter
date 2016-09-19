@@ -4,7 +4,7 @@ import {render, stubMethod, getChildProps} from '../../../helpers.js';
 
 describe('Test', function() {
   describe('Children', function() {
-    describe('Passed Test', function() {
+    describe('Passed Test without diffs', function() {
       let component, props, paths;
 
       beforeEach(function() {

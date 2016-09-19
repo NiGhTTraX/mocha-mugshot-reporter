@@ -1,10 +1,10 @@
-import Test from '../../../../../ui/components/test.jsx';
-import fixture from '../../../../fixtures/components/test/failedTest.js';
-import {render, stubMethod} from '../../../helpers.js';
+import Test from '../../../../../../ui/components/test.jsx';
+import fixture from '../../../../../fixtures/components/test/passedTestwithDiffs.js';
+import {render, stubMethod} from '../../../../helpers.js';
 
 describe('Test', function() {
   describe('Render', function() {
-    describe('Failing', function() {
+    describe('Passing with diffs', function() {
       let component, loadChildStub;
 
       beforeEach(function() {
@@ -27,7 +27,7 @@ describe('Test', function() {
               .to.equal(component.displayDetails);
         });
 
-      it('should display the failed state', function() {
+      it('should display the passed state', function() {
         expect(component.refs.testState.textContent)
             .to.contain(fixture.test.state);
       });

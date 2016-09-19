@@ -1,10 +1,10 @@
-import Test from '../../../../../ui/components/test.jsx';
-import fixture from '../../../../fixtures/components/failed/details-diff.js';
-import {render, stubMethod, getChildProps} from '../../../helpers.js';
+import Test from '../../../../../../ui/components/test.jsx';
+import fixture from '../../../../../fixtures/components/passed/details-diff.js';
+import {render, stubMethod, getChildProps} from '../../../../helpers.js';
 
 describe('Test', function() {
   describe('Children', function() {
-    describe('Failed Test', function() {
+    describe('Passed Test with diffs', function() {
       let props, paths, component, expectedPaths;
 
       beforeEach(function() {
@@ -28,8 +28,8 @@ describe('Test', function() {
         expect(paths.screenshot).to.equal(expectedPaths.screenshot);
       });
 
-      it('should pass the error object', function() {
-        expect(props.error).to.equal(fixture.error);
+      it('should have the error object undefined', function() {
+        expect(props.error).to.be.undefined;
       });
     });
   });

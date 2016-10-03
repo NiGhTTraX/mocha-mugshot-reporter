@@ -2,6 +2,11 @@
   "name": "mocha-mugshot-reporter",
   "version": "1.0.6",
   "description": "Mocha reporter for the Mugshot visual regression testing lib",
+  "contributors": [{
+    "name": "Florentin Simion"
+  }, {
+    "name": "Adela Istrate"
+  }],
   "main": "index.js",
   "scripts": {
     "browser": "phantomjs --webdriver=4444",
@@ -22,7 +27,6 @@
     "mugshot",
     "reporter"
   ],
-  "author": "Simion Florentin",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/uberVU/mocha-mugshot-reporter/issues"
